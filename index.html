@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>osu! skins — коллекция скинов</title>
+<style>
+  :root{--bg:#16131c;--card:#221d2b;--raised:#2e2739;--text:#fff;--muted:rgba(255,255,255,.65);--border:rgba(255,255,255,.12);--pink:#ff66aa;--blue:#66ccff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;background:rgba(22,19,28,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);z-index:10}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+  .logo i{width:32px;height:32px;border-radius:50%;background:var(--pink);display:grid;place-items:center;font-style:normal;font-size:13px;box-shadow:0 0 0 3px #fff inset}
+  nav ul{display:flex;gap:24px;list-style:none;color:var(--muted);font-size:15px}
+  nav ul a:hover{color:var(--text)}
+  .hero{padding:80px 0 48px;text-align:center}
+  .hero h1{font-size:clamp(32px,5vw,52px);line-height:1.1;margin-bottom:14px}
+  .hero h1 span{color:var(--pink)}
+  .hero p{color:var(--muted);max-width:540px;margin:0 auto 28px}
+  .search{display:flex;max-width:480px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:6px}
+  .search input{flex:1;background:none;border:0;color:var(--text);padding:8px 14px;font-size:15px;outline:none}
+  .btn{background:var(--pink);color:#fff;border:0;border-radius:999px;padding:9px 20px;font-weight:600;cursor:pointer;font-size:14px}
+  .btn:hover{filter:brightness(1.1)}
+  .btn.ghost{background:var(--raised)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:32px 0}
+  .chip{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:999px;padding:6px 14px;font-size:14px;cursor:pointer}
+  .chip.active{background:var(--pink);border-color:var(--pink);color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;padding-bottom:80px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:transform .15s}
+  .card:hover{transform:translateY(-3px)}
+  .preview{aspect-ratio:16/10;position:relative;display:grid;place-items:center}
+  .circle{width:64px;height:64px;border-radius:50%;border:4px solid #fff;display:grid;place-items:center;font-weight:800;font-size:24px;box-shadow:0 0 0 8px rgba(255,255,255,.15)}
+  .tag{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.45);font-size:12px;padding:2px 10px;border-radius:999px}
+  .info{padding:14px 16px 16px}
+  .info h3{font-size:16px}
+  .meta{color:var(--muted);font-size:13px;margin:2px 0 12px}
+  .actions{display:flex;gap:8px}
+  .actions .btn{flex:1;text-align:center;padding:8px}
+  footer{border-top:1px solid var(--border);color:var(--muted);font-size:14px;padding:24px 0;text-align:center}
+  @media(max-width:640px){nav ul{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav>
+  <a class="logo" href="#"><i>osu</i> SkinVault</a>
+  <ul><li><a href="#skins">Скины</a></li><li><a href="#">Топ</a></li><li><a href="#">Загрузить</a></li><li><a href="#">FAQ</a></li></ul>
+</nav></div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Скины для <span>osu!</span></h1>
+    <p>Подборка скинов для standard, taiko, catch и mania. Скачай .osk и просто открой файл — osu! установит его сам.</p>
+    <div class="search"><input id="q" placeholder="Поиск по названию или автору…"><button class="btn" onclick="render()">Найти</button></div>
+  </section>
+
+  <div class="filters" id="filters"></div>
+  <section class="grid" id="skins"></section>
+</main>
+
+<footer>© 2026 SkinVault · Не связано с ppy Pty Ltd. Все скины принадлежат их авторам.</footer>
+
+<script>
+  // Замени на свои скины: name, author, mode, color (или image: "preview.png"), file
+  const skins = [
+    {name:"Rafis HDDT", author:"Rafis", mode:"standard", color:["#ff66aa","#7a2a5c"], file:"#"},
+    {name:"Cookiezi Shigetora", author:"Cookiezi", mode:"standard", color:["#3a3a3a","#0f0f0f"], file:"#"},
+    {name:"WhiteCat 2.1", author:"WhiteCat", mode:"standard", color:["#66ccff","#1f4f7a"], file:"#"},
+    {name:"Mania Bars", author:"Unknown", mode:"mania", color:["#a46bff","#3b2363"], file:"#"},
+    {name:"Taiko Clean", author:"Unknown", mode:"taiko", color:["#ff8a4c","#7a3315"], file:"#"},
+    {name:"Fruit Basket", author:"Unknown", mode:"catch", color:["#5ed38c","#1e5a37"], file:"#"},
+  ];
+  const modes = ["все","standard","taiko","catch","mania"];
+  let mode = "все";
+  const f = document.getElementById("filters");
+  f.innerHTML = modes.map(m=>`<button class="chip${m===mode?" active":""}" data-m="${m}">${m}</button>`).join("");
+  f.onclick = e=>{ if(!e.target.dataset.m) return; mode=e.target.dataset.m;
+    f.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.dataset.m===mode)); render(); };
+  document.getElementById("q").oninput = render;
+
+  function render(){
+    const q = document.getElementById("q").value.toLowerCase();
+    const list = skins.filter(s=>(mode==="все"||s.mode===mode)&&(s.name+s.author).toLowerCase().includes(q));
+    document.getElementById("skins").innerHTML = list.length ? list.map((s,i)=>`
+      <article class="card">
+        <div class="preview" style="background:${s.image?`url(${s.image}) center/cover`:`linear-gradient(135deg,${s.color[0]},${s.color[1]})`}">
+          <span class="tag">${s.mode}</span>${s.image?"":`<div class="circle">${i+1}</div>`}
+        </div>
+        <div class="info"><h3>${s.name}</h3><div class="meta">by ${s.author}</div>
+          <div class="actions"><a class="btn" href="${s.file}" download>Скачать .osk</a><a class="btn ghost" href="#">Превью</a></div>
+        </div>
+      </article>`).join("") : `<p style="color:var(--muted)">Ничего не найдено</p>`;
+  }
+  render();
+</script>
+</body>
+</html>

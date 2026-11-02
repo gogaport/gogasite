@@ -89,7 +89,7 @@
           <span class="tag">${s.mode}</span>${s.image?"":`<div class="circle">${i+1}</div>`}
         </div>
         <div class="info"><h3>${s.name}</h3><div class="meta">by ${s.author}</div>
-          <div class="actions"><a class="btn" href="${s.file}" download>Скачать .osk</a><a class="btn ghost" href="#">Превью</a></div>
+          <div class="actions">${s.file && s.file!=="#" ? `<a class="btn" href="${s.file}">Скачать .osk</a>` : `<span class="btn ghost" style="opacity:.5;cursor:default">Скоро</span>`}<a class="btn ghost" href="#">Превью</a></div>
         </div>
       </article>`).join("") : `<p style="color:var(--muted)">Ничего не найдено</p>`;
   }

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Скины для osu! — gogaport</title>
+<style>
+  :root{--bg:#0a0a0a;--fg:#fafafa;--muted:#8a8a8a;--line:#262626;--hover:#161616}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  footer{color:var(--muted);font-size:12px;text-align:center;padding:40px 0 32px}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+  .back{display:inline-block;color:var(--muted);font-size:14px;margin:32px 0 0}
+  .back:hover{color:var(--fg)}
+  .head{padding:40px 0 28px}
+  h1{font-size:clamp(30px,5vw,44px);letter-spacing:-.03em;line-height:1.1}
+  .head p{color:var(--muted);margin-top:10px;max-width:520px}
+  .bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:28px}
+  .bar input{flex:1;min-width:200px;background:none;border:1px solid var(--line);border-radius:10px;color:var(--fg);padding:10px 14px;font-size:14px;outline:none}
+  .bar input:focus{border-color:#555}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 14px;font-size:13px;cursor:pointer}
+  .chip.active{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+  .card{border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .15s}
+  .card:hover{border-color:#444}
+  .preview{aspect-ratio:16/10;position:relative;display:grid;place-items:center;background:var(--hover) center/cover;border-bottom:1px solid var(--line)}
+  .circle{width:58px;height:58px;border-radius:50%;border:3px solid var(--fg);display:grid;place-items:center;font-weight:700;font-size:22px}
+  .tag{position:absolute;top:10px;left:10px;border:1px solid var(--line);background:var(--bg);color:var(--muted);font-size:11px;padding:1px 9px;border-radius:999px}
+  .info{padding:14px 16px 16px}
+  .info h3{font-size:15px;font-weight:600}
+  .meta{color:var(--muted);font-size:13px;margin:2px 0 14px}
+  .btn{display:block;text-align:center;background:var(--fg);color:var(--bg);border-radius:10px;padding:9px;font-size:14px;font-weight:600}
+  .btn:hover{background:#e0e0e0}
+  .btn.off{background:none;color:var(--muted);border:1px solid var(--line);cursor:default}
+  .empty{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← gogaport</a>
+  <section class="head">
+    <h1>Скины для osu!</h1>
+    <p>Скачай .osk и открой файл — osu! установит скин сам.</p>
+  </section>
+  <div class="bar">
+    <input id="q" placeholder="Поиск по названию или автору…">
+    <div class="chips" id="filters"></div>
+  </div>
+  <section class="grid" id="skins"></section>
+</div>
+<footer>Не связано с ppy Pty Ltd. Все скины принадлежат их авторам.</footer>
+
+<script>
+  // name, author, mode (standard / taiko / catch / mania), file — ссылка на .osk,
+  // image — необязательно: ссылка на скриншот скина
+  const skins = [
+    {name:"Rafis HDDT", author:"Rafis", mode:"standard", file:"https://github.com/gogaport/osuskinsgoga/releases/download/skin-rafis/Rafis_2018-03-26_HDDT_John_edit.osk"},
+    {name:"Cookiezi Shigetora", author:"Cookiezi", mode:"standard", file:"https://github.com/gogaport/osuskinsgoga/releases/download/skin-cookiezi/Cookiezi.36.2018-11-23.Rafis.Edit.osk"},
+    {name:"WhiteCat 2.1", author:"WhiteCat", mode:"standard", file:"https://github.com/gogaport/osuskinsgoga/releases/download/skin-whitecat/WhiteCat.2.1.osk"},
+  ];
+  const modes = ["все","standard","taiko","catch","mania"];
+  let mode = "все";
+  const f = document.getElementById("filters"), q = document.getElementById("q");
+  f.innerHTML = modes.map(m=>`<button class="chip${m===mode?" active":""}" data-m="${m}">${m}</button>`).join("");
+  f.onclick = e=>{ if(!e.target.dataset.m) return; mode=e.target.dataset.m;
+    f.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.dataset.m===mode)); render(); };
+  q.oninput = render;
+  function render(){
+    const s = q.value.toLowerCase();
+    const list = skins.filter(k=>(mode==="все"||k.mode===mode)&&(k.name+k.author).toLowerCase().includes(s));
+    document.getElementById("skins").innerHTML = list.length ? list.map((k,i)=>`
+      <article class="card">
+        <div class="preview"${k.image?` style="background-image:url('${k.image}')"`:""}>
+          <span class="tag">${k.mode}</span>${k.image?"":`<div class="circle">${i+1}</div>`}
+        </div>
+        <div class="info"><h3>${k.name}</h3><div class="meta">by ${k.author}</div>
+          ${k.file && k.file!=="#" ? `<a class="btn" href="${k.file}">Скачать .osk</a>` : `<span class="btn off">Скоро</span>`}
+        </div>
+      </article>`).join("") : `<p class="empty">Ничего не найдено</p>`;
+  }
+  render();
+</script>
+</body>
+</html>

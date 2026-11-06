@@ -4,63 +4,532 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>gogaportwine</title>
-<meta name="description" content="gogaportwine — ссылки, соцсети и скины для osu!">
+<meta name="description" content="Личная страница gogaportwine — сетап, полезные утилиты для ПК и osu! скины.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gogaportwine.online/">
+<meta property="og:title" content="gogaportwine">
+<meta property="og:description" content="Сетап, полезные утилиты для ПК и osu! скины.">
+<meta property="og:image" content="https://gogaportwine.online/avatar.jpg">
+<meta name="theme-color" content="#09090b">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" href="favicon.ico">
+
 <style>
-  :root{--bg:#0a0a0a;--fg:#fafafa;--muted:#8a8a8a;--line:#262626;--hover:#161616}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  footer{color:var(--muted);font-size:12px;text-align:center;padding:40px 0 32px}
-  main{max-width:440px;margin:0 auto;padding:72px 20px 0;text-align:center}
-  .avatar{width:104px;height:104px;border-radius:50%;margin:0 auto 20px;border:1px solid var(--line);overflow:hidden;display:grid;place-items:center;font-size:40px;font-weight:700;background:var(--hover)}
-  .avatar img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%)}
-  h1{font-size:26px;font-weight:700;letter-spacing:-.02em}
-  .bio{color:var(--muted);font-size:14px;margin:10px auto 36px;max-width:340px;font-style:italic}
-  .links{display:flex;flex-direction:column;gap:10px}
-  .link{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:15px;font-weight:500;transition:background .15s,border-color .15s}
-  .link:hover{background:var(--hover);border-color:#3a3a3a}
-  .link svg{width:20px;height:20px;fill:currentColor;flex:none}
-  .link span{flex:1;text-align:left}
-  .link i{font-style:normal;color:var(--muted)}
-  .link.main{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-  .link.main:hover{background:#e0e0e0}
-  .link.main i{color:var(--bg)}
-  .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin:28px 0 12px;text-align:left}
-  .specs{border:1px solid var(--line);border-radius:12px;overflow:hidden;text-align:left}
-  .spec{display:flex;justify-content:space-between;gap:16px;padding:12px 18px;font-size:14px}
-  .spec+.spec{border-top:1px solid var(--line)}
-  .spec span{color:var(--muted)}
-  .spec b{font-weight:500;text-align:right}
+  :root {
+    --bg: #09090b;
+    --card: #121215;
+    --card-hover: #18181c;
+    --border: #27272a;
+    --border-hover: #3f3f46;
+    --fg: #fafafa;
+    --fg-muted: #a1a1aa;
+    --fg-dim: #71717a;
+    --link: #60a5fa;
+    --link-hover: #93c5fd;
+    --btn-bg: #27272a;
+    --btn-hover: #3f3f46;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: 32px 16px 48px;
+  }
+
+  .container {
+    max-width: 620px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  a {
+    color: var(--link);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    background: var(--card);
+    flex-shrink: 0;
+  }
+  .header-content h1 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+  .header-content .quote {
+    color: var(--fg-muted);
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  /* Contacts */
+  .contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--fg);
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .contact-link:hover {
+    background: var(--card-hover);
+    border-color: var(--border-hover);
+    color: #fff;
+    text-decoration: none;
+  }
+  .contact-link .arr {
+    color: var(--fg-dim);
+    font-size: 11px;
+  }
+
+  /* Sections */
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .section-header {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+
+  /* Specs Table */
+  .specs-table {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card);
+    overflow: hidden;
+  }
+  .spec-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    font-size: 12.5px;
+    border-bottom: 1px solid var(--border);
+  }
+  .spec-item:last-child {
+    border-bottom: none;
+  }
+  .spec-label {
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+  }
+  .spec-value {
+    color: var(--fg);
+    font-weight: 500;
+    text-align: right;
+  }
+
+  /* Tool Groups */
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .group-title {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+  }
+
+  .tools-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .tool-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .tool-card:hover {
+    background: var(--card-hover);
+    border-color: var(--border-hover);
+  }
+
+  .tool-body {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .tool-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .tool-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .tool-tag {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--fg-dim);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 1px 5px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .tool-desc {
+    font-size: 12px;
+    color: var(--fg-muted);
+    line-height: 1.4;
+  }
+
+  .tool-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .btn {
+    font-size: 11.5px;
+    font-family: var(--font-mono);
+    color: var(--fg);
+    background: var(--btn-bg);
+    border: 1px solid var(--border);
+    padding: 4px 8px;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .btn:hover {
+    background: var(--btn-hover);
+    border-color: var(--border-hover);
+    color: #fff;
+    text-decoration: none;
+  }
+  .btn-subtle {
+    font-size: 11.5px;
+    color: var(--fg-muted);
+    padding: 4px 6px;
+    text-decoration: none;
+  }
+  .btn-subtle:hover {
+    color: var(--link);
+    text-decoration: underline;
+  }
+
+  /* osu! Box */
+  .osu-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .osu-box:hover {
+    background: var(--card-hover);
+    border-color: var(--border-hover);
+    text-decoration: none;
+  }
+  .osu-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .osu-desc {
+    font-size: 12px;
+    color: var(--fg-muted);
+    margin-top: 1px;
+  }
+  .osu-arrow {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--fg-dim);
+  }
+  .osu-box:hover .osu-arrow {
+    color: var(--link);
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    font-family: var(--font-mono);
+    color: var(--fg-dim);
+  }
 </style>
 </head>
 <body>
-<main>
-  <div class="avatar"><img src="avatar.jpg" alt="gogaport" onerror="this.parentNode.textContent='G'"></div>
-  <h1>gogaportwine</h1>
-  <p class="bio">«Георгий Иванович, он же Гога, он же Гоша, он же Юрий, он же Гора, он же Жора, здесь проживает?»</p>
 
-  <nav class="links">
-    <a class="link main" href="skins/"><svg viewBox="0 0 24 24"><path d="M7.698 10.362c-.1855-.2184-.4189-.3905-.7002-.5162-.2813-.1257-.6104-.1885-.9874-.1885s-.7046.0628-.9829.1885-.5088.2978-.6912.5162c-.1827.2185-.3203.4773-.413.7765-.0928.2993-.1391.6194-.1391.9605 0 .3412.0463.6584.1391.9516.0927.2933.2303.5491.413.7675.1824.2185.4129.3891.6912.5116.2783.1226.6059.1841.9829.1841s.7061-.0615.9875-.1841c.2813-.1226.5146-.2931.7002-.5116.1855-.2184.3231-.4742.413-.7675.0897-.2931.1346-.6104.1346-.9516 0-.3411-.0449-.6612-.1346-.9605-.0899-.2992-.2276-.558-.4131-.7765zm-.965 2.8096c-.1467.2484-.3875.3725-.7227.3725-.3291 0-.567-.1241-.7136-.3725-.1467-.2483-.2199-.6059-.2199-1.0727s.0732-.8243.2199-1.0727c.1466-.2482.3844-.3725.7136-.3725.3352 0 .5759.1243.7227.3725.1466.2484.2199.6059.2199 1.0727.0001.4668-.0733.8245-.2199 1.0727zm11.8894-.8303-.0898-4.3896a4.5409 4.5409 0 0 1 .6912-.0539c.2334 0 .4668.0179.7002.0539l-.0898 4.3896c-.2096.0359-.41.0538-.6015.0538a3.4957 3.4957 0 0 1-.6103-.0538zm1.3196 1.4003c0 .2215-.0179.443-.0538.6643a4.2055 4.2055 0 0 1-.6553.0538 4.1414 4.1414 0 0 1-.6642-.0538 4.0882 4.0882 0 0 1-.0539-.6553c0-.2154.018-.4367.0539-.6643a4.0876 4.0876 0 0 1 .6552-.0538c.2155 0 .4368.018.6643.0538.0359.2276.0538.446.0538.6553zm-3.2226-4.0305c.2095 0 .422.018.6373.0539v4.4614c-.1916.0659-.4443.1302-.7585.193-.3141.0629-.6418.0943-.9829.0943-.3052 0-.5985-.024-.8798-.0718-.2813-.0479-.5282-.1495-.7405-.3052-.2125-.1555-.3815-.3829-.5072-.6823-.1257-.2991-.1885-.697-.1885-1.1938V9.765a3.8725 3.8725 0 0 1 .6373-.0539c.2094 0 .4219.018.6373.0539v2.4596c0 .2455.0194.4474.0584.6059.0388.1586.0988.2843.1795.377a.6606.6606 0 0 0 .3007.1974c.1197.0391.2603.0584.4219.0584.2214 0 .407-.0209.5566-.0628V9.765a3.8218 3.8218 0 0 1 .6284-.0539zm-4.3625 2.6841c.0538.1497.0808.3321.0808.5476 0 .2215-.0464.428-.1392.6194-.0928.1916-.2274.3577-.4039.4982-.1766.1407-.3905.2514-.6418.3322-.2514.0808-.5356.1212-.8528.1212a5.2984 5.2984 0 0 1-.395-.0135 3.1226 3.1226 0 0 1-.3456-.0448 4.0482 4.0482 0 0 1-.3277-.0763 3.9336 3.9336 0 0 1-.35-.1166 2.5768 2.5768 0 0 1 .0852-.4893 3.0737 3.0737 0 0 1 .1751-.4802c.1975.0779.3844.1362.561.1751.1765.039.3605.0584.5521.0584.0838 0 .175-.0075.2738-.0225a.9945.9945 0 0 0 .2737-.0808.6467.6467 0 0 0 .2109-.1526c.0569-.0628.0853-.145.0853-.2469 0-.1436-.0434-.2469-.1302-.3097-.0868-.0628-.208-.1181-.3636-.1661l-.5565-.1616c-.3352-.0956-.5969-.2379-.7855-.4263-.1885-.1886-.2827-.4713-.2827-.8484 0-.4547.163-.8108.4892-1.0682.3261-.2573.7705-.386 1.333-.386.2334 0 .4638.0211.6913.0629.2273.0419.4578.1048.6912.1885-.012.1557-.0419.3173-.0897.4847-.048.1676-.1048.3142-.1706.4398a3.58 3.58 0 0 0-.4757-.1571 2.18 2.18 0 0 0-.5477-.0673c-.2034 0-.3621.0314-.4758.0943-.1137.0629-.1705.1631-.1705.3007 0 .1317.0403.2244.1211.2783.0809.0538.1959.1048.3456.1526l.5117.1526c.1675.048.3187.1063.4533.1751.1347.0688.2498.1541.3456.2558.0958.1016.1707.2272.2246.3768zM12 0C5.3726 0 0 5.3726 0 12.0001 0 18.6273 5.3726 24 12 24c6.6275 0 12-5.3727 12-11.9999C24 5.3726 18.6275 0 12 0zm0 22.8c-5.9647 0-10.8-4.8354-10.8-10.7999C1.2 6.0353 6.0353 1.2 12 1.2s10.8 4.8353 10.8 10.8001C22.8 17.9646 17.9647 22.8 12 22.8z"/></svg><span>Скины для osu!</span><i>→</i></a>
+<div class="container">
+  <!-- Profile Header -->
+  <header class="header">
+    <img class="avatar" src="avatar.jpg" alt="gogaport" onerror="this.outerHTML='<div class=\'avatar\' style=\'display:grid;place-items:center;font-weight:600;\'>G</div>'">
+    <div class="header-content">
+      <h1>gogaportwine</h1>
+      <p class="quote">«Георгий Иванович, он же Гога, он же Гоша, он же Юрий, он же Гора, он же Жора, здесь проживает?»</p>
+    </div>
+  </header>
+
+  <!-- Contacts (No Telegram) -->
+  <nav class="contacts">
+    <a class="contact-link" href="https://discord.com/users/445629054708613141" target="_blank" rel="noopener">
+      Discord <span class="arr">↗</span>
+    </a>
+    <a class="contact-link" href="https://steamcommunity.com/id/malloyt" target="_blank" rel="noopener">
+      Steam <span class="arr">↗</span>
+    </a>
+    <a class="contact-link" href="https://osu.ppy.sh/users/14331939" target="_blank" rel="noopener">
+      osu! <span class="arr">↗</span>
+    </a>
+    <a class="contact-link" href="https://youtube.com/@gogaportwine" target="_blank" rel="noopener">
+      YouTube <span class="arr">↗</span>
+    </a>
+    <a class="contact-link" href="https://twitch.tv/gogaportwine" target="_blank" rel="noopener">
+      Twitch <span class="arr">↗</span>
+    </a>
   </nav>
 
-  <div class="label">Спеки</div>
-  <div class="specs">
-  <div class="spec"><span>CPU</span><b>AMD Ryzen 7 7800X3D</b></div>
-  <div class="spec"><span>GPU</span><b>Sapphire Pulse RX 9070 XT 16GB</b></div>
-  <div class="spec"><span>RAM</span><b>Corsair Vengeance 32 GB DDR5 6000MHz CL30</b></div>
-  <div class="spec"><span>Монитор</span><b>Gigabyte MO27U2 27" 4K 240 Hz OLED</b></div>
-  </div>
+  <!-- Specs -->
+  <section class="section">
+    <h2 class="section-header">Сетап</h2>
+    <div class="specs-table">
+      <div class="spec-item">
+        <span class="spec-label">CPU</span>
+        <span class="spec-value">AMD Ryzen 7 7800X3D</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">GPU</span>
+        <span class="spec-value">Sapphire Pulse RX 9070 XT 16GB</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">RAM</span>
+        <span class="spec-value">Corsair Vengeance 32 GB DDR5 6000MHz CL30</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">Монитор</span>
+        <span class="spec-value">Gigabyte MO27U2 27" 4K 240Hz OLED</span>
+      </div>
+    </div>
+  </section>
 
-  <div class="label">Соцсети</div>
-  <nav class="links">
-    <a class="link" href="https://osu.ppy.sh/users/goga" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M7.698 10.362c-.1855-.2184-.4189-.3905-.7002-.5162-.2813-.1257-.6104-.1885-.9874-.1885s-.7046.0628-.9829.1885-.5088.2978-.6912.5162c-.1827.2185-.3203.4773-.413.7765-.0928.2993-.1391.6194-.1391.9605 0 .3412.0463.6584.1391.9516.0927.2933.2303.5491.413.7675.1824.2185.4129.3891.6912.5116.2783.1226.6059.1841.9829.1841s.7061-.0615.9875-.1841c.2813-.1226.5146-.2931.7002-.5116.1855-.2184.3231-.4742.413-.7675.0897-.2931.1346-.6104.1346-.9516 0-.3411-.0449-.6612-.1346-.9605-.0899-.2992-.2276-.558-.4131-.7765zm-.965 2.8096c-.1467.2484-.3875.3725-.7227.3725-.3291 0-.567-.1241-.7136-.3725-.1467-.2483-.2199-.6059-.2199-1.0727s.0732-.8243.2199-1.0727c.1466-.2482.3844-.3725.7136-.3725.3352 0 .5759.1243.7227.3725.1466.2484.2199.6059.2199 1.0727.0001.4668-.0733.8245-.2199 1.0727zm11.8894-.8303-.0898-4.3896a4.5409 4.5409 0 0 1 .6912-.0539c.2334 0 .4668.0179.7002.0539l-.0898 4.3896c-.2096.0359-.41.0538-.6015.0538a3.4957 3.4957 0 0 1-.6103-.0538zm1.3196 1.4003c0 .2215-.0179.443-.0538.6643a4.2055 4.2055 0 0 1-.6553.0538 4.1414 4.1414 0 0 1-.6642-.0538 4.0882 4.0882 0 0 1-.0539-.6553c0-.2154.018-.4367.0539-.6643a4.0876 4.0876 0 0 1 .6552-.0538c.2155 0 .4368.018.6643.0538.0359.2276.0538.446.0538.6553zm-3.2226-4.0305c.2095 0 .422.018.6373.0539v4.4614c-.1916.0659-.4443.1302-.7585.193-.3141.0629-.6418.0943-.9829.0943-.3052 0-.5985-.024-.8798-.0718-.2813-.0479-.5282-.1495-.7405-.3052-.2125-.1555-.3815-.3829-.5072-.6823-.1257-.2991-.1885-.697-.1885-1.1938V9.765a3.8725 3.8725 0 0 1 .6373-.0539c.2094 0 .4219.018.6373.0539v2.4596c0 .2455.0194.4474.0584.6059.0388.1586.0988.2843.1795.377a.6606.6606 0 0 0 .3007.1974c.1197.0391.2603.0584.4219.0584.2214 0 .407-.0209.5566-.0628V9.765a3.8218 3.8218 0 0 1 .6284-.0539zm-4.3625 2.6841c.0538.1497.0808.3321.0808.5476 0 .2215-.0464.428-.1392.6194-.0928.1916-.2274.3577-.4039.4982-.1766.1407-.3905.2514-.6418.3322-.2514.0808-.5356.1212-.8528.1212a5.2984 5.2984 0 0 1-.395-.0135 3.1226 3.1226 0 0 1-.3456-.0448 4.0482 4.0482 0 0 1-.3277-.0763 3.9336 3.9336 0 0 1-.35-.1166 2.5768 2.5768 0 0 1 .0852-.4893 3.0737 3.0737 0 0 1 .1751-.4802c.1975.0779.3844.1362.561.1751.1765.039.3605.0584.5521.0584.0838 0 .175-.0075.2738-.0225a.9945.9945 0 0 0 .2737-.0808.6467.6467 0 0 0 .2109-.1526c.0569-.0628.0853-.145.0853-.2469 0-.1436-.0434-.2469-.1302-.3097-.0868-.0628-.208-.1181-.3636-.1661l-.5565-.1616c-.3352-.0956-.5969-.2379-.7855-.4263-.1885-.1886-.2827-.4713-.2827-.8484 0-.4547.163-.8108.4892-1.0682.3261-.2573.7705-.386 1.333-.386.2334 0 .4638.0211.6913.0629.2273.0419.4578.1048.6912.1885-.012.1557-.0419.3173-.0897.4847-.048.1676-.1048.3142-.1706.4398a3.58 3.58 0 0 0-.4757-.1571 2.18 2.18 0 0 0-.5477-.0673c-.2034 0-.3621.0314-.4758.0943-.1137.0629-.1705.1631-.1705.3007 0 .1317.0403.2244.1211.2783.0809.0538.1959.1048.3456.1526l.5117.1526c.1675.048.3187.1063.4533.1751.1347.0688.2498.1541.3456.2558.0958.1016.1707.2272.2246.3768zM12 0C5.3726 0 0 5.3726 0 12.0001 0 18.6273 5.3726 24 12 24c6.6275 0 12-5.3727 12-11.9999C24 5.3726 18.6275 0 12 0zm0 22.8c-5.9647 0-10.8-4.8354-10.8-10.7999C1.2 6.0353 6.0353 1.2 12 1.2s10.8 4.8353 10.8 10.8001C22.8 17.9646 17.9647 22.8 12 22.8z"/></svg><span>osu!</span><i>↗</i></a>
-    <a class="link" href="https://discord.com/users/445629054708613141" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg><span>Discord</span><i>↗</i></a>
-    <a class="link" href="https://t.me/forsakenji" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg><span>Telegram</span><i>↗</i></a>
-    <a class="link" href="https://steamcommunity.com/id/malloyt" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/></svg><span>Steam</span><i>↗</i></a>
-    <a class="link" href="https://youtube.com/@gogaportwine" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg><span>YouTube</span><i>↗</i></a>
-    <a class="link" href="https://twitch.tv/gogaportwine" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg><span>Twitch</span><i>↗</i></a>
-  </nav>
-</main>
-<footer>© 2026 gogaportwine</footer>
+  <!-- Software & Utilities -->
+  <section class="section">
+    <h2 class="section-header">Полезные утилиты</h2>
+
+    <!-- Загрузка и ОС -->
+    <div class="group">
+      <div class="group-title">Загрузочные накопители и драйверы</div>
+      <div class="tools-list">
+        <div class="tool-card">
+          <div class="tool-body">
+            <div class="tool-header">
+              <span class="tool-title">Ventoy</span>
+              <span class="tool-tag">Open Source</span>
+            </div>
+            <div class="tool-desc">Создание мультизагрузочной флешки. Просто копируешь ISO-образы на диск.</div>
+          </div>
+          <div class="tool-actions">
+            <a class="btn" href="https://github.com/ventoy/Ventoy/releases/latest" target="_blank" rel="noopener">Релизы ↗</a>
+            <a class="btn-subtle" href="https://www.ventoy.net/" target="_blank" rel="noopener">Сайт</a>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-body">
+            <div class="tool-header">
+              <span class="tool-title">Rufus</span>
+              <span class="tool-tag">Portable</span>
+            </div>
+            <div class="tool-desc">Запись установочных USB-накопителей с Windows или Linux.</div>
+          </div>
+          <div class="tool-actions">
+            <a class="btn" href="https://github.com/pbatard/rufus/releases/latest" target="_blank" rel="noopener">Релизы ↗</a>
+            <a class="btn-subtle" href="https://rufus.ie/" target="_blank" rel="noopener">Сайт</a>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-body">
+            <div class="tool-header">
+              <span class="tool-title">DDU (Display Driver Uninstaller)</span>
+              <span class="tool-tag">Utility</span>
+            </div>
+            <div class="tool-desc">Полное удаление видеодрайверов NVIDIA, AMD и Intel из безопасного режима.</div>
+          </div>
+          <div class="tool-actions">
+            <a class="btn" href="https://www.wagnardsoft.com/display-driver-uninstaller-ddu-" target="_blank" rel="noopener">Скачать ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Мониторинг и диагностика -->
+    <div class="group">
+      <div class="group-title">Мониторинг и диагностика железа</div>
+      <div class="tools-list">
+        <div class="tool-card">
+          <div class="tool-body">
+            <div class="tool-header">
+              <span class="tool-title">HWiNFO64</span>
+              <span class="tool-tag">Monitoring</span>
+            </div>
+            <div class="tool-desc">Детальный мониторинг датчиков, напряжений, частот и температур компонентов.</div>
+          </div>
+          <div class="tool-actions">
+            <a class="btn" href="https://www.hwinfo.com/download/" target="_blank" rel="noopener">Скачать ↗</a>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-body">
+            <div class="tool-header">
+              <span class="tool-title">CrystalDiskInfo</span>
+              <span class="tool-tag">SMART</span>
+            </div>
+            <div class="tool-desc">Контроль состояния накопителей (SSD/HDD), ресурс TBW, SMART и температуры.</div>
+          </div>
+          <div class="tool-actions">
+            <a class="btn" href="https://crystalmark.info/en/software/crystaldiskinfo/" target="_blank" rel="noopener">Скачать ↗</a>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-body">
+            <div class="tool-header">
+              <span class="tool-title">AIDA64</span>
+              <span class="tool-tag">Benchmark</span>
+            </div>
+            <div class="tool-desc">Диагностика системы, тест кэша и пропускной способности оперативной памяти.</div>
+          </div>
+          <div class="tool-actions">
+            <a class="btn" href="https://www.aida64.com/downloads" target="_blank" rel="noopener">Скачать ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Стресс-тесты -->
+    <div class="group">
+      <div class="group-title">Стресс-тесты и стабильность</div>
+      <div class="tools-list">
+        <div class="tool-card">
+          <div class="tool-body">
+            <div class="tool-header">
+              <span class="tool-title">OCCT</span>
+              <span class="tool-tag">Stability</span>
+            </div>
+            <div class="tool-desc">Комплексное стресс-тестирование стабильности CPU, памяти, VRAM и питания.</div>
+          </div>
+          <div class="tool-actions">
+            <a class="btn" href="https://www.ocbase.com/download" target="_blank" rel="noopener">Скачать ↗</a>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-body">
+            <div class="tool-header">
+              <span class="tool-title">MemTest86</span>
+              <span class="tool-tag">UEFI Boot</span>
+            </div>
+            <div class="tool-desc">Тестирование оперативной памяти на ошибки с отдельного загрузочного накопителя.</div>
+          </div>
+          <div class="tool-actions">
+            <a class="btn" href="https://www.memtest86.com/download.htm" target="_blank" rel="noopener">Скачать ↗</a>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-body">
+            <div class="tool-header">
+              <span class="tool-title">FurMark</span>
+              <span class="tool-tag">GPU Burn-in</span>
+            </div>
+            <div class="tool-desc">Стресс-тест видеокарты для проверки температур и стабильности системы охлаждения.</div>
+          </div>
+          <div class="tool-actions">
+            <a class="btn" href="https://geeks3d.com/furmark/" target="_blank" rel="noopener">Скачать ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- osu! Skins Link -->
+  <section class="section">
+    <h2 class="section-header">osu!</h2>
+    <a class="osu-box" href="skins/">
+      <div>
+        <div class="osu-title">Скины для osu!</div>
+        <div class="osu-desc">Коллекция .osk скинов (Rafis, Cookiezi, WhiteCat)</div>
+      </div>
+      <span class="osu-arrow">открыть →</span>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <span>gogaportwine.online</span>
+    <span>2026</span>
+  </footer>
+</div>
+
 </body>
 </html>

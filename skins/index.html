@@ -3,83 +3,393 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Скины для osu! — gogaport</title>
+<title>Скины для osu! — gogaportwine</title>
+<meta name="description" content="Скины для osu! — Rafis, Cookiezi, WhiteCat. Скачать .osk.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gogaportwine.online/skins/">
+<meta property="og:title" content="Скины для osu! — gogaportwine">
+<meta property="og:description" content="Скины для osu! — Rafis, Cookiezi, WhiteCat. Скачать .osk.">
+<meta property="og:image" content="https://gogaportwine.online/avatar.jpg">
+<meta name="theme-color" content="#09090b">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="alternate icon" href="../favicon.ico">
+
 <style>
-  :root{--bg:#0a0a0a;--fg:#fafafa;--muted:#8a8a8a;--line:#262626;--hover:#161616}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  footer{color:var(--muted);font-size:12px;text-align:center;padding:40px 0 32px}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-  .back{display:inline-block;color:var(--muted);font-size:14px;margin:32px 0 0}
-  .back:hover{color:var(--fg)}
-  .head{padding:40px 0 28px}
-  h1{font-size:clamp(30px,5vw,44px);letter-spacing:-.03em;line-height:1.1}
-  .head p{color:var(--muted);margin-top:10px;max-width:520px}
-  .bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:28px}
-  .bar input{flex:1;min-width:200px;background:none;border:1px solid var(--line);border-radius:10px;color:var(--fg);padding:10px 14px;font-size:14px;outline:none}
-  .bar input:focus{border-color:#555}
-  .chips{display:flex;gap:6px;flex-wrap:wrap}
-  .chip{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 14px;font-size:13px;cursor:pointer}
-  .chip.active{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
-  .card{border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .15s}
-  .card:hover{border-color:#444}
-  .preview{aspect-ratio:16/10;position:relative;display:grid;place-items:center;background:var(--hover) center/cover;border-bottom:1px solid var(--line)}
-  .circle{width:58px;height:58px;border-radius:50%;border:3px solid var(--fg);display:grid;place-items:center;font-weight:700;font-size:22px}
-  .tag{position:absolute;top:10px;left:10px;border:1px solid var(--line);background:var(--bg);color:var(--muted);font-size:11px;padding:1px 9px;border-radius:999px}
-  .info{padding:14px 16px 16px}
-  .info h3{font-size:15px;font-weight:600}
-  .meta{color:var(--muted);font-size:13px;margin:2px 0 14px}
-  .btn{display:block;text-align:center;background:var(--fg);color:var(--bg);border-radius:10px;padding:9px;font-size:14px;font-weight:600}
-  .btn:hover{background:#e0e0e0}
-  .btn.off{background:none;color:var(--muted);border:1px solid var(--line);cursor:default}
-  .empty{color:var(--muted)}
+  :root {
+    --bg: #09090b;
+    --card: #121215;
+    --card-hover: #18181c;
+    --border: #27272a;
+    --border-hover: #3f3f46;
+    --fg: #fafafa;
+    --fg-muted: #a1a1aa;
+    --fg-dim: #71717a;
+    --link: #60a5fa;
+    --btn-bg: #27272a;
+    --btn-hover: #3f3f46;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: 32px 16px 48px;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  a {
+    color: var(--link);
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .back-link {
+    font-size: 12.5px;
+    font-family: var(--font-mono);
+    color: var(--fg-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    width: fit-content;
+  }
+  .back-link:hover {
+    color: #fff;
+    border-color: var(--border-hover);
+    text-decoration: none;
+  }
+
+  .header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+  .header p {
+    font-size: 13px;
+    color: var(--fg-muted);
+    margin-top: 2px;
+  }
+
+  .bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search-input {
+    flex: 1;
+    min-width: 200px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--fg);
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: var(--font);
+    outline: none;
+  }
+  .search-input:focus {
+    border-color: var(--border-hover);
+  }
+
+  .chips {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--fg-muted);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    cursor: pointer;
+  }
+  .chip:hover {
+    color: #fff;
+    border-color: var(--border-hover);
+  }
+  .chip.active {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+    font-weight: 600;
+  }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.12s;
+  }
+  .card:hover {
+    border-color: var(--border-hover);
+  }
+
+  .preview {
+    aspect-ratio: 16 / 9;
+    position: relative;
+    display: grid;
+    place-items: center;
+    background: #000 center / cover no-repeat;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .preview:hover::after {
+    content: "Увеличить";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 11.5px;
+    font-family: var(--font-mono);
+    display: grid;
+    place-items: center;
+  }
+
+  .mode-tag {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    border: 1px solid var(--border);
+    background: rgba(9, 9, 11, 0.85);
+    color: var(--fg-muted);
+    font-size: 10px;
+    font-family: var(--font-mono);
+    padding: 1px 5px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  .info {
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 2px;
+  }
+  .info h3 {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .meta {
+    color: var(--fg-muted);
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--btn-bg);
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    margin-top: auto;
+    text-decoration: none;
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .btn:hover {
+    background: var(--btn-hover);
+    border-color: var(--border-hover);
+    color: #fff;
+    text-decoration: none;
+  }
+  .btn.off {
+    background: none;
+    color: var(--fg-dim);
+    border-color: var(--border);
+    cursor: default;
+  }
+
+  .empty {
+    color: var(--fg-muted);
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 32px 0;
+    font-size: 13px;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: none;
+    place-items: center;
+    padding: 16px;
+    cursor: zoom-out;
+  }
+  .lightbox.active {
+    display: grid;
+  }
+  .lightbox img {
+    max-width: 95vw;
+    max-height: 90vh;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    object-fit: contain;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    font-size: 11.5px;
+    font-family: var(--font-mono);
+    color: var(--fg-dim);
+    text-align: center;
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <a class="back" href="../">← gogaportwine</a>
-  <section class="head">
+
+<div class="container">
+  <div>
+    <a class="back-link" href="../">← gogaportwine.online</a>
+  </div>
+
+  <header class="header">
     <h1>Скины для osu!</h1>
-    <p>Скачай .osk и открой файл — osu! установит скин сам.</p>
-  </section>
+    <p>Скачай .osk и открой файл — osu! автоматически установит скин.</p>
+  </header>
+
   <div class="bar">
-    <input id="q" placeholder="Поиск по названию или автору…">
+    <input class="search-input" id="q" placeholder="Поиск по названию или автору…">
     <div class="chips" id="filters"></div>
   </div>
+
   <section class="grid" id="skins"></section>
+
+  <footer>
+    Не связано с ppy Pty Ltd. Все скины принадлежат их авторам.
+  </footer>
 </div>
-<footer>Не связано с ppy Pty Ltd. Все скины принадлежат их авторам.</footer>
+
+<!-- Lightbox Modal -->
+<div class="lightbox" id="lightbox">
+  <img id="lightbox-img" src="" alt="Skin Preview">
+</div>
 
 <script>
-  // name, author, mode (standard / taiko / catch / mania), file — ссылка на .osk,
-  // image — необязательно: ссылка на скриншот скина
   const skins = [
-  {name:"Rafis HDDT", author:"Rafis", mode:"standard", image:"previews/rafis", file:"https://github.com/gogaport/osuskinsgoga/releases/download/skin-rafis/Rafis_2018-03-26_HDDT_John_edit.osk"},
-  {name:"Cookiezi Shigetora", author:"Cookiezi", mode:"standard", image:"previews/cookiezi", file:"https://github.com/gogaport/osuskinsgoga/releases/download/skin-cookiezi/Cookiezi.36.2018-11-23.Rafis.Edit.osk"},
-  {name:"WhiteCat 2.1", author:"WhiteCat", mode:"standard", image:"previews/whitecat", file:"https://github.com/gogaport/osuskinsgoga/releases/download/skin-whitecat/WhiteCat.2.1.osk"},
+    {
+      name: "Rafis HDDT",
+      author: "Rafis",
+      mode: "standard",
+      image: "previews/rafis.jpg",
+      file: "https://github.com/gogaport/osuskinsgoga/releases/download/skin-rafis/Rafis_2018-03-26_HDDT_John_edit.osk"
+    },
+    {
+      name: "Cookiezi Shigetora",
+      author: "Cookiezi",
+      mode: "standard",
+      image: "previews/cookiezi.jpg",
+      file: "https://github.com/gogaport/osuskinsgoga/releases/download/skin-cookiezi/Cookiezi.36.2018-11-23.Rafis.Edit.osk"
+    },
+    {
+      name: "WhiteCat 2.1",
+      author: "WhiteCat",
+      mode: "standard",
+      image: "previews/whitecat.jpg",
+      file: "https://github.com/gogaport/osuskinsgoga/releases/download/skin-whitecat/WhiteCat.2.1.osk"
+    }
   ];
-  const modes = ["все","standard","taiko","catch","mania"];
+
+  const modes = ["все", "standard", "taiko", "catch", "mania"];
   let mode = "все";
-  const f = document.getElementById("filters"), q = document.getElementById("q");
-  f.innerHTML = modes.map(m=>`<button class="chip${m===mode?" active":""}" data-m="${m}">${m}</button>`).join("");
-  f.onclick = e=>{ if(!e.target.dataset.m) return; mode=e.target.dataset.m;
-    f.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.dataset.m===mode)); render(); };
+  const f = document.getElementById("filters");
+  const q = document.getElementById("q");
+  const container = document.getElementById("skins");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+
+  f.innerHTML = modes.map(m => `<button class="chip${m === mode ? " active" : ""}" data-m="${m}">${m}</button>`).join("");
+  
+  f.onclick = (e) => {
+    if (!e.target.dataset.m) return;
+    mode = e.target.dataset.m;
+    f.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.dataset.m === mode));
+    render();
+  };
+
   q.oninput = render;
-  function render(){
-    const s = q.value.toLowerCase();
-    const list = skins.filter(k=>(mode==="все"||k.mode===mode)&&(k.name+k.author).toLowerCase().includes(s));
-    document.getElementById("skins").innerHTML = list.length ? list.map((k,i)=>`
-      <article class="card">
-        <div class="preview"${k.image?` style="background-image:url('${k.image}')"`:""}>
-          <span class="tag">${k.mode}</span>${k.image?"":`<div class="circle">${i+1}</div>`}
-        </div>
-        <div class="info"><h3>${k.name}</h3><div class="meta">by ${k.author}</div>
-          ${k.file && k.file!=="#" ? `<a class="btn" href="${k.file}">Скачать .osk</a>` : `<span class="btn off">Скоро</span>`}
-        </div>
-      </article>`).join("") : `<p class="empty">Ничего не найдено</p>`;
+
+  function openLightbox(src) {
+    if (!src) return;
+    lightboxImg.src = src;
+    lightbox.classList.add("active");
   }
+
+  lightbox.onclick = () => {
+    lightbox.classList.remove("active");
+  };
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") lightbox.classList.remove("active");
+  });
+
+  function render() {
+    const s = q.value.toLowerCase().trim();
+    const list = skins.filter(k => (mode === "все" || k.mode === mode) && (k.name + " " + k.author).toLowerCase().includes(s));
+    
+    container.innerHTML = list.length ? list.map((k, i) => `
+      <article class="card">
+        <div class="preview" ${k.image ? `style="background-image:url('${k.image}')"` : ""} onclick="openLightbox('${k.image || ""}')">
+          <span class="mode-tag">${k.mode}</span>
+        </div>
+        <div class="info">
+          <h3>${k.name}</h3>
+          <div class="meta">by ${k.author}</div>
+          ${k.file && k.file !== "#" 
+            ? `<a class="btn" href="${k.file}">Скачать .osk</a>` 
+            : `<span class="btn off">Скоро</span>`}
+        </div>
+      </article>
+    `).join("") : `<p class="empty">Ничего не найдено</p>`;
+  }
+
   render();
 </script>
 </body>

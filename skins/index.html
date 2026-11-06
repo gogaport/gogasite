@@ -197,6 +197,20 @@
     text-transform: uppercase;
   }
 
+  .fav-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    color: #fbbf24;
+    font-size: 10.5px;
+    font-family: var(--font-mono);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
   .info {
     padding: 10px 12px;
     display: flex;
@@ -292,7 +306,7 @@
 
   <header class="header">
     <h1>Скины для osu!</h1>
-    <p>Скачай .osk и открой файл — osu! автоматически установит скин.</p>
+    <p>Юзабельные и популярные скины для осу на все случаи жизни. Скачай .osk и открой файл — osu! установит скин автоматически.</p>
   </header>
 
   <div class="bar">
@@ -314,6 +328,14 @@
 
 <script>
   const skins = [
+    {
+      name: "emo",
+      author: "emo",
+      mode: "standard",
+      image: "previews/emo.jpg",
+      file: "files/emo.osk",
+      favorite: true
+    },
     {
       name: "Rafis HDDT",
       author: "Rafis",
@@ -378,6 +400,7 @@
       <article class="card">
         <div class="preview" ${k.image ? `style="background-image:url('${k.image}')"` : ""} onclick="openLightbox('${k.image || ""}')">
           <span class="mode-tag">${k.mode}</span>
+          ${k.favorite ? `<span class="fav-badge">★ фаворит</span>` : ""}
         </div>
         <div class="info">
           <h3>${k.name}</h3>

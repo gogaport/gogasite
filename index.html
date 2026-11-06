@@ -136,7 +136,7 @@
   /* 3-Column Main Grid */
   .main-grid {
     display: grid;
-    grid-template-columns: 1fr 1.25fr 1fr;
+    grid-template-columns: 1.1fr 1.35fr 0.95fr;
     gap: 24px;
     align-items: start;
   }
@@ -168,11 +168,6 @@
     justify-content: space-between;
     align-items: center;
   }
-  .col-header a {
-    font-size: 12px;
-    font-family: var(--font-mono);
-    font-weight: normal;
-  }
 
   /* Specs Table (Column 1) */
   .specs-table {
@@ -185,7 +180,7 @@
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    padding: 9px 12px;
+    padding: 8px 12px;
     font-size: 12.5px;
     border-bottom: 1px solid var(--border);
   }
@@ -195,7 +190,7 @@
   .spec-label {
     color: var(--fg-muted);
     font-family: var(--font-mono);
-    font-size: 11.5px;
+    font-size: 11px;
     text-transform: uppercase;
     flex-shrink: 0;
   }
@@ -233,7 +228,7 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 9px 12px;
+    padding: 8px 12px;
     transition: background 0.12s, border-color 0.12s;
   }
   .tool-card:hover {
@@ -294,60 +289,44 @@
     text-decoration: underline;
   }
 
-  /* osu! Skins (Column 3) */
-  .skins-list {
+  /* osu! Box & Column 3 */
+  .section-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
-  .skin-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.12s;
-  }
-  .skin-card:hover {
-    border-color: var(--border-hover);
-  }
-  .skin-preview {
-    aspect-ratio: 16 / 9;
-    background: #000 center / cover no-repeat;
-    border-bottom: 1px solid var(--border);
-  }
-  .skin-info {
-    padding: 10px 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-  }
-  .skin-text h4 {
-    font-size: 13px;
+  .section-card-title {
+    font-size: 13.5px;
     font-weight: 600;
     color: var(--fg);
   }
-  .skin-text span {
-    font-size: 11.5px;
+  .section-card-desc {
+    font-size: 12px;
     color: var(--fg-muted);
+    line-height: 1.4;
   }
-  .catalog-link-box {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 12px;
-    display: flex;
-    justify-content: space-between;
+  .section-card-btn {
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--btn-bg);
+    border: 1px solid var(--border);
+    color: var(--fg);
+    padding: 8px 12px;
+    border-radius: 6px;
     font-size: 12.5px;
     font-family: var(--font-mono);
-    color: var(--fg);
+    text-decoration: none;
     transition: background 0.12s, border-color 0.12s;
+    margin-top: 4px;
   }
-  .catalog-link-box:hover {
-    background: var(--card-hover);
+  .section-card-btn:hover {
+    background: var(--btn-hover);
     border-color: var(--border-hover);
     color: #fff;
     text-decoration: none;
@@ -410,12 +389,36 @@
           <span class="spec-value">AMD Ryzen 7 7800X3D</span>
         </div>
         <div class="spec-item">
-          <span class="spec-label">GPU</span>
-          <span class="spec-value">Sapphire Pulse RX 9070 XT 16GB</span>
+          <span class="spec-label">Кулер</span>
+          <span class="spec-value">Thermalright Peerless Assassin 120 SE</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Мать</span>
+          <span class="spec-value">MSI B650 GAMING PLUS WIFI</span>
         </div>
         <div class="spec-item">
           <span class="spec-label">RAM</span>
           <span class="spec-value">Corsair Vengeance 32 GB DDR5 6000MHz CL30</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">GPU</span>
+          <span class="spec-value">Sapphire Pulse RX 9070 XT 16GB</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">SSD 1</span>
+          <span class="spec-value">Samsung 980 500GB NVMe M.2</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">SSD 2</span>
+          <span class="spec-value">TeamGroup MP34 1TB NVMe M.2</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">БП</span>
+          <span class="spec-value">Cooler Master MWE Gold 850 V3</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Корпус</span>
+          <span class="spec-value">MSI MAG Forge 100R</span>
         </div>
         <div class="spec-item">
           <span class="spec-label">Монитор</span>
@@ -539,50 +542,16 @@
       </div>
     </section>
 
-    <!-- COLUMN 3: Скины для osu! -->
+    <!-- COLUMN 3: osu! / Разное -->
     <section class="col">
-      <div class="col-header">
-        <span>osu! скины</span>
-        <a href="skins/">все скины →</a>
-      </div>
-
-      <div class="skins-list">
-        <div class="skin-card">
-          <div class="skin-preview" style="background-image:url('skins/previews/rafis.jpg')"></div>
-          <div class="skin-info">
-            <div class="skin-text">
-              <h4>Rafis HDDT</h4>
-              <span>by Rafis</span>
-            </div>
-            <a class="btn" href="https://github.com/gogaport/osuskinsgoga/releases/download/skin-rafis/Rafis_2018-03-26_HDDT_John_edit.osk">Скачать .osk</a>
-          </div>
+      <h2 class="col-header">osu!</h2>
+      <div class="section-card">
+        <div class="section-card-title">Скины для osu!</div>
+        <div class="section-card-desc">
+          Коллекция проверенных скинов (.osk) для игры. В каталоге доступен поиск, фильтрация по игровым режимам и полноразмерные скриншоты.
         </div>
-
-        <div class="skin-card">
-          <div class="skin-preview" style="background-image:url('skins/previews/cookiezi.jpg')"></div>
-          <div class="skin-info">
-            <div class="skin-text">
-              <h4>Cookiezi Shigetora</h4>
-              <span>by Cookiezi</span>
-            </div>
-            <a class="btn" href="https://github.com/gogaport/osuskinsgoga/releases/download/skin-cookiezi/Cookiezi.36.2018-11-23.Rafis.Edit.osk">Скачать .osk</a>
-          </div>
-        </div>
-
-        <div class="skin-card">
-          <div class="skin-preview" style="background-image:url('skins/previews/whitecat.jpg')"></div>
-          <div class="skin-info">
-            <div class="skin-text">
-              <h4>WhiteCat 2.1</h4>
-              <span>by WhiteCat</span>
-            </div>
-            <a class="btn" href="https://github.com/gogaport/osuskinsgoga/releases/download/skin-whitecat/WhiteCat.2.1.osk">Скачать .osk</a>
-          </div>
-        </div>
-
-        <a class="catalog-link-box" href="skins/">
-          <span>Открыть каталог скинов с поиском</span>
-          <span>→</span>
+        <a class="section-card-btn" href="skins/">
+          Открыть каталог скинов →
         </a>
       </div>
     </section>

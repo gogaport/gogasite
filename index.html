@@ -45,15 +45,15 @@
     font-size: 13px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    padding: 32px 16px 48px;
+    padding: 36px 24px 48px;
   }
 
   .container {
-    max-width: 620px;
+    max-width: 1240px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 28px;
   }
 
   a {
@@ -65,7 +65,17 @@
     text-decoration: underline;
   }
 
-  /* Header */
+  /* Header & Top Bar */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
   .header {
     display: flex;
     gap: 16px;
@@ -81,7 +91,7 @@
     flex-shrink: 0;
   }
   .header-content h1 {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 600;
     color: var(--fg);
     letter-spacing: -0.01em;
@@ -89,7 +99,8 @@
   .header-content .quote {
     color: var(--fg-muted);
     font-size: 13px;
-    margin-top: 2px;
+    margin-top: 3px;
+    max-width: 480px;
   }
 
   /* Contacts */
@@ -122,20 +133,48 @@
     font-size: 11px;
   }
 
-  /* Sections */
-  .section {
+  /* 3-Column Main Grid */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  @media (max-width: 1040px) {
+    .main-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 720px) {
+    .main-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Columns */
+  .col {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
   }
-  .section-header {
-    font-size: 13px;
+  .col-header {
+    font-size: 13.5px;
     font-weight: 600;
     color: var(--fg);
     letter-spacing: -0.01em;
+    padding-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .col-header a {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    font-weight: normal;
   }
 
-  /* Specs Table */
+  /* Specs Table (Column 1) */
   .specs-table {
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -145,7 +184,8 @@
   .spec-item {
     display: flex;
     justify-content: space-between;
-    padding: 8px 12px;
+    gap: 12px;
+    padding: 9px 12px;
     font-size: 12.5px;
     border-bottom: 1px solid var(--border);
   }
@@ -157,28 +197,29 @@
     font-family: var(--font-mono);
     font-size: 11.5px;
     text-transform: uppercase;
+    flex-shrink: 0;
   }
   .spec-value {
     color: var(--fg);
     font-weight: 500;
     text-align: right;
+    word-break: break-word;
   }
 
-  /* Tool Groups */
+  /* Utilities (Column 2) */
   .group {
     display: flex;
     flex-direction: column;
     gap: 6px;
   }
   .group-title {
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 600;
     color: var(--fg-dim);
     text-transform: uppercase;
     letter-spacing: 0.04em;
     margin-top: 4px;
   }
-
   .tools-list {
     display: flex;
     flex-direction: column;
@@ -199,7 +240,6 @@
     background: var(--card-hover);
     border-color: var(--border-hover);
   }
-
   .tool-body {
     min-width: 0;
     display: flex;
@@ -207,16 +247,15 @@
     gap: 2px;
   }
   .tool-title {
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--fg);
   }
   .tool-desc {
     font-size: 12px;
     color: var(--fg-muted);
-    line-height: 1.4;
+    line-height: 1.35;
   }
-
   .tool-actions {
     display: flex;
     gap: 6px;
@@ -236,6 +275,7 @@
     gap: 4px;
     text-decoration: none;
     transition: background 0.12s, border-color 0.12s;
+    white-space: nowrap;
   }
   .btn:hover {
     background: var(--btn-hover);
@@ -254,39 +294,63 @@
     text-decoration: underline;
   }
 
-  /* osu! Box */
-  .osu-box {
+  /* osu! Skins (Column 3) */
+  .skins-list {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .skin-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.12s;
+  }
+  .skin-card:hover {
+    border-color: var(--border-hover);
+  }
+  .skin-preview {
+    aspect-ratio: 16 / 9;
+    background: #000 center / cover no-repeat;
+    border-bottom: 1px solid var(--border);
+  }
+  .skin-info {
+    padding: 10px 12px;
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .skin-text h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .skin-text span {
+    font-size: 11.5px;
+    color: var(--fg-muted);
+  }
+  .catalog-link-box {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    font-family: var(--font-mono);
+    color: var(--fg);
     transition: background 0.12s, border-color 0.12s;
   }
-  .osu-box:hover {
+  .catalog-link-box:hover {
     background: var(--card-hover);
     border-color: var(--border-hover);
+    color: #fff;
     text-decoration: none;
-  }
-  .osu-title {
-    font-size: 13.5px;
-    font-weight: 600;
-    color: var(--fg);
-  }
-  .osu-desc {
-    font-size: 12px;
-    color: var(--fg-muted);
-    margin-top: 1px;
-  }
-  .osu-arrow {
-    font-size: 12px;
-    font-family: var(--font-mono);
-    color: var(--fg-dim);
-  }
-  .osu-box:hover .osu-arrow {
-    color: var(--link);
   }
 
   /* Footer */
@@ -304,183 +368,226 @@
 <body>
 
 <div class="container">
-  <!-- Profile Header -->
-  <header class="header">
-    <img class="avatar" src="avatar.jpg" alt="gogaport" onerror="this.outerHTML='<div class=\'avatar\' style=\'display:grid;place-items:center;font-weight:600;\'>G</div>'">
-    <div class="header-content">
-      <h1>gogaportwine</h1>
-      <p class="quote">«Георгий Иванович, он же Гога, он же Гоша, он же Юрий, он же Гора, он же Жора, здесь проживает?»</p>
-    </div>
-  </header>
-
-  <!-- Contacts (No Telegram) -->
-  <nav class="contacts">
-    <a class="contact-link" href="https://discord.com/users/445629054708613141" target="_blank" rel="noopener">
-      Discord <span class="arr">↗</span>
-    </a>
-    <a class="contact-link" href="https://steamcommunity.com/id/malloyt" target="_blank" rel="noopener">
-      Steam <span class="arr">↗</span>
-    </a>
-    <a class="contact-link" href="https://osu.ppy.sh/users/14331939" target="_blank" rel="noopener">
-      osu! <span class="arr">↗</span>
-    </a>
-    <a class="contact-link" href="https://youtube.com/@gogaportwine" target="_blank" rel="noopener">
-      YouTube <span class="arr">↗</span>
-    </a>
-    <a class="contact-link" href="https://twitch.tv/gogaportwine" target="_blank" rel="noopener">
-      Twitch <span class="arr">↗</span>
-    </a>
-  </nav>
-
-  <!-- Specs -->
-  <section class="section">
-    <h2 class="section-header">Сетап</h2>
-    <div class="specs-table">
-      <div class="spec-item">
-        <span class="spec-label">CPU</span>
-        <span class="spec-value">AMD Ryzen 7 7800X3D</span>
-      </div>
-      <div class="spec-item">
-        <span class="spec-label">GPU</span>
-        <span class="spec-value">Sapphire Pulse RX 9070 XT 16GB</span>
-      </div>
-      <div class="spec-item">
-        <span class="spec-label">RAM</span>
-        <span class="spec-value">Corsair Vengeance 32 GB DDR5 6000MHz CL30</span>
-      </div>
-      <div class="spec-item">
-        <span class="spec-label">Монитор</span>
-        <span class="spec-value">Gigabyte MO27U2 27" 4K 240Hz OLED</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Software & Utilities -->
-  <section class="section">
-    <h2 class="section-header">Полезные утилиты</h2>
-
-    <!-- Загрузка и ОС -->
-    <div class="group">
-      <div class="group-title">Загрузочные накопители и драйверы</div>
-      <div class="tools-list">
-        <div class="tool-card">
-          <div class="tool-body">
-            <div class="tool-title">Ventoy</div>
-            <div class="tool-desc">Создание мультизагрузочной флешки. Просто копируешь ISO-образы на диск.</div>
-          </div>
-          <div class="tool-actions">
-            <a class="btn" href="https://github.com/ventoy/Ventoy/releases/latest" target="_blank" rel="noopener">Релизы ↗</a>
-            <a class="btn-subtle" href="https://www.ventoy.net/" target="_blank" rel="noopener">Сайт</a>
-          </div>
-        </div>
-
-        <div class="tool-card">
-          <div class="tool-body">
-            <div class="tool-title">Rufus</div>
-            <div class="tool-desc">Запись установочных USB-накопителей с Windows или Linux.</div>
-          </div>
-          <div class="tool-actions">
-            <a class="btn" href="https://github.com/pbatard/rufus/releases/latest" target="_blank" rel="noopener">Релизы ↗</a>
-            <a class="btn-subtle" href="https://rufus.ie/" target="_blank" rel="noopener">Сайт</a>
-          </div>
-        </div>
-
-        <div class="tool-card">
-          <div class="tool-body">
-            <div class="tool-title">DDU (Display Driver Uninstaller)</div>
-            <div class="tool-desc">Полное удаление видеодрайверов NVIDIA, AMD и Intel из безопасного режима.</div>
-          </div>
-          <div class="tool-actions">
-            <a class="btn" href="https://www.wagnardsoft.com/display-driver-uninstaller-ddu-" target="_blank" rel="noopener">Скачать ↗</a>
-          </div>
-        </div>
+  <!-- Top Bar: Profile & Contacts -->
+  <div class="top-bar">
+    <div class="header">
+      <img class="avatar" src="avatar.jpg" alt="gogaport" onerror="this.outerHTML='<div class=\'avatar\' style=\'display:grid;place-items:center;font-weight:600;\'>G</div>'">
+      <div class="header-content">
+        <h1>gogaportwine</h1>
+        <p class="quote">«Георгий Иванович, он же Гога, он же Гоша, он же Юрий, он же Гора, он же Жора, здесь проживает?»</p>
       </div>
     </div>
 
-    <!-- Мониторинг и диагностика -->
-    <div class="group">
-      <div class="group-title">Мониторинг и диагностика железа</div>
-      <div class="tools-list">
-        <div class="tool-card">
-          <div class="tool-body">
-            <div class="tool-title">HWiNFO64</div>
-            <div class="tool-desc">Детальный мониторинг датчиков, напряжений, частот и температур компонентов.</div>
-          </div>
-          <div class="tool-actions">
-            <a class="btn" href="https://www.hwinfo.com/download/" target="_blank" rel="noopener">Скачать ↗</a>
-          </div>
-        </div>
+    <!-- Contacts (No Telegram) -->
+    <nav class="contacts">
+      <a class="contact-link" href="https://discord.com/users/445629054708613141" target="_blank" rel="noopener">
+        Discord <span class="arr">↗</span>
+      </a>
+      <a class="contact-link" href="https://steamcommunity.com/id/malloyt" target="_blank" rel="noopener">
+        Steam <span class="arr">↗</span>
+      </a>
+      <a class="contact-link" href="https://osu.ppy.sh/users/14331939" target="_blank" rel="noopener">
+        osu! <span class="arr">↗</span>
+      </a>
+      <a class="contact-link" href="https://youtube.com/@gogaportwine" target="_blank" rel="noopener">
+        YouTube <span class="arr">↗</span>
+      </a>
+      <a class="contact-link" href="https://twitch.tv/gogaportwine" target="_blank" rel="noopener">
+        Twitch <span class="arr">↗</span>
+      </a>
+    </nav>
+  </div>
 
-        <div class="tool-card">
-          <div class="tool-body">
-            <div class="tool-title">CrystalDiskInfo</div>
-            <div class="tool-desc">Контроль состояния накопителей (SSD/HDD), ресурс TBW, SMART и температуры.</div>
-          </div>
-          <div class="tool-actions">
-            <a class="btn" href="https://crystalmark.info/en/software/crystaldiskinfo/" target="_blank" rel="noopener">Скачать ↗</a>
-          </div>
+  <!-- 3-Column Main Content -->
+  <main class="main-grid">
+    
+    <!-- COLUMN 1: Комплектующие ПК -->
+    <section class="col">
+      <h2 class="col-header">Сетап ПК</h2>
+      <div class="specs-table">
+        <div class="spec-item">
+          <span class="spec-label">CPU</span>
+          <span class="spec-value">AMD Ryzen 7 7800X3D</span>
         </div>
+        <div class="spec-item">
+          <span class="spec-label">GPU</span>
+          <span class="spec-value">Sapphire Pulse RX 9070 XT 16GB</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">RAM</span>
+          <span class="spec-value">Corsair Vengeance 32 GB DDR5 6000MHz CL30</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Монитор</span>
+          <span class="spec-value">Gigabyte MO27U2 27" 4K 240Hz OLED</span>
+        </div>
+      </div>
+    </section>
 
-        <div class="tool-card">
-          <div class="tool-body">
-            <div class="tool-title">AIDA64</div>
-            <div class="tool-desc">Диагностика системы, тест кэша и пропускной способности оперативной памяти.</div>
+    <!-- COLUMN 2: Полезные утилиты -->
+    <section class="col">
+      <h2 class="col-header">Полезные утилиты</h2>
+      
+      <!-- Загрузка и ОС -->
+      <div class="group">
+        <div class="group-title">Загрузочные накопители и драйверы</div>
+        <div class="tools-list">
+          <div class="tool-card">
+            <div class="tool-body">
+              <div class="tool-title">Ventoy</div>
+              <div class="tool-desc">Мультизагрузочные флешки. Просто копируешь ISO-образы на диск.</div>
+            </div>
+            <div class="tool-actions">
+              <a class="btn" href="https://github.com/ventoy/Ventoy/releases/latest" target="_blank" rel="noopener">Релизы ↗</a>
+              <a class="btn-subtle" href="https://www.ventoy.net/" target="_blank" rel="noopener">Сайт</a>
+            </div>
           </div>
-          <div class="tool-actions">
-            <a class="btn" href="https://www.aida64.com/downloads" target="_blank" rel="noopener">Скачать ↗</a>
+
+          <div class="tool-card">
+            <div class="tool-body">
+              <div class="tool-title">Rufus</div>
+              <div class="tool-desc">Запись установочных USB-накопителей с Windows или Linux.</div>
+            </div>
+            <div class="tool-actions">
+              <a class="btn" href="https://github.com/pbatard/rufus/releases/latest" target="_blank" rel="noopener">Релизы ↗</a>
+              <a class="btn-subtle" href="https://rufus.ie/" target="_blank" rel="noopener">Сайт</a>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-body">
+              <div class="tool-title">DDU (Display Driver Uninstaller)</div>
+              <div class="tool-desc">Полное удаление видеодрайверов NVIDIA, AMD и Intel из Safe Mode.</div>
+            </div>
+            <div class="tool-actions">
+              <a class="btn" href="https://www.wagnardsoft.com/display-driver-uninstaller-ddu-" target="_blank" rel="noopener">Скачать ↗</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Стресс-тесты -->
-    <div class="group">
-      <div class="group-title">Стресс-тесты и стабильность</div>
-      <div class="tools-list">
-        <div class="tool-card">
-          <div class="tool-body">
-            <div class="tool-title">OCCT</div>
-            <div class="tool-desc">Комплексное стресс-тестирование стабильности CPU, памяти, VRAM и питания.</div>
+      <!-- Мониторинг и диагностика -->
+      <div class="group">
+        <div class="group-title">Мониторинг и диагностика железа</div>
+        <div class="tools-list">
+          <div class="tool-card">
+            <div class="tool-body">
+              <div class="tool-title">HWiNFO64</div>
+              <div class="tool-desc">Мониторинг датчиков, напряжений, частот и температур компонентов.</div>
+            </div>
+            <div class="tool-actions">
+              <a class="btn" href="https://www.hwinfo.com/download/" target="_blank" rel="noopener">Скачать ↗</a>
+            </div>
           </div>
-          <div class="tool-actions">
-            <a class="btn" href="https://www.ocbase.com/download" target="_blank" rel="noopener">Скачать ↗</a>
-          </div>
-        </div>
 
-        <div class="tool-card">
-          <div class="tool-body">
-            <div class="tool-title">MemTest86</div>
-            <div class="tool-desc">Тестирование оперативной памяти на ошибки с отдельного загрузочного накопителя.</div>
+          <div class="tool-card">
+            <div class="tool-body">
+              <div class="tool-title">CrystalDiskInfo</div>
+              <div class="tool-desc">Состояние накопителей (SSD/HDD), ресурс TBW, SMART и температуры.</div>
+            </div>
+            <div class="tool-actions">
+              <a class="btn" href="https://crystalmark.info/en/software/crystaldiskinfo/" target="_blank" rel="noopener">Скачать ↗</a>
+            </div>
           </div>
-          <div class="tool-actions">
-            <a class="btn" href="https://www.memtest86.com/download.htm" target="_blank" rel="noopener">Скачать ↗</a>
-          </div>
-        </div>
 
-        <div class="tool-card">
-          <div class="tool-body">
-            <div class="tool-title">FurMark</div>
-            <div class="tool-desc">Стресс-тест видеокарты для проверки температур и стабильности системы охлаждения.</div>
-          </div>
-          <div class="tool-actions">
-            <a class="btn" href="https://geeks3d.com/furmark/" target="_blank" rel="noopener">Скачать ↗</a>
+          <div class="tool-card">
+            <div class="tool-body">
+              <div class="tool-title">AIDA64</div>
+              <div class="tool-desc">Диагностика системы, тест кэша и скорости оперативной памяти.</div>
+            </div>
+            <div class="tool-actions">
+              <a class="btn" href="https://www.aida64.com/downloads" target="_blank" rel="noopener">Скачать ↗</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- osu! Skins Link -->
-  <section class="section">
-    <h2 class="section-header">osu!</h2>
-    <a class="osu-box" href="skins/">
-      <div>
-        <div class="osu-title">Скины для osu!</div>
-        <div class="osu-desc">Коллекция .osk скинов (Rafis, Cookiezi, WhiteCat)</div>
+      <!-- Стресс-тесты -->
+      <div class="group">
+        <div class="group-title">Стресс-тесты и стабильность</div>
+        <div class="tools-list">
+          <div class="tool-card">
+            <div class="tool-body">
+              <div class="tool-title">OCCT</div>
+              <div class="tool-desc">Стресс-тестирование стабильности CPU, памяти, VRAM и блока питания.</div>
+            </div>
+            <div class="tool-actions">
+              <a class="btn" href="https://www.ocbase.com/download" target="_blank" rel="noopener">Скачать ↗</a>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-body">
+              <div class="tool-title">MemTest86</div>
+              <div class="tool-desc">Тестирование оперативной памяти на ошибки с загрузочного накопителя.</div>
+            </div>
+            <div class="tool-actions">
+              <a class="btn" href="https://www.memtest86.com/download.htm" target="_blank" rel="noopener">Скачать ↗</a>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-body">
+              <div class="tool-title">FurMark</div>
+              <div class="tool-desc">Стресс-тест видеокарты для проверки температур и стабильности охлаждения.</div>
+            </div>
+            <div class="tool-actions">
+              <a class="btn" href="https://geeks3d.com/furmark/" target="_blank" rel="noopener">Скачать ↗</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <span class="osu-arrow">открыть →</span>
-    </a>
-  </section>
+    </section>
+
+    <!-- COLUMN 3: Скины для osu! -->
+    <section class="col">
+      <div class="col-header">
+        <span>osu! скины</span>
+        <a href="skins/">все скины →</a>
+      </div>
+
+      <div class="skins-list">
+        <div class="skin-card">
+          <div class="skin-preview" style="background-image:url('skins/previews/rafis.jpg')"></div>
+          <div class="skin-info">
+            <div class="skin-text">
+              <h4>Rafis HDDT</h4>
+              <span>by Rafis</span>
+            </div>
+            <a class="btn" href="https://github.com/gogaport/osuskinsgoga/releases/download/skin-rafis/Rafis_2018-03-26_HDDT_John_edit.osk">Скачать .osk</a>
+          </div>
+        </div>
+
+        <div class="skin-card">
+          <div class="skin-preview" style="background-image:url('skins/previews/cookiezi.jpg')"></div>
+          <div class="skin-info">
+            <div class="skin-text">
+              <h4>Cookiezi Shigetora</h4>
+              <span>by Cookiezi</span>
+            </div>
+            <a class="btn" href="https://github.com/gogaport/osuskinsgoga/releases/download/skin-cookiezi/Cookiezi.36.2018-11-23.Rafis.Edit.osk">Скачать .osk</a>
+          </div>
+        </div>
+
+        <div class="skin-card">
+          <div class="skin-preview" style="background-image:url('skins/previews/whitecat.jpg')"></div>
+          <div class="skin-info">
+            <div class="skin-text">
+              <h4>WhiteCat 2.1</h4>
+              <span>by WhiteCat</span>
+            </div>
+            <a class="btn" href="https://github.com/gogaport/osuskinsgoga/releases/download/skin-whitecat/WhiteCat.2.1.osk">Скачать .osk</a>
+          </div>
+        </div>
+
+        <a class="catalog-link-box" href="skins/">
+          <span>Открыть каталог скинов с поиском</span>
+          <span>→</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
 
   <!-- Footer -->
   <footer>

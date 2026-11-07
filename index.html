@@ -234,6 +234,20 @@
     background: var(--card-hover);
     border-color: var(--border-hover);
   }
+  .tool-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    flex: 1;
+  }
+  .tool-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 6px;
+  }
   .tool-body {
     min-width: 0;
     display: flex;
@@ -297,6 +311,18 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
+  .section-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-card-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 50%;
   }
   .section-card-title {
     font-size: 13.5px;
@@ -455,9 +481,12 @@
         <div class="group-title">Загрузочные накопители и драйверы</div>
         <div class="tools-list">
           <div class="tool-card">
-            <div class="tool-body">
-              <div class="tool-title">Ventoy</div>
-              <div class="tool-desc">Мультизагрузочные флешки. Просто копируешь ISO-образы на диск.</div>
+            <div class="tool-main">
+              <img src="icons/ventoy.png" class="tool-icon" alt="Ventoy" width="28" height="28" loading="lazy">
+              <div class="tool-body">
+                <div class="tool-title">Ventoy</div>
+                <div class="tool-desc">Мультизагрузочные флешки. Просто копируешь ISO-образы на диск.</div>
+              </div>
             </div>
             <div class="tool-actions">
               <a class="btn" href="https://github.com/ventoy/Ventoy/releases/latest" target="_blank" rel="noopener">Релизы ↗</a>
@@ -466,9 +495,12 @@
           </div>
 
           <div class="tool-card">
-            <div class="tool-body">
-              <div class="tool-title">Rufus</div>
-              <div class="tool-desc">Запись установочных USB-накопителей с Windows или Linux.</div>
+            <div class="tool-main">
+              <img src="icons/rufus.png" class="tool-icon" alt="Rufus" width="28" height="28" loading="lazy">
+              <div class="tool-body">
+                <div class="tool-title">Rufus</div>
+                <div class="tool-desc">Запись установочных USB-накопителей с Windows или Linux.</div>
+              </div>
             </div>
             <div class="tool-actions">
               <a class="btn" href="https://github.com/pbatard/rufus/releases/latest" target="_blank" rel="noopener">Релизы ↗</a>
@@ -477,9 +509,12 @@
           </div>
 
           <div class="tool-card">
-            <div class="tool-body">
-              <div class="tool-title">DDU (Display Driver Uninstaller)</div>
-              <div class="tool-desc">Полное удаление видеодрайверов NVIDIA, AMD и Intel из Safe Mode.</div>
+            <div class="tool-main">
+              <img src="icons/ddu.png" class="tool-icon" alt="DDU" width="28" height="28" loading="lazy">
+              <div class="tool-body">
+                <div class="tool-title">DDU (Display Driver Uninstaller)</div>
+                <div class="tool-desc">Полное удаление видеодрайверов NVIDIA, AMD и Intel из Safe Mode.</div>
+              </div>
             </div>
             <div class="tool-actions">
               <a class="btn" href="https://www.wagnardsoft.com/display-driver-uninstaller-ddu-" target="_blank" rel="noopener">Скачать ↗</a>
@@ -493,9 +528,12 @@
         <div class="group-title">Мониторинг и диагностика железа</div>
         <div class="tools-list">
           <div class="tool-card">
-            <div class="tool-body">
-              <div class="tool-title">HWiNFO64</div>
-              <div class="tool-desc">Мониторинг датчиков, напряжений, частот и температур компонентов.</div>
+            <div class="tool-main">
+              <img src="icons/hwinfo.png" class="tool-icon" alt="HWiNFO64" width="28" height="28" loading="lazy">
+              <div class="tool-body">
+                <div class="tool-title">HWiNFO64</div>
+                <div class="tool-desc">Мониторинг датчиков, напряжений, частот и температур компонентов.</div>
+              </div>
             </div>
             <div class="tool-actions">
               <a class="btn" href="https://www.hwinfo.com/download/" target="_blank" rel="noopener">Скачать ↗</a>
@@ -503,9 +541,12 @@
           </div>
 
           <div class="tool-card">
-            <div class="tool-body">
-              <div class="tool-title">CrystalDiskInfo</div>
-              <div class="tool-desc">Состояние SSD/HDD, ресурс TBW, SMART и температуры.</div>
+            <div class="tool-main">
+              <img src="icons/crystaldiskinfo.png" class="tool-icon" alt="CrystalDiskInfo" width="28" height="28" loading="lazy">
+              <div class="tool-body">
+                <div class="tool-title">CrystalDiskInfo</div>
+                <div class="tool-desc">Состояние SSD/HDD, ресурс TBW, SMART и температуры.</div>
+              </div>
             </div>
             <div class="tool-actions">
               <a class="btn" href="https://crystalmark.info/en/software/crystaldiskinfo/" target="_blank" rel="noopener">Скачать ↗</a>
@@ -513,9 +554,12 @@
           </div>
 
           <div class="tool-card">
-            <div class="tool-body">
-              <div class="tool-title">AIDA64</div>
-              <div class="tool-desc">Диагностика системы, тест кэша и скорости оперативной памяти.</div>
+            <div class="tool-main">
+              <img src="icons/aida64.png" class="tool-icon" alt="AIDA64" width="28" height="28" loading="lazy">
+              <div class="tool-body">
+                <div class="tool-title">AIDA64</div>
+                <div class="tool-desc">Диагностика системы, тест кэша и скорости оперативной памяти.</div>
+              </div>
             </div>
             <div class="tool-actions">
               <a class="btn" href="https://www.aida64.com/downloads" target="_blank" rel="noopener">Скачать ↗</a>
@@ -529,9 +573,12 @@
         <div class="group-title">Стресс-тесты и стабильность</div>
         <div class="tools-list">
           <div class="tool-card">
-            <div class="tool-body">
-              <div class="tool-title">OCCT</div>
-              <div class="tool-desc">Стресс-тестирование стабильности CPU, памяти, VRAM и блока питания.</div>
+            <div class="tool-main">
+              <img src="icons/occt.png" class="tool-icon" alt="OCCT" width="28" height="28" loading="lazy">
+              <div class="tool-body">
+                <div class="tool-title">OCCT</div>
+                <div class="tool-desc">Стресс-тестирование стабильности CPU, памяти, VRAM и блока питания.</div>
+              </div>
             </div>
             <div class="tool-actions">
               <a class="btn" href="https://www.ocbase.com/download" target="_blank" rel="noopener">Скачать ↗</a>
@@ -539,9 +586,12 @@
           </div>
 
           <div class="tool-card">
-            <div class="tool-body">
-              <div class="tool-title">MemTest86</div>
-              <div class="tool-desc">Тестирование оперативной памяти на ошибки с загрузочного накопителя.</div>
+            <div class="tool-main">
+              <img src="icons/memtest86.png" class="tool-icon" alt="MemTest86" width="28" height="28" loading="lazy">
+              <div class="tool-body">
+                <div class="tool-title">MemTest86</div>
+                <div class="tool-desc">Тестирование оперативной памяти на ошибки с загрузочного накопителя.</div>
+              </div>
             </div>
             <div class="tool-actions">
               <a class="btn" href="https://www.memtest86.com/download.htm" target="_blank" rel="noopener">Скачать ↗</a>
@@ -549,9 +599,12 @@
           </div>
 
           <div class="tool-card">
-            <div class="tool-body">
-              <div class="tool-title">FurMark</div>
-              <div class="tool-desc">Стресс-тест видеокарты для проверки температур и стабильности охлаждения.</div>
+            <div class="tool-main">
+              <img src="icons/furmark.png" class="tool-icon" alt="FurMark" width="28" height="28" loading="lazy">
+              <div class="tool-body">
+                <div class="tool-title">FurMark</div>
+                <div class="tool-desc">Стресс-тест видеокарты для проверки температур и стабильности охлаждения.</div>
+              </div>
             </div>
             <div class="tool-actions">
               <a class="btn" href="https://geeks3d.com/furmark/" target="_blank" rel="noopener">Скачать ↗</a>
@@ -565,7 +618,10 @@
     <section class="col">
       <h2 class="col-header">osu!</h2>
       <div class="section-card">
-        <div class="section-card-title">Скины для osu!</div>
+        <div class="section-card-header">
+          <img src="icons/osu.png" class="section-card-icon" alt="osu!" width="28" height="28" loading="lazy">
+          <div class="section-card-title">Скины для osu!</div>
+        </div>
         <div class="section-card-desc">
           Юзабельные и популярные скины для осу на все случаи жизни.
         </div>

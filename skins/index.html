@@ -136,8 +136,13 @@
     display: grid;
     place-items: center;
     background: #000 center / cover no-repeat;
+    border: none;
     border-bottom: 1px solid var(--border);
     cursor: pointer;
+    width: 100%;
+    padding: 0;
+    font: inherit;
+    text-align: inherit;
   }
   .preview:hover::after {
     content: "Увеличить";
@@ -247,7 +252,7 @@
   </div>
 
   <header class="header" style="display: flex; align-items: center; gap: 14px;">
-    <img src="../icons/osu.png" width="44" height="44" alt="osu!" style="border-radius: 50%; flex-shrink: 0;">
+    <img src="../icons/osu.svg" width="44" height="44" alt="osu!" style="border-radius: 50%; flex-shrink: 0;">
     <div>
       <h1 style="margin: 0;">Скины для osu!</h1>
       <p style="margin: 2px 0 0 0;">Юзабельные и популярные скины для осу на все случаи жизни. Скачай .osk и открой файл — osu! установит скин автоматически.</p>
@@ -255,7 +260,7 @@
   </header>
 
   <div class="bar">
-    <input class="search-input" id="q" placeholder="Поиск по названию или автору…">
+    <input class="search-input" id="q" placeholder="Поиск по названию или автору…" aria-label="Поиск по названию или автору">
     <div class="chips" id="filters"></div>
   </div>
 
@@ -267,8 +272,8 @@
 </div>
 
 <!-- Lightbox Modal -->
-<div class="lightbox" id="lightbox">
-  <img id="lightbox-img" src="" alt="Skin Preview">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр скина">
+  <img id="lightbox-img" alt="Skin Preview">
 </div>
 
 <script>
@@ -304,7 +309,8 @@
     }
   ];
 
-  const modes = ["все", "standard", "taiko", "catch", "mania"];
+  const availableModes = Array.from(new Set(skins.map(k => k.mode).filter(Boolean)));
+  const modes = ["все", ...availableModes];
   let mode = "все";
   const f = document.getElementById("filters");
   const q = document.getElementById("q");
@@ -315,26 +321,33 @@
   f.innerHTML = modes.map(m => `<button class="chip${m === mode ? " active" : ""}" data-m="${m}">${m}</button>`).join("");
   
   f.onclick = (e) => {
-    if (!e.target.dataset.m) return;
-    mode = e.target.dataset.m;
+    const target = e.target.closest(".chip");
+    if (!target || !target.dataset.m) return;
+    mode = target.dataset.m;
     f.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.dataset.m === mode));
     render();
   };
 
   q.oninput = render;
 
-  function openLightbox(src) {
+  function openLightbox(src, name) {
     if (!src) return;
     lightboxImg.src = src;
+    if (name) lightboxImg.alt = `Превью ${name}`;
     lightbox.classList.add("active");
   }
 
-  lightbox.onclick = () => {
+  function closeLightbox() {
     lightbox.classList.remove("active");
-  };
+    lightboxImg.removeAttribute("src");
+  }
+
+  lightbox.onclick = closeLightbox;
 
   window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") lightbox.classList.remove("active");
+    if (e.key === "Escape" && lightbox.classList.contains("active")) {
+      closeLightbox();
+    }
   });
 
   function render() {
@@ -343,10 +356,10 @@
     
     container.innerHTML = list.length ? list.map((k, i) => `
       <article class="card">
-        <div class="preview" ${k.image ? `style="background-image:url('${k.image}')"` : ""} onclick="openLightbox('${k.image || ""}')">
+        <button type="button" class="preview" aria-label="Открыть превью ${k.name}" ${k.image ? `style="background-image:url('${k.image}')"` : ""} onclick="openLightbox('${k.image || ""}', '${k.name.replace(/'/g, "\\'")}')">
           <span class="mode-tag">${k.mode}</span>
           ${k.favorite ? `<span class="fav-badge">★ фаворит</span>` : ""}
-        </div>
+        </button>
         <div class="info">
           <h3>${k.name}</h3>
           <div class="meta">by ${k.author}</div>

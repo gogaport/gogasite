@@ -144,26 +144,9 @@
     line-height: 1.35;
   }
   .osu-banner-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--btn-bg);
-    border: 1px solid var(--border);
-    color: var(--fg);
     padding: 7px 12px;
     border-radius: 6px;
-    font-size: 12px;
-    font-family: var(--font-mono);
-    white-space: nowrap;
     flex-shrink: 0;
-    text-decoration: none;
-    transition: background 140ms var(--ease), border-color 140ms var(--ease), color 140ms var(--ease);
-  }
-  .osu-banner-btn:hover {
-    background: var(--btn-hover);
-    border-color: var(--border-hover);
-    color: #fff;
-    text-decoration: none;
   }
 
   /* 2-Column Main Grid */
@@ -346,7 +329,7 @@
   <!-- Top Bar: Profile & Contacts -->
   <div class="top-bar">
     <div class="header">
-      <img class="avatar" src="avatar.jpg" alt="gogaport" width="84" height="84" onerror="this.outerHTML='<div class=\'avatar\' style=\'display:grid;place-items:center;font-weight:600;\'>G</div>'">
+      <img class="avatar" src="avatar.jpg" alt="gogaportwine" width="84" height="84" onerror="this.outerHTML='<div class=\'avatar\' style=\'display:grid;place-items:center;font-weight:600;\'>G</div>'">
       <div class="header-content">
         <h1>gogaportwine</h1>
         <p class="quote">«Георгий Иванович, он же Гога, он же Гоша, он же Юрий, он же Гора, он же Жора, здесь проживает?»</p>
@@ -376,7 +359,7 @@
   <!-- osu! Full-Width Banner -->
   <aside class="osu-banner">
     <div class="osu-banner-main">
-      <img src="icons/osu.png" class="osu-banner-icon" alt="osu!" width="32" height="32" loading="lazy">
+      <img src="icons/osu.svg" class="osu-banner-icon" alt="osu!" width="32" height="32" loading="lazy">
       <div class="osu-banner-text">
         <div class="osu-banner-title">Скины для osu!</div>
         <div class="osu-banner-desc">
@@ -384,7 +367,7 @@
         </div>
       </div>
     </div>
-    <a class="osu-banner-btn" href="skins/">
+    <a class="btn osu-banner-btn" href="skins/">
       Каталог скинов <span class="arr">→</span>
     </a>
   </aside>

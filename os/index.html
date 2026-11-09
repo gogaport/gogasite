@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Дистрибутивы ОС и автоустановка — gogaportwine</title>
-<meta name="description" content="Официальные образы Linux и Windows (10/11), конфиг autounattend.xml для чистой установки.">
+<meta name="description" content="Официальные образы Linux и Windows (10/11), мой autounattend.xml для чистой установки.">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gogaportwine.online/os/">
 <meta property="og:title" content="Дистрибутивы ОС и автоустановка — gogaportwine">
-<meta property="og:description" content="Официальные ISO образы Linux и Windows, чистый autounattend.xml.">
+<meta property="og:description" content="Официальные ISO образы Linux и Windows, мой autounattend.xml.">
 <meta property="og:image" content="https://gogaportwine.online/avatar.jpg">
 <meta name="theme-color" content="#09090b">
 
@@ -140,13 +140,12 @@
   .distro-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
   }
   .distro-card {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    flex-direction: column;
+    gap: 6px;
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -157,39 +156,39 @@
     background: var(--card-hover);
     border-color: var(--border-hover);
   }
-  .distro-main {
+  .distro-top {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .distro-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     min-width: 0;
   }
   .distro-icon {
-    width: 26px;
-    height: 26px;
+    width: 22px;
+    height: 22px;
     object-fit: contain;
     flex-shrink: 0;
   }
-  .distro-body {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    min-width: 0;
-  }
   .distro-title {
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 600;
     color: var(--fg);
   }
   .distro-desc {
     font-size: 12px;
     color: var(--fg-muted);
-    line-height: 1.35;
+    line-height: 1.4;
   }
   .distro-actions {
     display: flex;
     gap: 6px;
     align-items: center;
-    flex-shrink: 0;
     flex-wrap: wrap;
   }
   .distro-actions .btn,
@@ -208,14 +207,6 @@
   @media (max-width: 580px) {
     body {
       padding: 24px 16px 36px;
-    }
-    .distro-card {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 10px;
-    }
-    .distro-actions {
-      align-self: flex-start;
     }
   }
 
@@ -264,32 +255,32 @@
       <!-- Windows Images -->
       <div class="distro-list">
         <div class="distro-card">
-          <div class="distro-main">
-            <img src="../icons/windows11.svg" class="distro-icon" alt="Windows 11" width="26" height="26" loading="lazy">
-            <div class="distro-body">
+          <div class="distro-top">
+            <div class="distro-header">
+              <img src="../icons/windows11.svg" class="distro-icon" alt="Windows 11" width="22" height="22" loading="lazy">
               <div class="distro-title">Windows 11</div>
-              <div class="distro-desc">Официальный образ Windows 11. Для чистой установки без ограничений TPM используй наш autounattend.xml.</div>
+            </div>
+            <div class="distro-actions">
+              <a class="btn" href="https://mega.nz/file/SnZ1WRoC#CZEAaJsl2ropQHqNh9PVyduK0Ta6FfixtxQyNwJDtPU" target="_blank" rel="noopener">Скачать</a>
+              <a class="btn-subtle" href="https://massgrave.dev/" target="_blank" rel="noopener">Massgrave</a>
             </div>
           </div>
-          <div class="distro-actions">
-            <a class="btn" href="https://mega.nz/file/SnZ1WRoC#CZEAaJsl2ropQHqNh9PVyduK0Ta6FfixtxQyNwJDtPU" target="_blank" rel="noopener">Скачать</a>
-            <a class="btn-subtle" href="https://massgrave.dev/" target="_blank" rel="noopener">Massgrave</a>
-          </div>
+          <div class="distro-desc">Официальный образ. Чистая установка без проверок TPM и телеметрии через мой autounattend.xml.</div>
         </div>
 
         <div class="distro-card">
-          <div class="distro-main">
-            <img src="../icons/windows10.svg" class="distro-icon" alt="Windows 10" width="26" height="26" loading="lazy">
-            <div class="distro-body">
+          <div class="distro-top">
+            <div class="distro-header">
+              <img src="../icons/windows10.svg" class="distro-icon" alt="Windows 10" width="22" height="22" loading="lazy">
               <div class="distro-title">Windows 10</div>
-              <div class="distro-desc">Официальный образ Windows 10 22H2. Полностью совместим с нашим autounattend.xml (Pro 64-bit).</div>
+            </div>
+            <div class="distro-actions">
+              <a class="btn" href="https://mega.nz/file/zqhHCaBD#acWuxHwIitoOHqUd-oPKq_hqdxynBZxJloS1SHx9oZY" target="_blank" rel="noopener">Скачать 64bit</a>
+              <a class="btn" href="https://mega.nz/file/PioHnJzR#Iz3NwRmeNBsHuQFxOJVbnDnJcQAYZp7hF02qgjIJ9X4" target="_blank" rel="noopener">Скачать 32bit</a>
+              <a class="btn-subtle" href="https://massgrave.dev/" target="_blank" rel="noopener">Massgrave</a>
             </div>
           </div>
-          <div class="distro-actions">
-            <a class="btn" href="https://mega.nz/file/zqhHCaBD#acWuxHwIitoOHqUd-oPKq_hqdxynBZxJloS1SHx9oZY" target="_blank" rel="noopener">Скачать 64bit</a>
-            <a class="btn" href="https://mega.nz/file/PioHnJzR#Iz3NwRmeNBsHuQFxOJVbnDnJcQAYZp7hF02qgjIJ9X4" target="_blank" rel="noopener">Скачать 32bit</a>
-            <a class="btn-subtle" href="https://massgrave.dev/" target="_blank" rel="noopener">Massgrave</a>
-          </div>
+          <div class="distro-desc">Официальный образ 22H2 (Pro). Работает с моим autounattend.xml.</div>
         </div>
       </div>
     </section>
@@ -299,101 +290,101 @@
       <h2 class="section-title">Дистрибутивы Linux</h2>
       <div class="distro-list">
         <div class="distro-card">
-          <div class="distro-main">
-            <img src="../icons/cachyos.svg" class="distro-icon" alt="CachyOS" width="26" height="26" loading="lazy">
-            <div class="distro-body">
+          <div class="distro-top">
+            <div class="distro-header">
+              <img src="../icons/cachyos.svg" class="distro-icon" alt="CachyOS" width="22" height="22" loading="lazy">
               <div class="distro-title">CachyOS</div>
-              <div class="distro-desc">Arch-based дистрибутив с ядрами под x86-64-v3/v4, планировщиком BORE и оптимизацией под игры.</div>
+            </div>
+            <div class="distro-actions">
+              <a class="btn" href="https://iso.cachyos.org/desktop/260809/cachyos-desktop-linux-260809.iso" target="_blank" rel="noopener">Скачать</a>
+              <a class="btn-subtle" href="https://cachyos.org/" target="_blank" rel="noopener">Сайт</a>
             </div>
           </div>
-          <div class="distro-actions">
-            <a class="btn" href="https://iso.cachyos.org/desktop/260809/cachyos-desktop-linux-260809.iso" target="_blank" rel="noopener">Скачать</a>
-            <a class="btn-subtle" href="https://cachyos.org/" target="_blank" rel="noopener">Сайт</a>
-          </div>
+          <div class="distro-desc">Arch-based дистрибутив с ядрами под x86-64-v3/v4, планировщиком BORE и оптимизацией под игры.</div>
         </div>
 
         <div class="distro-card">
-          <div class="distro-main">
-            <img src="../icons/archlinux.svg" class="distro-icon" alt="Arch Linux" width="26" height="26" loading="lazy">
-            <div class="distro-body">
+          <div class="distro-top">
+            <div class="distro-header">
+              <img src="../icons/archlinux.svg" class="distro-icon" alt="Arch Linux" width="22" height="22" loading="lazy">
               <div class="distro-title">Arch Linux</div>
-              <div class="distro-desc">Легковесный роллинг-дистрибутив с менеджером пакетов pacman и доступом к репозиторию AUR.</div>
+            </div>
+            <div class="distro-actions">
+              <a class="btn" href="https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso" target="_blank" rel="noopener">Скачать</a>
+              <a class="btn-subtle" href="https://archlinux.org/download/" target="_blank" rel="noopener">Сайт</a>
             </div>
           </div>
-          <div class="distro-actions">
-            <a class="btn" href="https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso" target="_blank" rel="noopener">Скачать</a>
-            <a class="btn-subtle" href="https://archlinux.org/download/" target="_blank" rel="noopener">Сайт</a>
-          </div>
+          <div class="distro-desc">Легковесный роллинг-дистрибутив с менеджером пакетов pacman и доступом к репозиторию AUR.</div>
         </div>
 
         <div class="distro-card">
-          <div class="distro-main">
-            <img src="../icons/fedora.svg" class="distro-icon" alt="Fedora" width="26" height="26" loading="lazy">
-            <div class="distro-body">
+          <div class="distro-top">
+            <div class="distro-header">
+              <img src="../icons/fedora.svg" class="distro-icon" alt="Fedora" width="22" height="22" loading="lazy">
               <div class="distro-title">Fedora Workstation 45</div>
-              <div class="distro-desc">Свежий релиз Fedora 45: чистый GNOME, актуальное ядро Linux и Wayland по умолчанию.</div>
+            </div>
+            <div class="distro-actions">
+              <a class="btn" href="https://download.fedoraproject.org/pub/fedora/linux/releases/45/Workstation/x86_64/iso/Fedora-Workstation-Live-45-1.4.x86_64.iso" target="_blank" rel="noopener">Скачать</a>
+              <a class="btn-subtle" href="https://fedoraproject.org/workstation/download" target="_blank" rel="noopener">Сайт</a>
             </div>
           </div>
-          <div class="distro-actions">
-            <a class="btn" href="https://download.fedoraproject.org/pub/fedora/linux/releases/45/Workstation/x86_64/iso/Fedora-Workstation-Live-45-1.4.x86_64.iso" target="_blank" rel="noopener">Скачать</a>
-            <a class="btn-subtle" href="https://fedoraproject.org/workstation/download" target="_blank" rel="noopener">Сайт</a>
-          </div>
+          <div class="distro-desc">Свежий релиз Fedora 45: чистый GNOME, актуальное ядро Linux и Wayland по умолчанию.</div>
         </div>
 
         <div class="distro-card">
-          <div class="distro-main">
-            <img src="../icons/debian.svg" class="distro-icon" alt="Debian" width="26" height="26" loading="lazy">
-            <div class="distro-body">
+          <div class="distro-top">
+            <div class="distro-header">
+              <img src="../icons/debian.svg" class="distro-icon" alt="Debian" width="22" height="22" loading="lazy">
               <div class="distro-title">Debian</div>
-              <div class="distro-desc">Эталон стабильности и надежности. Универсальная операционная система, основа Ubuntu и сотен других ОС.</div>
+            </div>
+            <div class="distro-actions">
+              <a class="btn" href="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-13.7.0-amd64-netinst.iso" target="_blank" rel="noopener">Скачать</a>
+              <a class="btn-subtle" href="https://www.debian.org/distrib/" target="_blank" rel="noopener">Сайт</a>
             </div>
           </div>
-          <div class="distro-actions">
-            <a class="btn" href="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-13.7.0-amd64-netinst.iso" target="_blank" rel="noopener">Скачать</a>
-            <a class="btn-subtle" href="https://www.debian.org/distrib/" target="_blank" rel="noopener">Сайт</a>
-          </div>
+          <div class="distro-desc">Эталон стабильности и надежности. Универсальная операционная система, основа Ubuntu и сотен других ОС.</div>
         </div>
 
         <div class="distro-card">
-          <div class="distro-main">
-            <img src="../icons/ubuntu.svg" class="distro-icon" alt="Ubuntu Desktop" width="26" height="26" loading="lazy">
-            <div class="distro-body">
+          <div class="distro-top">
+            <div class="distro-header">
+              <img src="../icons/ubuntu.svg" class="distro-icon" alt="Ubuntu Desktop" width="22" height="22" loading="lazy">
               <div class="distro-title">Ubuntu Desktop</div>
-              <div class="distro-desc">Популярный десктопный Linux с большой поддержкой софта, драйверов и долгосрочными релизами (LTS).</div>
+            </div>
+            <div class="distro-actions">
+              <a class="btn" href="https://releases.ubuntu.com/26.04/ubuntu-26.04.1-desktop-amd64.iso" target="_blank" rel="noopener">Скачать</a>
+              <a class="btn-subtle" href="https://ubuntu.com/download/desktop" target="_blank" rel="noopener">Сайт</a>
             </div>
           </div>
-          <div class="distro-actions">
-            <a class="btn" href="https://releases.ubuntu.com/26.04/ubuntu-26.04.1-desktop-amd64.iso" target="_blank" rel="noopener">Скачать</a>
-            <a class="btn-subtle" href="https://ubuntu.com/download/desktop" target="_blank" rel="noopener">Сайт</a>
-          </div>
+          <div class="distro-desc">Популярный десктопный Linux с большой поддержкой софта, драйверов и долгосрочными релизами (LTS).</div>
         </div>
 
         <div class="distro-card">
-          <div class="distro-main">
-            <img src="../icons/ubuntu.svg" class="distro-icon" alt="Ubuntu Server" width="26" height="26" loading="lazy">
-            <div class="distro-body">
+          <div class="distro-top">
+            <div class="distro-header">
+              <img src="../icons/ubuntu.svg" class="distro-icon" alt="Ubuntu Server" width="22" height="22" loading="lazy">
               <div class="distro-title">Ubuntu Server</div>
-              <div class="distro-desc">Серверная система без графической оболочки под Docker, веб-серверы, базы данных и облака.</div>
+            </div>
+            <div class="distro-actions">
+              <a class="btn" href="https://releases.ubuntu.com/26.04/ubuntu-26.04.1-live-server-amd64.iso" target="_blank" rel="noopener">Скачать</a>
+              <a class="btn-subtle" href="https://ubuntu.com/download/server" target="_blank" rel="noopener">Сайт</a>
             </div>
           </div>
-          <div class="distro-actions">
-            <a class="btn" href="https://releases.ubuntu.com/26.04/ubuntu-26.04.1-live-server-amd64.iso" target="_blank" rel="noopener">Скачать</a>
-            <a class="btn-subtle" href="https://ubuntu.com/download/server" target="_blank" rel="noopener">Сайт</a>
-          </div>
+          <div class="distro-desc">Серверная система без графической оболочки под Docker, веб-серверы, базы данных и облака.</div>
         </div>
 
         <div class="distro-card">
-          <div class="distro-main">
-            <img src="../icons/linuxmint.svg" class="distro-icon" alt="Linux Mint" width="26" height="26" loading="lazy">
-            <div class="distro-body">
+          <div class="distro-top">
+            <div class="distro-header">
+              <img src="../icons/linuxmint.svg" class="distro-icon" alt="Linux Mint" width="22" height="22" loading="lazy">
               <div class="distro-title">Linux Mint</div>
-              <div class="distro-desc">Привычный интерфейс Cinnamon, встроенные кодеки и продуманная система «из коробки» для перехода с Windows.</div>
+            </div>
+            <div class="distro-actions">
+              <a class="btn" href="https://pub.linuxmint.io/stable/22.3/linuxmint-22.3-cinnamon-64bit.iso" target="_blank" rel="noopener">Скачать</a>
+              <a class="btn-subtle" href="https://linuxmint.com/download.php" target="_blank" rel="noopener">Сайт</a>
             </div>
           </div>
-          <div class="distro-actions">
-            <a class="btn" href="https://pub.linuxmint.io/stable/22.3/linuxmint-22.3-cinnamon-64bit.iso" target="_blank" rel="noopener">Скачать</a>
-            <a class="btn-subtle" href="https://linuxmint.com/download.php" target="_blank" rel="noopener">Сайт</a>
-          </div>
+          <div class="distro-desc">Привычный интерфейс Cinnamon, встроенные кодеки и продуманная система для перехода с Windows.</div>
         </div>
       </div>
     </section>

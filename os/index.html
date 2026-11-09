@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Дистрибутивы ОС и автоустановка — gogaportwine</title>
-<meta name="description" content="Официальные образы Linux и Windows (10/11), конфиг autounattend.xml для чистой автоматической установки без мусора.">
+<meta name="description" content="Официальные образы Linux и Windows (10/11), конфиг autounattend.xml для чистой установки.">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gogaportwine.online/os/">
 <meta property="og:title" content="Дистрибутивы ОС и автоустановка — gogaportwine">
-<meta property="og:description" content="Официальные ISO образы Linux и Windows, готовый autounattend.xml для чистой установки.">
+<meta property="og:description" content="Официальные ISO образы Linux и Windows, чистый autounattend.xml.">
 <meta property="og:image" content="https://gogaportwine.online/avatar.jpg">
 <meta name="theme-color" content="#09090b">
 
@@ -27,8 +27,8 @@
   }
 
   .container {
-    max-width: 860px;
-    gap: 20px;
+    max-width: 760px;
+    gap: 16px;
   }
 
   .back-link {
@@ -62,268 +62,130 @@
     margin-top: 2px;
   }
 
-  /* Hero Section: autounattend.xml */
-  .hero-card {
-    background: linear-gradient(180deg, #16161b 0%, #111114 100%);
+  /* Section Title */
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 8px;
+  }
+
+  /* autounattend.xml Hero */
+  .xml-card {
+    background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px 20px;
+    border-radius: 8px;
+    padding: 14px 16px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    position: relative;
-    overflow: hidden;
+    gap: 10px;
   }
-  .hero-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.4), transparent);
-  }
-  .hero-top {
+  .xml-top {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: center;
+    gap: 12px;
     flex-wrap: wrap;
   }
-  .hero-title-area {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-  .hero-icon {
-    width: 38px;
-    height: 38px;
-    background: rgba(0, 120, 212, 0.12);
-    border: 1px solid rgba(0, 120, 212, 0.3);
-    border-radius: 8px;
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-  }
-  .hero-title {
-    font-size: 15px;
+  .xml-title {
+    font-size: 14px;
     font-weight: 600;
     color: var(--fg);
   }
-  .hero-subtitle {
-    font-size: 12px;
+  .xml-desc {
+    font-size: 12.5px;
     color: var(--fg-muted);
-    margin-top: 2px;
+    line-height: 1.45;
   }
-  .badges {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-  }
-  .badge {
-    font-size: 10.5px;
-    font-family: var(--font-mono);
-    padding: 2px 7px;
-    border-radius: 4px;
-    background: var(--card-hover);
-    border: 1px solid var(--border);
-    color: var(--fg-muted);
-  }
-  .badge-accent {
-    background: rgba(96, 165, 250, 0.12);
-    border-color: rgba(96, 165, 250, 0.25);
-    color: #93c5fd;
-  }
-
-  .hero-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 8px;
-    padding: 12px 0 4px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-  }
-  .feature-item {
-    font-size: 12px;
-    color: var(--fg-muted);
-    display: flex;
-    align-items: flex-start;
-    gap: 7px;
+  .xml-tip {
+    font-size: 11.5px;
+    color: var(--fg-dim);
     line-height: 1.4;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
   }
-  .feature-bullet {
-    color: #60a5fa;
-    font-size: 13px;
-    line-height: 1;
-    margin-top: 2px;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .hero-btn-primary {
-    background: #2563eb;
-    border-color: #3b82f6;
-    color: #fff;
-    padding: 6px 14px;
-    font-size: 12px;
+  .xml-tip code {
     font-family: var(--font-mono);
-    font-weight: 500;
-  }
-  .hero-btn-primary:hover {
-    background: #1d4ed8;
-    border-color: #60a5fa;
-    color: #fff;
-  }
-
-  /* Search & Filter Bar */
-  .bar {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .search-input {
-    flex: 1;
-    min-width: 200px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--fg);
-    padding: 7px 12px;
-    font-size: 13px;
-    font-family: var(--font);
-    outline: none;
-    transition: border-color 140ms var(--ease);
-  }
-  .search-input:focus {
-    border-color: var(--border-hover);
-  }
-  .chips {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
-  }
-  .chip {
-    background: var(--card);
-    border: 1px solid var(--border);
     color: var(--fg-muted);
-    border-radius: 6px;
-    padding: 5px 10px;
-    font-size: 12px;
-    font-family: var(--font-mono);
-    cursor: pointer;
-    transition: all 140ms var(--ease);
   }
-  .chip:hover {
-    color: #fff;
-    border-color: var(--border-hover);
-  }
-  .chip.active {
-    background: var(--fg);
-    color: var(--bg);
-    border-color: var(--fg);
-    font-weight: 600;
+  .xml-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
   }
 
-  /* Grid */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  /* Distros List */
+  .distro-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .distro-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 12px;
-  }
-
-  .card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: border-color 140ms var(--ease), background 140ms var(--ease);
+    padding: 10px 14px;
+    transition: background 140ms var(--ease), border-color 140ms var(--ease);
   }
-  .card:hover {
-    border-color: var(--border-hover);
+  .distro-card:hover {
     background: var(--card-hover);
+    border-color: var(--border-hover);
   }
-
-  .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-  }
-  .card-header {
+  .distro-main {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     min-width: 0;
   }
-  .card-icon {
-    width: 28px;
-    height: 28px;
+  .distro-icon {
+    width: 26px;
+    height: 26px;
     object-fit: contain;
     flex-shrink: 0;
   }
-  .card-title-wrap {
-    min-width: 0;
+  .distro-body {
     display: flex;
     flex-direction: column;
     gap: 1px;
+    min-width: 0;
   }
-  .card-title {
-    font-size: 13.5px;
+  .distro-title {
+    font-size: 13px;
     font-weight: 600;
     color: var(--fg);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
-  .card-category {
-    font-size: 11px;
-    font-family: var(--font-mono);
-    color: var(--fg-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
-  .card-desc {
+  .distro-desc {
     font-size: 12px;
     color: var(--fg-muted);
-    line-height: 1.4;
-    flex: 1;
+    line-height: 1.35;
   }
-  .card-actions {
+  .distro-actions {
     display: flex;
     gap: 6px;
     align-items: center;
-    padding-top: 4px;
-    flex-wrap: wrap;
+    flex-shrink: 0;
   }
-  .card-actions .btn {
-    padding: 5px 9px;
+  .distro-actions .btn {
     font-size: 11.5px;
+    padding: 4px 9px;
   }
 
-  .empty {
-    color: var(--fg-muted);
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 32px 0;
-    font-size: 13px;
-  }
-
-  .hero-tip {
-    font-size: 11.5px;
-    color: var(--fg-muted);
-    padding-top: 6px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    line-height: 1.4;
-  }
-  .hero-tip strong {
-    color: var(--fg);
+  @media (max-width: 580px) {
+    .distro-card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+    .distro-actions {
+      align-self: flex-start;
+    }
   }
 
   footer {
@@ -340,250 +202,175 @@
     <a class="back-link" href="../">← gogaportwine.online</a>
   </div>
 
-  <header class="header" style="display: flex; align-items: center; gap: 14px;">
-    <div style="width: 44px; height: 44px; border-radius: 10px; background: var(--card); border: 1px solid var(--border); display: grid; place-items: center; flex-shrink: 0;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: #60a5fa;">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-        <line x1="8" y1="21" x2="16" y2="21"></line>
-        <line x1="12" y1="17" x2="12" y2="21"></line>
-      </svg>
-    </div>
-    <div>
-      <h1 style="margin: 0;">Дистрибутивы ОС и автоустановка</h1>
-      <p style="margin: 2px 0 0 0;">Проверенные дистрибутивы Linux, Windows 10/11 и готовый файл ответов для чистой установки.</p>
-    </div>
+  <header class="header">
+    <h1>Дистрибутивы ОС и автоустановка</h1>
+    <p>Официальные образы Linux и Windows, файл ответов autounattend.xml для чистой установки.</p>
   </header>
 
-  <!-- Hero Card: autounattend.xml -->
-  <section class="hero-card">
-    <div class="hero-top">
-      <div class="hero-title-area">
-        <div class="hero-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0078d4">
-            <path d="M0,0H11.377V11.372H0ZM12.623,0H24V11.372H12.623ZM0,12.623H11.377V24H0Zm12.623,0H24V24H12.623"/>
-          </svg>
-        </div>
-        <div>
-          <div class="hero-title">autounattend.xml — Чистая Windows без мусора</div>
-          <div class="hero-subtitle">Универсальный файл ответов для тихой установки Windows 11 &amp; Windows 10 (Pro, 64-bit).</div>
-        </div>
-      </div>
-      <div class="badges">
-        <span class="badge badge-accent">Win 11 &amp; Win 10</span>
-        <span class="badge">Pro x64</span>
-        <span class="badge">TPM Bypass</span>
-        <span class="badge">Без онлайна</span>
+  <!-- autounattend.xml -->
+  <section class="xml-card">
+    <div class="xml-top">
+      <div class="xml-title">autounattend.xml — Чистая Windows 10 &amp; 11 Pro</div>
+      <div class="xml-actions">
+        <a class="btn" href="autounattend.xml" download="autounattend.xml">Скачать XML (29 КБ)</a>
+        <a class="btn-subtle" href="autounattend.xml" target="_blank" rel="noopener">Просмотреть XML ↗</a>
       </div>
     </div>
-
-    <div class="hero-features">
-      <div class="feature-item">
-        <span class="feature-bullet">✓</span>
-        <span><strong>Локальный Admin:</strong> авто-создание админа без пароля и без обязательной привязки учетной записи Microsoft.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-bullet">✓</span>
-        <span><strong>Обход требований:</strong> вырезает проверки TPM 2.0, Secure Boot и лимита оперативной памяти при установке.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-bullet">✓</span>
-        <span><strong>Деблоат системы:</strong> удаляет Copilot, Recall, Cortana, Teams, OneDrive, Bing News, игры и промо-хлам.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-bullet">✓</span>
-        <span><strong>Твики системы:</strong> классическое меню проводника (Shift+F10 не нужен), показ расширений файлов, темная тема и пункт «Снять задачу» в таскбаре.</span>
-      </div>
+    <div class="xml-desc">
+      Создает локального админа <code>Admin</code> без пароля и учетки Microsoft, обходит проверки TPM 2.0 / Secure Boot / RAM, вырезает Copilot, Recall, Cortana, OneDrive и телеметрию, включает темную тему и классическое меню проводника.
     </div>
-
-    <div class="hero-actions">
-      <a class="btn hero-btn-primary" href="autounattend.xml" download="autounattend.xml">
-        Скачать autounattend.xml (29 КБ)
-      </a>
-      <a class="btn" href="autounattend.xml" target="_blank" rel="noopener">
-        Просмотреть XML ↗
-      </a>
-    </div>
-
-    <div class="hero-tip">
-      💡 <strong>Как использовать:</strong> просто скопируй <code>autounattend.xml</code> в корень загрузочной флешки Ventoy или установочной флешки с Windows (Rufus). Установщик подхватит его автоматически.
+    <div class="xml-tip">
+      💡 <strong>Как использовать:</strong> скопируй файл в корень загрузочной флешки с Windows (Ventoy или Rufus). Установщик применит настройки автоматически.
     </div>
   </section>
 
-  <!-- Filter & Search Bar -->
-  <div class="bar">
-    <input class="search-input" id="q" placeholder="Поиск дистрибутива по названию или описанию…" aria-label="Поиск дистрибутива">
-    <div class="chips" id="filters"></div>
+  <!-- Linux Distros -->
+  <h2 class="section-title">Дистрибутивы Linux</h2>
+  <div class="distro-list">
+    <div class="distro-card">
+      <div class="distro-main">
+        <img src="../icons/cachyos.svg" class="distro-icon" alt="CachyOS" width="26" height="26" loading="lazy">
+        <div class="distro-body">
+          <div class="distro-title">CachyOS</div>
+          <div class="distro-desc">Arch-based дистрибутив с ядрами под x86-64-v3/v4, планировщиком BORE и оптимизацией под игры.</div>
+        </div>
+      </div>
+      <div class="distro-actions">
+        <a class="btn" href="https://iso.cachyos.org/desktop/260809/cachyos-desktop-linux-260809.iso" target="_blank" rel="noopener">Скачать ISO ↗</a>
+        <a class="btn-subtle" href="https://cachyos.org/download/" target="_blank" rel="noopener">Сайт</a>
+      </div>
+    </div>
+
+    <div class="distro-card">
+      <div class="distro-main">
+        <img src="../icons/archlinux.svg" class="distro-icon" alt="Arch Linux" width="26" height="26" loading="lazy">
+        <div class="distro-body">
+          <div class="distro-title">Arch Linux</div>
+          <div class="distro-desc">Легковесный роллинг-дистрибутив с менеджером пакетов pacman и доступом к репозиторию AUR.</div>
+        </div>
+      </div>
+      <div class="distro-actions">
+        <a class="btn" href="https://archlinux.org/download/" target="_blank" rel="noopener">Скачать ISO ↗</a>
+        <a class="btn-subtle" href="https://geo.mirror.pkgbuild.com/iso/latest/" target="_blank" rel="noopener">Зеркала</a>
+      </div>
+    </div>
+
+    <div class="distro-card">
+      <div class="distro-main">
+        <img src="../icons/fedora.svg" class="distro-icon" alt="Fedora" width="26" height="26" loading="lazy">
+        <div class="distro-body">
+          <div class="distro-title">Fedora Workstation</div>
+          <div class="distro-desc">Современная система на базе RPM со свежим софтом, чистым GNOME или KDE Plasma и Wayland.</div>
+        </div>
+      </div>
+      <div class="distro-actions">
+        <a class="btn" href="https://fedoraproject.org/workstation/download" target="_blank" rel="noopener">Скачать ISO ↗</a>
+        <a class="btn-subtle" href="https://fedoraproject.org/kde/" target="_blank" rel="noopener">KDE Spin</a>
+      </div>
+    </div>
+
+    <div class="distro-card">
+      <div class="distro-main">
+        <img src="../icons/debian.svg" class="distro-icon" alt="Debian" width="26" height="26" loading="lazy">
+        <div class="distro-body">
+          <div class="distro-title">Debian</div>
+          <div class="distro-desc">Эталон стабильности и надежности. Универсальная операционная система, основа Ubuntu и сотен других ОС.</div>
+        </div>
+      </div>
+      <div class="distro-actions">
+        <a class="btn" href="https://www.debian.org/distrib/" target="_blank" rel="noopener">Netinst ISO ↗</a>
+        <a class="btn-subtle" href="https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/" target="_blank" rel="noopener">DVD</a>
+      </div>
+    </div>
+
+    <div class="distro-card">
+      <div class="distro-main">
+        <img src="../icons/ubuntu.svg" class="distro-icon" alt="Ubuntu Desktop" width="26" height="26" loading="lazy">
+        <div class="distro-body">
+          <div class="distro-title">Ubuntu Desktop</div>
+          <div class="distro-desc">Популярный десктопный Linux с большой поддержкой софта, драйверов и долгосрочными релизами (LTS).</div>
+        </div>
+      </div>
+      <div class="distro-actions">
+        <a class="btn" href="https://ubuntu.com/download/desktop" target="_blank" rel="noopener">Скачать ISO ↗</a>
+      </div>
+    </div>
+
+    <div class="distro-card">
+      <div class="distro-main">
+        <img src="../icons/ubuntu.svg" class="distro-icon" alt="Ubuntu Server" width="26" height="26" loading="lazy">
+        <div class="distro-body">
+          <div class="distro-title">Ubuntu Server</div>
+          <div class="distro-desc">Серверная система без графической оболочки под Docker, веб-серверы, базы данных и облака.</div>
+        </div>
+      </div>
+      <div class="distro-actions">
+        <a class="btn" href="https://ubuntu.com/download/server" target="_blank" rel="noopener">Скачать ISO ↗</a>
+      </div>
+    </div>
+
+    <div class="distro-card">
+      <div class="distro-main">
+        <img src="../icons/linuxmint.svg" class="distro-icon" alt="Linux Mint" width="26" height="26" loading="lazy">
+        <div class="distro-body">
+          <div class="distro-title">Linux Mint</div>
+          <div class="distro-desc">Привычный интерфейс Cinnamon, встроенные кодеки и продуманная система «из коробки» для перехода с Windows.</div>
+        </div>
+      </div>
+      <div class="distro-actions">
+        <a class="btn" href="https://linuxmint.com/download.php" target="_blank" rel="noopener">Скачать ISO ↗</a>
+      </div>
+    </div>
+
+    <div class="distro-card">
+      <div class="distro-main">
+        <img src="../icons/opensuse.svg" class="distro-icon" alt="openSUSE" width="26" height="26" loading="lazy">
+        <div class="distro-body">
+          <div class="distro-title">openSUSE</div>
+          <div class="distro-desc">Роллинг-релиз Tumbleweed или стабильный Leap с центром настройки YaST и файловой системой Btrfs.</div>
+        </div>
+      </div>
+      <div class="distro-actions">
+        <a class="btn" href="https://get.opensuse.org/" target="_blank" rel="noopener">Скачать ISO ↗</a>
+      </div>
+    </div>
   </div>
 
-  <!-- Distros Grid -->
-  <section class="grid" id="distros"></section>
+  <!-- Windows -->
+  <h2 class="section-title">Образы Windows</h2>
+  <div class="distro-list">
+    <div class="distro-card">
+      <div class="distro-main">
+        <img src="../icons/windows11.svg" class="distro-icon" alt="Windows 11" width="26" height="26" loading="lazy">
+        <div class="distro-body">
+          <div class="distro-title">Windows 11</div>
+          <div class="distro-desc">Официальный образ Windows 11 (24H2 / 23H2). Для чистой установки используй autounattend.xml выше.</div>
+        </div>
+      </div>
+      <div class="distro-actions">
+        <a class="btn" href="https://www.microsoft.com/software-download/windows11" target="_blank" rel="noopener">Официальный ISO ↗</a>
+        <a class="btn-subtle" href="https://massgrave.dev/" target="_blank" rel="noopener">Massgrave</a>
+      </div>
+    </div>
+
+    <div class="distro-card">
+      <div class="distro-main">
+        <img src="../icons/windows10.svg" class="distro-icon" alt="Windows 10" width="26" height="26" loading="lazy">
+        <div class="distro-body">
+          <div class="distro-title">Windows 10</div>
+          <div class="distro-desc">Официальный образ Windows 10 22H2. Полностью совместим с нашим autounattend.xml.</div>
+        </div>
+      </div>
+      <div class="distro-actions">
+        <a class="btn" href="https://www.microsoft.com/software-download/windows10ISO" target="_blank" rel="noopener">Официальный ISO ↗</a>
+      </div>
+    </div>
+  </div>
 
   <footer>
     Все образы и торговые марки принадлежат их авторам и разработчикам.
   </footer>
 </div>
 
-<script>
-  const distros = [
-    {
-      name: "CachyOS",
-      category: "Linux",
-      badge: "Рекомендую",
-      icon: "../icons/cachyos.svg",
-      desc: "Быстрый Arch-based дистрибутив с ядрами, скомпилированными под x86-64-v3/v4, планировщиком BORE и максимальным FPS в играх.",
-      links: [
-        { title: "Скачать ISO ↗", url: "https://iso.cachyos.org/desktop/260809/cachyos-desktop-linux-260809.iso", primary: true },
-        { title: "Зеркала", url: "https://sourceforge.net/projects/cachyos-arch/files/" }
-      ]
-    },
-    {
-      name: "Windows 11",
-      category: "Windows",
-      badge: "24H2 / 23H2",
-      icon: "../icons/windows11.svg",
-      desc: "Официальный ISO-образ Microsoft Windows 11. Отлично работает в паре с нашим autounattend.xml для обхода TPM и создания локального аккаунта.",
-      links: [
-        { title: "Официальный ISO ↗", url: "https://www.microsoft.com/software-download/windows11", primary: true },
-        { title: "Massgrave (MAS)", url: "https://massgrave.dev/" }
-      ]
-    },
-    {
-      name: "Windows 10",
-      category: "Windows",
-      badge: "22H2 Pro/Home",
-      icon: "../icons/windows10.svg",
-      desc: "Проверенная временем стабильная операционная система. Поддерживает установку без мусора через предоставленный autounattend.xml.",
-      links: [
-        { title: "Официальный ISO ↗", url: "https://www.microsoft.com/software-download/windows10ISO", primary: true }
-      ]
-    },
-    {
-      name: "Arch Linux",
-      category: "Linux",
-      badge: "Rolling Release",
-      icon: "../icons/archlinux.svg",
-      desc: "Легендарный легковесный дистрибутив с роллинг-обновлениями, менеджером пакетов pacman и доступом к пользовательскому репозиторию AUR.",
-      links: [
-        { title: "Скачать ISO ↗", url: "https://archlinux.org/download/", primary: true },
-        { title: "Зеркала РФ/Мир", url: "https://geo.mirror.pkgbuild.com/iso/latest/" }
-      ]
-    },
-    {
-      name: "Fedora Workstation",
-      category: "Linux",
-      badge: "Свежий софт",
-      icon: "../icons/fedora.svg",
-      desc: "Современная, надежная система на базе RPM. Свежее ядро, чистая среда GNOME или KDE Plasma, Wayland и поддержка PipeWire из коробки.",
-      links: [
-        { title: "Скачать ISO ↗", url: "https://fedoraproject.org/workstation/download", primary: true },
-        { title: "KDE Plasma Spin", url: "https://fedoraproject.org/kde/" }
-      ]
-    },
-    {
-      name: "Debian",
-      category: "Linux",
-      badge: "Эталон стабильности",
-      icon: "../icons/debian.svg",
-      desc: "«Универсальная операционная система». Максимальная стабильность, открытость и надежность, ставшая основой для Ubuntu и сотен других ОС.",
-      links: [
-        { title: "Скачать Netinst ↗", url: "https://www.debian.org/distrib/", primary: true },
-        { title: "DVD ISO", url: "https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/" }
-      ]
-    },
-    {
-      name: "Ubuntu Desktop",
-      category: "Linux",
-      badge: "Популярный выбор",
-      icon: "../icons/ubuntu.svg",
-      desc: "Самый известный десктопный Linux. Огромная база софта, драйверы для видеокарт в один клик и долгосрочная поддержка (LTS).",
-      links: [
-        { title: "Скачать ISO ↗", url: "https://ubuntu.com/download/desktop", primary: true }
-      ]
-    },
-    {
-      name: "Ubuntu Server",
-      category: "Сервер",
-      badge: "LTS Server",
-      icon: "../icons/ubuntu.svg",
-      desc: "Легковесная серверная система без графической оболочки. Стандарт индустрии для хостинга, Docker, баз данных и виртуализации.",
-      links: [
-        { title: "Скачать ISO ↗", url: "https://ubuntu.com/download/server", primary: true }
-      ]
-    },
-    {
-      name: "Linux Mint",
-      category: "Linux",
-      badge: "Для новичков",
-      icon: "../icons/linuxmint.svg",
-      desc: "Идеальный дистрибутив для плавного перехода с Windows: привычный рабочий стол Cinnamon, готовые кодеки и продуманный центр приложений.",
-      links: [
-        { title: "Скачать ISO ↗", url: "https://linuxmint.com/download.php", primary: true }
-      ]
-    },
-    {
-      name: "openSUSE",
-      category: "Linux",
-      badge: "Tumbleweed / Leap",
-      icon: "../icons/opensuse.svg",
-      desc: "Мощная ОС от европейских инженеров: роллинг-релиз Tumbleweed или ультра-стабильный Leap с центром настройки YaST и Btrfs со снимками.",
-      links: [
-        { title: "Скачать ISO ↗", url: "https://get.opensuse.org/", primary: true }
-      ]
-    }
-  ];
-
-  const categories = ["все", "Linux", "Windows", "Сервер"];
-  let selectedCategory = "все";
-  const f = document.getElementById("filters");
-  const q = document.getElementById("q");
-  const container = document.getElementById("distros");
-
-  // Render Category Chips
-  f.innerHTML = categories.map(c => `<button type="button" class="chip${c === selectedCategory ? " active" : ""}" data-c="${c}">${c}</button>`).join("");
-
-  f.onclick = (e) => {
-    const target = e.target.closest(".chip");
-    if (!target || !target.dataset.c) return;
-    selectedCategory = target.dataset.c;
-    f.querySelectorAll(".chip").forEach(el => el.classList.toggle("active", el.dataset.c === selectedCategory));
-    render();
-  };
-
-  q.oninput = render;
-
-  function render() {
-    const search = q.value.toLowerCase().trim();
-    const list = distros.filter(d => {
-      const matchCat = (selectedCategory === "все" || d.category === selectedCategory);
-      const matchSearch = (d.name + " " + d.desc + " " + d.category).toLowerCase().includes(search);
-      return matchCat && matchSearch;
-    });
-
-    container.innerHTML = list.length ? list.map(d => `
-      <article class="card">
-        <div class="card-top">
-          <div class="card-header">
-            <img src="${d.icon}" class="card-icon" alt="${d.name}" loading="lazy" width="28" height="28">
-            <div class="card-title-wrap">
-              <h3 class="card-title">${d.name}</h3>
-              <span class="card-category">${d.category}</span>
-            </div>
-          </div>
-          ${d.badge ? `<span class="badge">${d.badge}</span>` : ""}
-        </div>
-        <p class="card-desc">${d.desc}</p>
-        <div class="card-actions">
-          ${d.links.map(l => `
-            <a class="btn ${l.primary ? "hero-btn-primary" : "btn-subtle"}" href="${l.url}" target="_blank" rel="noopener">
-              ${l.title}
-            </a>
-          `).join("")}
-        </div>
-      </article>
-    `).join("") : `<p class="empty">Ничего не найдено</p>`;
-  }
-
-  render();
-</script>
 </body>
 </html>

@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дистрибутивы ОС и автоустановка — gogaportwine</title>
+<meta name="description" content="Официальные образы Linux и Windows (10/11), конфиг autounattend.xml для чистой автоматической установки без мусора.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gogaportwine.online/os/">
+<meta property="og:title" content="Дистрибутивы ОС и автоустановка — gogaportwine">
+<meta property="og:description" content="Официальные ISO образы Linux и Windows, готовый autounattend.xml для чистой установки.">
+<meta property="og:image" content="https://gogaportwine.online/avatar.jpg">
+<meta name="theme-color" content="#09090b">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="alternate icon" href="../favicon.ico">
+
+<!-- Shared Stylesheet -->
+<link rel="stylesheet" href="../style.css">
+
+<style>
+  body {
+    padding: 32px 16px 48px;
+  }
+
+  .container {
+    max-width: 860px;
+    gap: 20px;
+  }
+
+  .back-link {
+    font-size: 12.5px;
+    font-family: var(--font-mono);
+    color: var(--fg-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    width: fit-content;
+  }
+  .back-link:hover {
+    color: #fff;
+    border-color: var(--border-hover);
+    text-decoration: none;
+  }
+
+  .header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+  .header p {
+    font-size: 13px;
+    color: var(--fg-muted);
+    margin-top: 2px;
+  }
+
+  /* Hero Section: autounattend.xml */
+  .hero-card {
+    background: linear-gradient(180deg, #16161b 0%, #111114 100%);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.4), transparent);
+  }
+  .hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .hero-title-area {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .hero-icon {
+    width: 38px;
+    height: 38px;
+    background: rgba(0, 120, 212, 0.12);
+    border: 1px solid rgba(0, 120, 212, 0.3);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .hero-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .hero-subtitle {
+    font-size: 12px;
+    color: var(--fg-muted);
+    margin-top: 2px;
+  }
+  .badges {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 10.5px;
+    font-family: var(--font-mono);
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--card-hover);
+    border: 1px solid var(--border);
+    color: var(--fg-muted);
+  }
+  .badge-accent {
+    background: rgba(96, 165, 250, 0.12);
+    border-color: rgba(96, 165, 250, 0.25);
+    color: #93c5fd;
+  }
+
+  .hero-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 8px;
+    padding: 12px 0 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .feature-item {
+    font-size: 12px;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    line-height: 1.4;
+  }
+  .feature-bullet {
+    color: #60a5fa;
+    font-size: 13px;
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .hero-btn-primary {
+    background: #2563eb;
+    border-color: #3b82f6;
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+  }
+  .hero-btn-primary:hover {
+    background: #1d4ed8;
+    border-color: #60a5fa;
+    color: #fff;
+  }
+
+  /* Search & Filter Bar */
+  .bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search-input {
+    flex: 1;
+    min-width: 200px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--fg);
+    padding: 7px 12px;
+    font-size: 13px;
+    font-family: var(--font);
+    outline: none;
+    transition: border-color 140ms var(--ease);
+  }
+  .search-input:focus {
+    border-color: var(--border-hover);
+  }
+  .chips {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--fg-muted);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    cursor: pointer;
+    transition: all 140ms var(--ease);
+  }
+  .chip:hover {
+    color: #fff;
+    border-color: var(--border-hover);
+  }
+  .chip.active {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+    font-weight: 600;
+  }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 140ms var(--ease), background 140ms var(--ease);
+  }
+  .card:hover {
+    border-color: var(--border-hover);
+    background: var(--card-hover);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .card-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .card-title-wrap {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .card-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--fg);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-category {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--fg-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .card-desc {
+    font-size: 12px;
+    color: var(--fg-muted);
+    line-height: 1.4;
+    flex: 1;
+  }
+  .card-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding-top: 4px;
+    flex-wrap: wrap;
+  }
+  .card-actions .btn {
+    padding: 5px 9px;
+    font-size: 11.5px;
+  }
+
+  .empty {
+    color: var(--fg-muted);
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 32px 0;
+    font-size: 13px;
+  }
+
+  /* Modal (Instructions & Code) */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: none;
+    place-items: center;
+    padding: 20px;
+  }
+  .modal-overlay.active {
+    display: grid;
+  }
+  .modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 720px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .modal-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .modal-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--fg-dim);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    line-height: 1;
+  }
+  .modal-close:hover {
+    color: #fff;
+  }
+  .modal-body {
+    padding: 16px 18px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .guide-step {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .guide-title {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .guide-text {
+    font-size: 12px;
+    color: var(--fg-muted);
+    line-height: 1.45;
+  }
+  .code-container {
+    position: relative;
+    background: #09090b;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .code-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    background: #141418;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-dim);
+  }
+  .code-block {
+    padding: 12px;
+    max-height: 320px;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: #d4d4d8;
+    line-height: 1.45;
+    white-space: pre;
+  }
+
+  footer {
+    padding-top: 16px;
+    font-size: 11.5px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div>
+    <a class="back-link" href="../">← gogaportwine.online</a>
+  </div>
+
+  <header class="header" style="display: flex; align-items: center; gap: 14px;">
+    <div style="width: 44px; height: 44px; border-radius: 10px; background: var(--card); border: 1px solid var(--border); display: grid; place-items: center; flex-shrink: 0;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: #60a5fa;">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+        <line x1="8" y1="21" x2="16" y2="21"></line>
+        <line x1="12" y1="17" x2="12" y2="21"></line>
+      </svg>
+    </div>
+    <div>
+      <h1 style="margin: 0;">Дистрибутивы ОС и автоустановка</h1>
+      <p style="margin: 2px 0 0 0;">Проверенные дистрибутивы Linux, Windows 10/11 и готовый файл ответов для чистой установки.</p>
+    </div>
+  </header>
+
+  <!-- Hero Card: autounattend.xml -->
+  <section class="hero-card">
+    <div class="hero-top">
+      <div class="hero-title-area">
+        <div class="hero-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0078d4">
+            <path d="M0,0H11.377V11.372H0ZM12.623,0H24V11.372H12.623ZM0,12.623H11.377V24H0Zm12.623,0H24V24H12.623"/>
+          </svg>
+        </div>
+        <div>
+          <div class="hero-title">autounattend.xml — Чистая Windows без мусора</div>
+          <div class="hero-subtitle">Универсальный файл ответов для тихой установки Windows 11 &amp; Windows 10 (Pro, 64-bit).</div>
+        </div>
+      </div>
+      <div class="badges">
+        <span class="badge badge-accent">Win 11 &amp; Win 10</span>
+        <span class="badge">Pro x64</span>
+        <span class="badge">TPM Bypass</span>
+        <span class="badge">Без онлайна</span>
+      </div>
+    </div>
+
+    <div class="hero-features">
+      <div class="feature-item">
+        <span class="feature-bullet">✓</span>
+        <span><strong>Локальный Admin:</strong> авто-создание админа без пароля и без обязательной привязки учетной записи Microsoft.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-bullet">✓</span>
+        <span><strong>Обход требований:</strong> вырезает проверки TPM 2.0, Secure Boot и лимита оперативной памяти при установке.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-bullet">✓</span>
+        <span><strong>Деблоат системы:</strong> удаляет Copilot, Recall, Cortana, Teams, OneDrive, Bing News, игры и промо-хлам.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-bullet">✓</span>
+        <span><strong>Твики системы:</strong> классическое меню проводника (Shift+F10 не нужен), показ расширений файлов, темная тема и пункт «Снять задачу» в таскбаре.</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn hero-btn-primary" href="autounattend.xml" download="autounattend.xml">
+        Скачать autounattend.xml (29 КБ)
+      </a>
+      <button type="button" class="btn" id="open-modal-btn">
+        Инструкция и код XML ↗
+      </button>
+    </div>
+  </section>
+
+  <!-- Filter & Search Bar -->
+  <div class="bar">
+    <input class="search-input" id="q" placeholder="Поиск дистрибутива по названию или описанию…" aria-label="Поиск дистрибутива">
+    <div class="chips" id="filters"></div>
+  </div>
+
+  <!-- Distros Grid -->
+  <section class="grid" id="distros"></section>
+
+  <footer>
+    Все образы и торговые марки принадлежат их авторам и разработчикам.
+  </footer>
+</div>
+
+<!-- Modal: Guide & XML Code -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-label="Инструкция и код autounattend.xml">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Как использовать autounattend.xml</div>
+      <button class="modal-close" id="close-modal-btn" aria-label="Закрыть">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="guide-step">
+        <div class="guide-title">1. Установка с флешки Ventoy (Рекомендуется)</div>
+        <div class="guide-text">
+          Просто скопируйте файл <code>autounattend.xml</code> в корень вашей флешки Ventoy рядом с ISO-образами Windows. Ventoy автоматически найдет файл конфигурации и применит его при старте установки.
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-title">2. Установка со стандартной флешки (Rufus)</div>
+        <div class="guide-text">
+          Запишите образ Windows 10 или 11 на флешку через Rufus, затем скопируйте <code>autounattend.xml</code> в самый корень готовой флешки. При загрузке с USB установщик Windows автоматически подхватит настройки.
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-title">Код файла конфигурации:</div>
+        <div class="code-container">
+          <div class="code-bar">
+            <span>autounattend.xml</span>
+            <button type="button" class="btn" id="copy-btn" style="padding: 3px 8px; font-size: 11px;">Копировать</button>
+          </div>
+          <pre class="code-block" id="code-block"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Raw XML embed for instant client-side preview -->
+<script type="text/plain" id="raw-xml-data">
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+	<!-- generated via schneegans.de unattend-generator -->
+	<settings pass="windowsPE">
+		<component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<UILanguage>ru-RU</UILanguage>
+		</component>
+		<component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<UserData>
+				<ProductKey>
+					<Key>VK7JG-NPHTM-C97JM-9MPGT-3V66T</Key>
+					<WillShowUI>OnError</WillShowUI>
+				</ProductKey>
+				<AcceptEula>true</AcceptEula>
+			</UserData>
+			<RunSynchronous>
+				<!-- Bypass TPM 2.0, SecureBoot, RAM checks for Windows 11 -->
+				<RunSynchronousCommand wcm:action="add">
+					<Order>1</Order>
+					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassTPMCheck /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>2</Order>
+					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassSecureBootCheck /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>3</Order>
+					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassRAMCheck /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+			</RunSynchronous>
+		</component>
+	</settings>
+	<!-- Full unattended file available via Download button -->
+</unattend>
+</script>
+
+<script>
+  const distros = [
+    {
+      name: "CachyOS",
+      category: "Linux",
+      badge: "Рекомендую",
+      icon: "../icons/cachyos.svg",
+      desc: "Быстрый Arch-based дистрибутив с ядрами, скомпилированными под x86-64-v3/v4, планировщиком BORE и максимальным FPS в играх.",
+      links: [
+        { title: "Скачать ISO ↗", url: "https://cachyos.org/download/", primary: true },
+        { title: "Зеркала", url: "https://sourceforge.net/projects/cachyos-arch/files/" }
+      ]
+    },
+    {
+      name: "Windows 11",
+      category: "Windows",
+      badge: "24H2 / 23H2",
+      icon: "../icons/windows11.svg",
+      desc: "Официальный ISO-образ Microsoft Windows 11. Отлично работает в паре с нашим autounattend.xml для обхода TPM и создания локального аккаунта.",
+      links: [
+        { title: "Официальный ISO ↗", url: "https://www.microsoft.com/software-download/windows11", primary: true },
+        { title: "Massgrave (MAS)", url: "https://massgrave.dev/" }
+      ]
+    },
+    {
+      name: "Windows 10",
+      category: "Windows",
+      badge: "22H2 Pro/Home",
+      icon: "../icons/windows10.svg",
+      desc: "Проверенная временем стабильная операционная система. Поддерживает установку без мусора через предоставленный autounattend.xml.",
+      links: [
+        { title: "Официальный ISO ↗", url: "https://www.microsoft.com/software-download/windows10ISO", primary: true }
+      ]
+    },
+    {
+      name: "Arch Linux",
+      category: "Linux",
+      badge: "Rolling Release",
+      icon: "../icons/archlinux.svg",
+      desc: "Легендарный легковесный дистрибутив с роллинг-обновлениями, менеджером пакетов pacman и доступом к пользовательскому репозиторию AUR.",
+      links: [
+        { title: "Скачать ISO ↗", url: "https://archlinux.org/download/", primary: true },
+        { title: "Зеркала РФ/Мир", url: "https://geo.mirror.pkgbuild.com/iso/latest/" }
+      ]
+    },
+    {
+      name: "Fedora Workstation",
+      category: "Linux",
+      badge: "Свежий софт",
+      icon: "../icons/fedora.svg",
+      desc: "Современная, надежная система на базе RPM. Свежее ядро, чистая среда GNOME или KDE Plasma, Wayland и поддержка PipeWire из коробки.",
+      links: [
+        { title: "Скачать ISO ↗", url: "https://fedoraproject.org/workstation/download", primary: true },
+        { title: "KDE Plasma Spin", url: "https://fedoraproject.org/kde/" }
+      ]
+    },
+    {
+      name: "Debian",
+      category: "Linux",
+      badge: "Эталон стабильности",
+      icon: "../icons/debian.svg",
+      desc: "«Универсальная операционная система». Максимальная стабильность, открытость и надежность, ставшая основой для Ubuntu и сотен других ОС.",
+      links: [
+        { title: "Скачать Netinst ↗", url: "https://www.debian.org/distrib/", primary: true },
+        { title: "DVD ISO", url: "https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/" }
+      ]
+    },
+    {
+      name: "Ubuntu Desktop",
+      category: "Linux",
+      badge: "Популярный выбор",
+      icon: "../icons/ubuntu.svg",
+      desc: "Самый известный десктопный Linux. Огромная база софта, драйверы для видеокарт в один клик и долгосрочная поддержка (LTS).",
+      links: [
+        { title: "Скачать ISO ↗", url: "https://ubuntu.com/download/desktop", primary: true }
+      ]
+    },
+    {
+      name: "Ubuntu Server",
+      category: "Сервер",
+      badge: "LTS Server",
+      icon: "../icons/ubuntu.svg",
+      desc: "Легковесная серверная система без графической оболочки. Стандарт индустрии для хостинга, Docker, баз данных и виртуализации.",
+      links: [
+        { title: "Скачать ISO ↗", url: "https://ubuntu.com/download/server", primary: true }
+      ]
+    },
+    {
+      name: "Linux Mint",
+      category: "Linux",
+      badge: "Для новичков",
+      icon: "../icons/linuxmint.svg",
+      desc: "Идеальный дистрибутив для плавного перехода с Windows: привычный рабочий стол Cinnamon, готовые кодеки и продуманный центр приложений.",
+      links: [
+        { title: "Скачать ISO ↗", url: "https://linuxmint.com/download.php", primary: true }
+      ]
+    },
+    {
+      name: "openSUSE",
+      category: "Linux",
+      badge: "Tumbleweed / Leap",
+      icon: "../icons/opensuse.svg",
+      desc: "Мощная ОС от европейских инженеров: роллинг-релиз Tumbleweed или ультра-стабильный Leap с центром настройки YaST и Btrfs со снимками.",
+      links: [
+        { title: "Скачать ISO ↗", url: "https://get.opensuse.org/", primary: true }
+      ]
+    }
+  ];
+
+  const categories = ["все", "Linux", "Windows", "Сервер"];
+  let selectedCategory = "все";
+  const f = document.getElementById("filters");
+  const q = document.getElementById("q");
+  const container = document.getElementById("distros");
+  const modal = document.getElementById("modal");
+  const openModalBtn = document.getElementById("open-modal-btn");
+  const closeModalBtn = document.getElementById("close-modal-btn");
+  const copyBtn = document.getElementById("copy-btn");
+  const codeBlock = document.getElementById("code-block");
+
+  // Render Category Chips
+  f.innerHTML = categories.map(c => `<button type="button" class="chip${c === selectedCategory ? " active" : ""}" data-c="${c}">${c}</button>`).join("");
+
+  f.onclick = (e) => {
+    const target = e.target.closest(".chip");
+    if (!target || !target.dataset.c) return;
+    selectedCategory = target.dataset.c;
+    f.querySelectorAll(".chip").forEach(el => el.classList.toggle("active", el.dataset.c === selectedCategory));
+    render();
+  };
+
+  q.oninput = render;
+
+  function render() {
+    const search = q.value.toLowerCase().trim();
+    const list = distros.filter(d => {
+      const matchCat = (selectedCategory === "все" || d.category === selectedCategory);
+      const matchSearch = (d.name + " " + d.desc + " " + d.category).toLowerCase().includes(search);
+      return matchCat && matchSearch;
+    });
+
+    container.innerHTML = list.length ? list.map(d => `
+      <article class="card">
+        <div class="card-top">
+          <div class="card-header">
+            <img src="${d.icon}" class="card-icon" alt="${d.name}" loading="lazy" width="28" height="28">
+            <div class="card-title-wrap">
+              <h3 class="card-title">${d.name}</h3>
+              <span class="card-category">${d.category}</span>
+            </div>
+          </div>
+          ${d.badge ? `<span class="badge">${d.badge}</span>` : ""}
+        </div>
+        <p class="card-desc">${d.desc}</p>
+        <div class="card-actions">
+          ${d.links.map(l => `
+            <a class="btn ${l.primary ? "hero-btn-primary" : "btn-subtle"}" href="${l.url}" target="_blank" rel="noopener">
+              ${l.title}
+            </a>
+          `).join("")}
+        </div>
+      </article>
+    `).join("") : `<p class="empty">Ничего не найдено</p>`;
+  }
+
+  // Load and display full XML inside modal
+  let fullXmlContent = "";
+  fetch("autounattend.xml")
+    .then(res => res.text())
+    .then(text => {
+      fullXmlContent = text;
+      codeBlock.textContent = text;
+    })
+    .catch(() => {
+      const fallback = document.getElementById("raw-xml-data").textContent.trim();
+      fullXmlContent = fallback;
+      codeBlock.textContent = fallback;
+    });
+
+  // Modal handlers
+  function openModal() {
+    modal.classList.add("active");
+  }
+  function closeModal() {
+    modal.classList.remove("active");
+  }
+
+  openModalBtn.onclick = openModal;
+  closeModalBtn.onclick = closeModal;
+  modal.onclick = (e) => {
+    if (e.target === modal) closeModal();
+  };
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("active")) {
+      closeModal();
+    }
+  });
+
+  // Copy code button
+  copyBtn.onclick = () => {
+    const textToCopy = fullXmlContent || codeBlock.textContent;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const old = copyBtn.textContent;
+      copyBtn.textContent = "Скопировано!";
+      copyBtn.style.color = "#86efac";
+      setTimeout(() => {
+        copyBtn.textContent = old;
+        copyBtn.style.color = "";
+      }, 1800);
+    }).catch(() => {
+      copyBtn.textContent = "Ошибка копирования";
+    });
+  };
+
+  render();
+</script>
+</body>
+</html>

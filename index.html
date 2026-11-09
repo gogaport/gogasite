@@ -99,7 +99,19 @@
     font-size: 11px;
   }
 
-  /* osu! Full-Width Banner */
+  /* Banners Grid */
+  .banners-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 760px) {
+    .banners-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Banner Cards */
   .osu-banner {
     display: flex;
     justify-content: space-between;
@@ -356,21 +368,42 @@
     </nav>
   </div>
 
-  <!-- osu! Full-Width Banner -->
-  <aside class="osu-banner">
-    <div class="osu-banner-main">
-      <img src="icons/osu.svg" class="osu-banner-icon" alt="osu!" width="32" height="32" loading="lazy">
-      <div class="osu-banner-text">
-        <div class="osu-banner-title">Скины для osu!</div>
-        <div class="osu-banner-desc">
-          Проверенные скины под стандартный режим: Rafis, Cookiezi, WhiteCat и другие.
+  <!-- Banners: OS & osu! -->
+  <div class="banners-grid">
+    <aside class="osu-banner">
+      <div class="osu-banner-main">
+        <div style="width: 32px; height: 32px; border-radius: 6px; background: rgba(0, 120, 212, 0.12); border: 1px solid rgba(0, 120, 212, 0.3); display: grid; place-items: center; flex-shrink: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#0078d4">
+            <path d="M0,0H11.377V11.372H0ZM12.623,0H24V11.372H12.623ZM0,12.623H11.377V24H0Zm12.623,0H24V24H12.623"/>
+          </svg>
+        </div>
+        <div class="osu-banner-text">
+          <div class="osu-banner-title">Дистрибутивы и Windows</div>
+          <div class="osu-banner-desc">
+            Официальные ISO (Linux, Win 10/11) + чистый autounattend.xml.
+          </div>
         </div>
       </div>
-    </div>
-    <a class="btn osu-banner-btn" href="skins/">
-      Каталог скинов <span class="arr">→</span>
-    </a>
-  </aside>
+      <a class="btn osu-banner-btn" href="os/">
+        Каталог ОС <span class="arr">→</span>
+      </a>
+    </aside>
+
+    <aside class="osu-banner">
+      <div class="osu-banner-main">
+        <img src="icons/osu.svg" class="osu-banner-icon" alt="osu!" width="32" height="32" loading="lazy">
+        <div class="osu-banner-text">
+          <div class="osu-banner-title">Скины для osu!</div>
+          <div class="osu-banner-desc">
+            Проверенные скины: Rafis, Cookiezi, WhiteCat и другие.
+          </div>
+        </div>
+      </div>
+      <a class="btn osu-banner-btn" href="skins/">
+        Каталог скинов <span class="arr">→</span>
+      </a>
+    </aside>
+  </div>
 
   <!-- 2-Column Main Content -->
   <main class="main-grid">
@@ -590,7 +623,13 @@
   <!-- Footer -->
   <footer>
     <span>gogaportwine.online</span>
-    <span>2026</span>
+    <span style="display: flex; gap: 10px;">
+      <a href="os/">ОС &amp; ISO</a>
+      <span>·</span>
+      <a href="skins/">osu! скины</a>
+      <span>·</span>
+      <span>2026</span>
+    </span>
   </footer>
 </div>
 

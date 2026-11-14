@@ -31,37 +31,6 @@
     gap: 20px;
   }
 
-  .back-link {
-    font-size: 12.5px;
-    font-family: var(--font-mono);
-    color: var(--fg-muted);
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 8px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    width: fit-content;
-  }
-  .back-link:hover {
-    color: #fff;
-    border-color: var(--border-hover);
-    text-decoration: none;
-  }
-
-  .header h1 {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--fg);
-    letter-spacing: -0.01em;
-  }
-  .header p {
-    font-size: 13px;
-    color: var(--fg-muted);
-    margin-top: 2px;
-  }
-
   .bar {
     display: flex;
     gap: 8px;
@@ -363,9 +332,7 @@
         <div class="info">
           <h3>${k.name}</h3>
           <div class="meta">by ${k.author}</div>
-          ${k.file && k.file !== "#" 
-            ? `<a class="btn" href="${k.file}">Скачать .osk</a>` 
-            : `<span class="btn off">Скоро</span>`}
+          <a class="btn" href="${k.file}">Скачать .osk</a>
         </div>
       </article>
     `).join("") : `<p class="empty">Ничего не найдено</p>`;

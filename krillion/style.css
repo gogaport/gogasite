@@ -42,6 +42,14 @@
   --hairline: #c6d5ec80;
 }
 
+:root.lowpower .ds-crt,
+:root.lowpower .ds-edge,
+:root.lowpower .ds-begin-btn,
+:root.lowpower .ds-mascot.gold::before,
+:root.lowpower .ds-landed .icon {
+  animation: none !important;
+}
+
 :root.colorblind .ds-crt {
   opacity: 0.14;
 }
@@ -263,7 +271,7 @@ a {
 }
 
 .ds-amb.L { left: 14px; }
-.ds-amb.R { text-align: right; right: 64px; }
+.ds-amb.R { text-align: right; right: 196px; max-width: calc(100vw - 220px); }
 .ds-amb .dash { color: #7d93b873; }
 .ds-amb.major {
   color: var(--color-lumen-cyan);
@@ -273,8 +281,14 @@ a {
   font-weight: 600;
 }
 
-.ds-world.ds-reveal .ds-amb { opacity: 0.86; }
-.ds-world.ds-reveal .ds-amb.major { opacity: 1; }
+.ds-world.ds-reveal .ds-amb { opacity: 0.42; }
+.ds-world.ds-reveal .ds-amb.major { opacity: 0.72; }
+.ds-root[data-phase="done"] #world-markers,
+.ds-root[data-phase="done"] #round-layer { opacity: 0; pointer-events: none; }
+
+@media (max-width: 760px) {
+  .ds-amb.R { left: 14px; right: auto; text-align: left; max-width: 68vw; }
+}
 
 /* Tier Threshold Dashed Lines */
 .ds-tierline {
@@ -313,6 +327,8 @@ a {
   border-top-color: var(--tc);
   box-shadow: 0 0 16px var(--tc);
   animation: 0.6s ease-out ds-line-flash;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 16%, rgba(0, 0, 0, 0.14) 34%, rgba(0, 0, 0, 0.14) 66%, #000 84%, #000 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 16%, rgba(0, 0, 0, 0.14) 34%, rgba(0, 0, 0, 0.14) 66%, #000 84%, #000 100%);
 }
 
 .ds-tierline.passed .tag {
@@ -377,8 +393,8 @@ a {
   margin-top: -104px;
   text-align: center;
   z-index: 7;
-  padding: 12px 14px;
-  background: transparent;
+  padding: 14px 16px;
+  background: radial-gradient(ellipse at center, rgba(5, 10, 20, 0.72) 0%, rgba(5, 10, 20, 0.28) 58%, transparent 82%);
   border: none;
   box-shadow: none;
   pointer-events: none;
@@ -652,6 +668,9 @@ a {
 @media (max-width: 560px) {
   .ds-pod { min-width: 72px; padding: 5px 10px 4px; }
   .ds-depth-num, .ds-score-num { font-size: 21px; }
+  .ds-begin-btn { font-size: clamp(14px, 4.1vw, 19px); letter-spacing: 0.08em; padding: 14px 12px 12px; }
+  .ds-card { right: 48px; padding: 14px 16px 13px; }
+  .ds-dive-btn { padding: 11px 12px 9px; font-size: 16px; }
 }
 
 /* Prompt Card */
@@ -1335,7 +1354,8 @@ a {
   inset: 0;
   z-index: 18;
   overflow-y: auto;
-  background: linear-gradient(180deg, rgba(5, 10, 20, 0.80) 0%, rgba(5, 10, 20, 0.68) 28%, rgba(5, 10, 20, 0.86) 68%, rgba(5, 10, 20, 0.95) 100%);
+  background: linear-gradient(180deg, rgba(5, 10, 20, 0.88) 0%, rgba(5, 10, 20, 0.83) 34%, rgba(5, 10, 20, 0.94) 100%);
+  backdrop-filter: blur(2px);
   display: none;
   padding: 20px 16px 46px;
 }

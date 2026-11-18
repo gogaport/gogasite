@@ -151,12 +151,12 @@
 
   const sfx = new SoundFX();
 
-  // ---------------- Text Matching & Phonetic Transliteration ----------------
+  // ---------------- Text Matching, Morphology & Phonetic Transliteration ----------------
   function normalizeInput(str) {
     return (str || '')
       .toLowerCase()
       .replace(/ё/g, 'е')
-      .replace(/[’'`]/g, '')
+      .replace(/[’'`"«»()]/g, ' ')
       .replace(/[^a-zа-я0-9+#* ]/gi, ' ')
       .replace(/\s+/g, ' ')
       .trim();
@@ -175,18 +175,84 @@
       .replace(/(.)\1+/g, '$1');
   }
 
+  const ROMAN_TO_ARABIC = {
+    i: '1', ii: '2', iii: '3', iv: '4', v: '5',
+    vi: '6', vii: '7', viii: '8', ix: '9', x: '10',
+    xi: '11', xii: '12'
+  };
+
+  function swapNumerals(normStr) {
+    const tokens = normStr.split(' ');
+    if (tokens.length < 2) return normStr;
+    return tokens.map((tok, idx) => {
+      if (ROMAN_TO_ARABIC[tok] && (idx > 0 || tok.length >= 2)) {
+        return ROMAN_TO_ARABIC[tok];
+      }
+      return tok;
+    }).join(' ');
+  }
+
   const GENERIC_WORDS = new Set([
     'море', 'океан', 'сыр', 'город', 'цвет', 'оттенок', 'дерево', 'куст',
-    'кустарник', 'птица', 'животное', 'камень', 'минерал', 'игра', 'фильм',
-    'мультфильм', 'мультик', 'книга', 'роман', 'повесть', 'инструмент',
-    'страна', 'республика', 'паста', 'макароны', 'герой', 'персонаж', 'бог',
-    'профессия', 'порода', 'собака', 'машина', 'автомобиль', 'марка', 'язык',
-    'the', 'a', 'an', 'of'
+    'кустарник', 'птица', 'животное', 'камень', 'минерал', 'металл', 'элемент',
+    'игра', 'видеоигра', 'фильм', 'сериал', 'мультфильм', 'мультик', 'аниме',
+    'книга', 'роман', 'повесть', 'сказка', 'инструмент', 'страна', 'республика',
+    'паста', 'макароны', 'герой', 'персонаж', 'бог', 'богиня', 'профессия',
+    'порода', 'собака', 'кошка', 'кот', 'машина', 'автомобиль', 'марка', 'бренд',
+    'компания', 'язык', 'соус', 'заправка', 'суп', 'блюдо', 'десерт', 'торт',
+    'пирожное', 'коктейль', 'напиток', 'фрукт', 'овощ', 'ягода', 'гриб', 'цветок',
+    'насекомое', 'жук', 'паук', 'бабочка', 'рыба', 'зверь', 'динозавр', 'змея',
+    'ящерица', 'черепаха', 'лягушка', 'планета', 'звезда', 'созвездие', 'спутник',
+    'река', 'гора', 'вулкан', 'хребет', 'остров', 'станция', 'метро', 'валюта',
+    'единица', 'величина', 'орган', 'кость', 'мышца', 'явление', 'здание', 'храм',
+    'собор', 'башня', 'ткань', 'материал', 'танец', 'стиль', 'спорт', 'вид', 'спорта',
+    'боевое', 'искусство', 'единоборство', 'жанр', 'группа', 'песня', 'игрушка',
+    'фобия', 'страх', 'боязнь', 'праздник', 'одежда', 'обувь', 'аксессуар', 'предмет',
+    'вещь', 'прибор', 'музыкальный', 'the', 'a', 'an', 'of', 'game', 'movie'
   ]);
 
   function stripGeneric(normStr) {
     const words = normStr.split(' ').filter((w) => w && !GENERIC_WORDS.has(w));
     return words.join(' ').trim();
+  }
+
+  const RU_ADJ_RE = /^(?:[а-я]{3,})(?:ый|ий|ой|ая|яя|ое|ее|ые|ие|ого|его|ому|ему|ым|им|их|ых|ую|юю)$/;
+  const RU_ENDINGS_LONG = [
+    'иями', 'ями', 'ами', 'ого', 'его', 'ому', 'ему', 'ими', 'ыми', 'ою', 'ею', 'ией',
+    'ая', 'яя', 'ое', 'ее', 'ые', 'ие', 'ый', 'ий', 'ой', 'ей', 'ия', 'ов', 'ев',
+    'ам', 'ям', 'ах', 'ях', 'ом', 'ем', 'ую', 'юю', 'ью'
+  ];
+
+  function ruStemWord(word) {
+    if (!/^[а-я]{4,}$/.test(word)) return word;
+    let w = word;
+    for (const end of RU_ENDINGS_LONG) {
+      if (w.endsWith(end) && w.length - end.length >= 3) {
+        w = w.slice(0, -end.length);
+        break;
+      }
+    }
+    if (w === word && w.length >= 4 && /[аяыиуюеоь]$/.test(w)) {
+      w = w.slice(0, -1);
+    }
+    // Fleeting vowel normalization: кроссовок <-> кроссовки, ботинок <-> ботинки
+    w = w.replace(/([бвгджзклмнпрстфхцчшщ])[ое](к)$/, '$1$2');
+    return w.replace(/й$/, 'и');
+  }
+
+  function ruStemPhrase(normStr) {
+    return normStr
+      .split(' ')
+      .filter((w) => w && !GENERIC_WORDS.has(w))
+      .map((w) => ruStemWord(w))
+      .join(' ');
+  }
+
+  function stripAdjectives(normStr) {
+    const toks = normStr.split(' ').filter((w) => w && !GENERIC_WORDS.has(w));
+    if (toks.length < 2) return '';
+    const heads = toks.filter((w) => !RU_ADJ_RE.test(w));
+    return heads.length ? heads.join(' ') : '';
   }
 
   function enToRuPhonetic(str) {
@@ -257,24 +323,141 @@
     return dp[m][n];
   }
 
+  function expandIndexVariants(rawName, aliases) {
+    const out = [rawName, ...(aliases || [])];
+    // Split colons/parentheses for partial titles (e.g. "Fallout: New Vegas", "S.T.A.L.K.E.R.: Тень Чернобыля")
+    if (rawName.includes(':')) {
+      const [head, tail] = rawName.split(':');
+      if (head && head.trim().length >= 4) out.push(head.trim());
+      if (tail && tail.trim().length >= 4) out.push(tail.trim());
+    }
+    if (rawName.includes('(')) {
+      const stripped = rawName.replace(/\s*\([^)]*\)/g, '').trim();
+      if (stripped.length >= 3) out.push(stripped);
+    }
+    return out;
+  }
+
+  const ENTITY_TOKEN_PROMPTS = new Set([
+    'talking-animal-movie', 'anime-title', 'anime-character', 'pixar-disney-char',
+    'harry-potter', 'lord-of-rings', 'star-wars', 'sci-fi-fantasy-movie',
+    'horror-movie', 'tv-series-hit', 'indie-game', 'retro-console-game',
+    'open-world-game', 'minecraft-mob-item', 'moba-hero-shooter', 'comic-hero-villain',
+    'russian-literature', 'soviet-cartoon', 'soviet-comedy', 'fairy-tale-folk',
+    'scientist-inventor', 'historical-ruler', 'rock-pop-band', 'building-landmark'
+  ]);
+
+  const COMMON_STOP_TOKENS = new Set([
+    'класс', 'книга', 'машина', 'город', 'звезда', 'ночь', 'день', 'утро', 'вечер',
+    'голос', 'рука', 'сердце', 'слово', 'место', 'семья', 'письмо', 'дорога', 'время',
+    'жизнь', 'жизни', 'смерть', 'любовь', 'война', 'снег', 'дождь', 'солнце', 'луна',
+    'небо', 'море', 'огонь', 'вода', 'земля', 'ветер', 'птица', 'собака', 'кошка',
+    'волк', 'лиса', 'медведь', 'рыцарь', 'король', 'принц', 'герой', 'человек', 'люди',
+    'девочка', 'мальчик', 'брат', 'сестра', 'отец', 'мать', 'учитель', 'доктор',
+    'капитан', 'солдат', 'остров', 'замок', 'улица', 'школа', 'история', 'сказка',
+    'песня', 'танец', 'игра', 'призрак', 'тень', 'свет', 'тьма', 'грех', 'тайна',
+    'секрет', 'легенда', 'дракон', 'демон', 'ангел', 'мастер', 'бог', 'мир', 'дом',
+    'world', 'story', 'legend', 'house', 'night', 'black', 'white', 'death', 'shadow',
+    'blood', 'prince', 'king', 'queen', 'master', 'magic', 'chronicle', 'chronicles',
+    'super', 'ultra', 'project', 'return', 'season', 'movie', 'series', 'anime', 'part'
+  ]);
+
+  const ADJ_TOKEN_END_RE = /(?:ый|ий|ой|ая|яя|ое|ее|ые|ие|ого|ому|ым|им|ую|юю)$/;
+
   function getPromptIndex(prompt) {
     if (prompt._index) return prompt._index;
-    const entries = [];
-    for (const ans of prompt.answers) {
-      const variants = [ans.name, ...(ans.aliases || [])];
-      for (const v of variants) {
+    const answers = Array.isArray(prompt.answers) ? prompt.answers : [];
+    const strict = !!prompt.strictShape;
+    const allowTokenFallback = ENTITY_TOKEN_PROMPTS.has(prompt.id);
+    const exactMap = new Map();
+    const compactMap = new Map();
+    const skeletonMap = new Map();
+    const strippedMap = new Map();
+    const stemMap = new Map();
+    const bagMap = new Map();
+    const uniqueTokenMap = new Map();
+    const tokenOwners = allowTokenFallback ? new Map() : null;
+    const fuzzyEntries = [];
+
+    const addTo = (map, key, ans) => {
+      if (key && !map.has(key)) map.set(key, ans);
+    };
+
+    const registerVariantList = (ans, rawList, collectTokens) => {
+      for (const v of rawList) {
         const vn = normalizeInput(v);
         if (!vn) continue;
+        const swapped = swapNumerals(vn);
         const vc = compactStr(vn);
+        const vswapC = compactStr(swapped);
         const vsk = skeletonStr(vn);
         const vruSk = skeletonStr(enToRuPhonetic(vn));
         const venSk = skeletonStr(ruToEnPhonetic(vn));
-        const vstrip = compactStr(stripGeneric(vn));
-        entries.push({ ans, vn, vc, vsk, vruSk, venSk, vstrip });
+        const vstrip = compactStr(stripGeneric(swapped));
+
+        addTo(exactMap, vn, ans);
+        addTo(exactMap, swapped, ans);
+        addTo(compactMap, vc, ans);
+        addTo(compactMap, vswapC, ans);
+        addTo(skeletonMap, vsk, ans);
+        addTo(skeletonMap, vruSk, ans);
+        addTo(skeletonMap, venSk, ans);
+        if (vstrip.length >= 3) addTo(strippedMap, vstrip, ans);
+
+        if (!strict) {
+          const stPhrase = compactStr(ruStemPhrase(swapped));
+          if (stPhrase.length >= 3) addTo(stemMap, stPhrase, ans);
+          const singleNoGen = stripGeneric(swapped);
+          if (singleNoGen && !singleNoGen.includes(' ')) {
+            const singleSt = ruStemWord(singleNoGen);
+            if (singleSt.length >= 3) addTo(stemMap, singleSt, ans);
+          }
+          const words = swapped.split(/\s+/).filter(Boolean);
+          if (words.length >= 2 && words.length <= 3) {
+            const bagKey = words.slice().sort().join('');
+            if (bagKey.length >= 4) addTo(bagMap, bagKey, ans);
+          }
+          if (collectTokens && tokenOwners && words.length >= 2) {
+            for (const tok of words) {
+              if (tok.length >= 5 && !COMMON_STOP_TOKENS.has(tok) && !ADJ_TOKEN_END_RE.test(tok)) {
+                let set = tokenOwners.get(tok);
+                if (!set) { set = new Set(); tokenOwners.set(tok, set); }
+                set.add(ans);
+              }
+            }
+          }
+        }
+
+        if (vn.length >= 4) {
+          fuzzyEntries.push({ ans, vn });
+        }
+      }
+    };
+
+    // Pass 1: register canonical answer names first so another entry's bundled alias never hijacks a canonical answer.
+    for (const ans of answers) {
+      registerVariantList(ans, expandIndexVariants(ans.name, []), true);
+    }
+    // Pass 2: register explicit aliases as fallback keys.
+    for (const ans of answers) {
+      if (ans.aliases && ans.aliases.length) {
+        registerVariantList(ans, ans.aliases, false);
       }
     }
-    prompt._index = entries;
-    return entries;
+    // Pass 3: register uniquely identifying non-generic single words in multi-word entity titles (e.g. "такопи" -> "Первородный грех Такопи").
+    if (tokenOwners) {
+      for (const [tok, owners] of tokenOwners.entries()) {
+        if (owners.size === 1) {
+          const onlyAns = owners.values().next().value;
+          addTo(uniqueTokenMap, tok, onlyAns);
+          const tokStem = ruStemWord(tok);
+          if (tokStem.length >= 5) addTo(uniqueTokenMap, tokStem, onlyAns);
+        }
+      }
+    }
+
+    prompt._index = { exactMap, compactMap, skeletonMap, strippedMap, stemMap, bagMap, uniqueTokenMap, fuzzyEntries };
+    return prompt._index;
   }
 
   function matchAnswer(rawInput, prompt) {
@@ -282,40 +465,85 @@
     const comp = compactStr(norm);
     if (!norm) return { status: 'empty' };
 
-    const sk = skeletonStr(norm);
-    const ruSk = skeletonStr(enToRuPhonetic(norm));
-    const enSk = skeletonStr(ruToEnPhonetic(norm));
-    const stripped = compactStr(stripGeneric(norm));
-    const entries = getPromptIndex(prompt);
+    const swapped = swapNumerals(norm);
+    const swapComp = compactStr(swapped);
+    const sk = skeletonStr(swapped);
+    const ruSk = skeletonStr(enToRuPhonetic(swapped));
+    const enSk = skeletonStr(ruToEnPhonetic(swapped));
+    const stripped = compactStr(stripGeneric(swapped));
 
-    // 1. Exact, skeleton (double letters / е-э / й-и), generic-stripped, and cross-script phonetic match
-    for (const e of entries) {
-      if (e.vn === norm || (comp.length >= 2 && e.vc === comp)) {
-        return { status: 'exact', answer: e.ans };
+    const idx = getPromptIndex(prompt);
+    const strict = !!prompt.strictShape;
+    const isDoubleRule = prompt.id === 'word-double-letter';
+
+    // 1. O(1) exact & normalized forms
+    const exactHit = idx.exactMap.get(norm)
+      || idx.exactMap.get(swapped)
+      || (comp.length >= 2 && idx.compactMap.get(comp))
+      || (swapComp.length >= 2 && idx.compactMap.get(swapComp));
+    if (exactHit) return { status: 'exact', answer: exactHit };
+
+    // Cross-script & skeleton (skip double-letter collapsing on "word-double-letter")
+    if (!isDoubleRule && sk.length >= 3) {
+      const skHit = idx.skeletonMap.get(sk)
+        || idx.skeletonMap.get(ruSk)
+        || idx.skeletonMap.get(enSk);
+      if (skHit) return { status: 'exact', answer: skHit };
+    } else if (isDoubleRule && sk.length >= 3) {
+      const phHit = idx.exactMap.get(normalizeInput(enToRuPhonetic(norm)));
+      if (phHit) return { status: 'exact', answer: phHit };
+    }
+
+    if (stripped.length >= 3) {
+      const strHit = idx.strippedMap.get(stripped);
+      if (strHit) return { status: 'exact', answer: strHit };
+    }
+
+    // 2. Russian morphological stemming, word-order swaps, unique entity tokens & adjective stripping (disabled for formal word-shape rules)
+    if (!strict) {
+      const inWords = swapped.split(/\s+/).filter(Boolean);
+      if (inWords.length >= 2 && inWords.length <= 3) {
+        const bagHit = idx.bagMap.get(inWords.slice().sort().join(''));
+        if (bagHit) return { status: 'exact', answer: bagHit };
       }
-      if (sk.length >= 3 && (e.vsk === sk || e.vruSk === ruSk || e.venSk === enSk || e.vsk === ruSk || e.vruSk === sk)) {
-        return { status: 'exact', answer: e.ans };
+
+      if (inWords.length === 1 && idx.uniqueTokenMap.size > 0) {
+        const w0 = inWords[0];
+        const tokHit = (w0.length >= 5 && idx.uniqueTokenMap.get(w0))
+          || (ruStemWord(w0).length >= 5 && idx.uniqueTokenMap.get(ruStemWord(w0)));
+        if (tokHit) return { status: 'exact', answer: tokHit };
       }
-      if (stripped.length >= 3 && e.vstrip.length >= 3 && e.vstrip === stripped) {
-        return { status: 'exact', answer: e.ans };
+
+      const stPhrase = compactStr(ruStemPhrase(swapped));
+      if (stPhrase.length >= 3 && idx.stemMap.has(stPhrase)) {
+        return { status: 'exact', answer: idx.stemMap.get(stPhrase) };
+      }
+
+      const adjStripped = stripAdjectives(swapped);
+      if (adjStripped) {
+        const adjComp = compactStr(adjStripped);
+        const adjStem = compactStr(ruStemPhrase(adjStripped));
+        const headHit = idx.compactMap.get(adjComp)
+          || idx.strippedMap.get(adjComp)
+          || idx.stemMap.get(adjStem);
+        if (headHit) return { status: 'exact', answer: headHit };
       }
     }
 
-    // 2. Fuzzy typo / prefix check (across native & transliterated forms)
+    // 3. Fuzzy typo / prefix check (across native & transliterated forms)
     let bestAns = null;
     let bestDist = 99;
-    const formsToCheck = [norm];
-    const ruNorm = normalizeInput(enToRuPhonetic(norm));
-    const enNorm = normalizeInput(ruToEnPhonetic(norm));
-    if (ruNorm && ruNorm !== norm) formsToCheck.push(ruNorm);
-    if (enNorm && enNorm !== norm) formsToCheck.push(enNorm);
+    const formsToCheck = [swapped];
+    const ruNorm = normalizeInput(enToRuPhonetic(swapped));
+    const enNorm = normalizeInput(ruToEnPhonetic(swapped));
+    if (ruNorm && ruNorm !== swapped) formsToCheck.push(ruNorm);
+    if (enNorm && enNorm !== swapped) formsToCheck.push(enNorm);
 
-    for (const e of entries) {
-      if (e.vn.length < 4) continue;
+    for (const e of idx.fuzzyEntries) {
       for (const f of formsToCheck) {
         if (f.length < 3) continue;
 
-        if (f.length >= 5 && e.vn.startsWith(f)) {
+        if (!isDoubleRule && f.length >= 5 && e.vn.startsWith(f)) {
           return { status: 'fuzzy', answer: e.ans };
         }
 
@@ -904,8 +1132,10 @@
       }
       fctx.globalAlpha = 1;
 
-      // 13. Right-Edge Canvas Depth Ruler (exact krillion.io style)
-      this.drawDepthRuler(fctx, waterlineScreenY);
+      // 13. Right-Edge Canvas Depth Ruler (hidden behind Done dashboard)
+      if (!appEl || appEl.dataset.phase !== 'done') {
+        this.drawDepthRuler(fctx, waterlineScreenY);
+      }
 
       ctx.restore();
       fctx.restore();
@@ -1114,6 +1344,7 @@
 
   function applySettingsToDom() {
     document.documentElement.classList.toggle('colorblind', !!appState.settings.colorblind);
+    document.documentElement.classList.toggle('lowpower', !!appState.settings.lowPower);
     const muted = !!appState.settings.muted;
     muteIconOn.hidden = muted;
     muteIconOff.hidden = !muted;
@@ -1229,6 +1460,9 @@
     vignetteEl.style.opacity = '0.25';
     setPhase('intro');
     updateMenuCurrent();
+    if (DATA.preloadPrompts) {
+      DATA.preloadPrompts(session.prompts.slice(0, 7));
+    }
   }
 
   function shufflePrompts(list) {
@@ -1301,6 +1535,12 @@
   function startNextRound() {
     clearTimers();
     const prompt = getCurrentPrompt();
+    const loadPromise = (DATA.loadPromptAnswers && !Array.isArray(prompt.answers))
+      ? DATA.loadPromptAnswers(prompt.id)
+      : Promise.resolve(prompt.answers);
+    if (DATA.preloadPrompts && session.prompts[session.roundIndex + 1]) {
+      DATA.preloadPrompts([session.prompts[session.roundIndex + 1]]);
+    }
     const startPx = session.totalDepthM * PX_PER_METER;
     ocean.setCameraDepthPx(startPx, 0.38);
 
@@ -1340,8 +1580,18 @@
       } else {
         clearInterval(session.previewTimer);
         session.previewTimer = null;
-        sfx.countdownTick(true);
-        beginAnsweringPhase();
+        if (Array.isArray(prompt.answers)) {
+          sfx.countdownTick(true);
+          beginAnsweringPhase();
+        } else {
+          previewSecEl.textContent = '…';
+          loadPromise.then(() => {
+            if (session.phase === 'preview') {
+              sfx.countdownTick(true);
+              beginAnsweringPhase();
+            }
+          });
+        }
       }
     }, 820);
   }
@@ -2033,11 +2283,16 @@
     `;
   }
 
-  function renderCatchDrawerContent(drawerEl, promptId, userAnswer) {
+  async function renderCatchDrawerContent(drawerEl, promptId, userAnswer) {
     const prompt = DATA.PROMPTS.find((p) => p.id === promptId);
     if (!prompt) return;
 
-    const sorted = prompt.answers.slice().sort((a, b) => DATA.TIERS[b.tier].pts - DATA.TIERS[a.tier].pts || a.players - b.players);
+    if (DATA.loadPromptAnswers && !Array.isArray(prompt.answers)) {
+      drawerEl.innerHTML = '<div style="padding:10px;color:var(--color-drift);font-size:13px;">Загрузка ответов…</div>';
+      await DATA.loadPromptAnswers(prompt.id);
+    }
+
+    const sorted = (prompt.answers || []).slice().sort((a, b) => DATA.TIERS[b.tier].pts - DATA.TIERS[a.tier].pts || a.players - b.players);
     const counts = { all: sorted.length };
     DATA.TIER_ORDER.forEach((t) => { counts[t] = 0; });
     sorted.forEach((a) => { counts[a.tier] = (counts[a.tier] || 0) + 1; });
@@ -2076,7 +2331,21 @@
         return;
       }
 
-      ul.innerHTML = filtered.map((a) => {
+      const visibleLimit = 300;
+      let toRender = filtered;
+      if (filtered.length > visibleLimit) {
+        const sliced = filtered.slice(0, visibleLimit);
+        if (userAnswer && activeFilter === 'all' && !q) {
+          const mineObj = filtered.find((a) => a.name === userAnswer);
+          if (mineObj && !sliced.includes(mineObj)) {
+            toRender = [mineObj, ...sliced.slice(0, visibleLimit - 1)];
+          }
+        } else {
+          toRender = sliced;
+        }
+      }
+
+      const itemsHtml = toRender.map((a) => {
         const t = DATA.TIERS[a.tier];
         const isMine = userAnswer && a.name === userAnswer;
         return `
@@ -2090,6 +2359,10 @@
           </li>
         `;
       }).join('');
+      const moreHtml = filtered.length > visibleLimit
+        ? `<li class="ds-answer-li" style="color:var(--color-drift);justify-content:center;font-size:12px;">Показаны первые ${visibleLimit} из ${filtered.length.toLocaleString('ru-RU')} — уточните поиском или фильтром</li>`
+        : '';
+      ul.innerHTML = itemsHtml + moreHtml;
     }
 
     filterBtns.forEach((btn) => {
@@ -2368,7 +2641,18 @@
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAllModals();
+    if (e.key === 'Escape') {
+      closeAllModals();
+    } else if (
+      e.key === 'Enter' &&
+      !e.repeat &&
+      session.phase === 'feedback' &&
+      nextWrapEl.classList.contains('visible') &&
+      !document.querySelector('.ds-modal-backdrop.open')
+    ) {
+      e.preventDefault();
+      nextBtn.click();
+    }
   });
 
   document.querySelectorAll('[data-nav]').forEach((btn) => {

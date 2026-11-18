@@ -155,6 +155,24 @@
     border-radius: 6px;
     flex-shrink: 0;
   }
+  .krillion-banner {
+    grid-column: 1 / -1;
+    border-color: rgba(77, 227, 255, 0.24);
+    background: linear-gradient(90deg, rgba(16, 29, 51, 0.7), var(--card) 60%);
+  }
+  .krillion-banner:hover {
+    border-color: rgba(77, 227, 255, 0.48);
+  }
+  .krillion-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: rgba(77, 227, 255, 0.12);
+    border: 1px solid rgba(77, 227, 255, 0.32);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
 
   /* 2-Column Main Grid */
   .main-grid {
@@ -398,6 +416,32 @@
         Каталог скинов
       </a>
     </aside>
+
+    <aside class="osu-banner krillion-banner">
+      <div class="osu-banner-main">
+        <div class="krillion-badge" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="6" y="3" width="5" height="2" fill="#ff5d8f"/>
+            <rect x="4" y="5" width="7" height="2" fill="#ff5d8f"/>
+            <rect x="3" y="7" width="7" height="2" fill="#ff85a8"/>
+            <rect x="5" y="9" width="6" height="2" fill="#ff5d8f"/>
+            <rect x="9" y="11" width="4" height="2" fill="#d9386b"/>
+            <rect x="4" y="6" width="1" height="1" fill="#09090b"/>
+            <rect x="11" y="4" width="2" height="1" fill="#4de3ff"/>
+            <rect x="12" y="2" width="2" height="1" fill="#4de3ff"/>
+          </svg>
+        </div>
+        <div class="osu-banner-text">
+          <div class="osu-banner-title">КРИЛЛИОН · ежедневное погружение</div>
+          <div class="osu-banner-desc">
+            Глубоководная викторина на русском: 7 вопросов в день, 90 тем и бесконечный режим — редкие ответы погружают глубже.
+          </div>
+        </div>
+      </div>
+      <a class="btn osu-banner-btn" href="krillion/">
+        Играть →
+      </a>
+    </aside>
   </div>
 
   <!-- 2-Column Main Content -->
@@ -619,6 +663,8 @@
   <footer>
     <span>gogaportwine.online</span>
     <span style="display: flex; gap: 10px;">
+      <a href="krillion/">Криллион</a>
+      <span>·</span>
       <a href="os/">ОС &amp; ISO</a>
       <span>·</span>
       <a href="skins/">osu! скины</a>

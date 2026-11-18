@@ -322,7 +322,7 @@
   {
     "id": "talking-animal-movie",
     "text": "Назови фильм или мультфильм, где главный герой — говорящее животное",
-    "count": 189,
+    "count": 206,
     "strictShape": false
   },
   {
@@ -346,7 +346,7 @@
   {
     "id": "white-inside",
     "text": "Назови фрукт или овощ, который белый внутри",
-    "count": 115,
+    "count": 124,
     "strictShape": false
   },
   {
@@ -364,7 +364,7 @@
   {
     "id": "open-world-game",
     "text": "Назови видеоигру с открытым миром",
-    "count": 382,
+    "count": 547,
     "strictShape": false
   },
   {
@@ -376,7 +376,7 @@
   {
     "id": "space-object",
     "text": "Назови космический объект (планету, спутник, звезду или созвездие)",
-    "count": 358,
+    "count": 451,
     "strictShape": false
   },
   {
@@ -388,7 +388,7 @@
   {
     "id": "russian-literature",
     "text": "Назови произведение русской классической литературы",
-    "count": 159,
+    "count": 712,
     "strictShape": false
   },
   {
@@ -412,13 +412,13 @@
   {
     "id": "programming-lang",
     "text": "Назови язык программирования",
-    "count": 338,
+    "count": 507,
     "strictShape": false
   },
   {
     "id": "board-game",
     "text": "Назови настольную или карточную игру",
-    "count": 198,
+    "count": 277,
     "strictShape": false
   },
   {
@@ -430,7 +430,7 @@
   {
     "id": "bird-name",
     "text": "Назови птицу",
-    "count": 250,
+    "count": 348,
     "strictShape": false
   },
   {
@@ -448,13 +448,13 @@
   {
     "id": "pasta-shape",
     "text": "Назови вид пасты (макаронных изделий)",
-    "count": 155,
+    "count": 169,
     "strictShape": false
   },
   {
     "id": "mythology-greek-norse",
     "text": "Назови древнегреческого или скандинавского бога / мифическое существо",
-    "count": 229,
+    "count": 370,
     "strictShape": false
   },
   {
@@ -466,19 +466,19 @@
   {
     "id": "color-shade",
     "text": "Назови цвет или оттенок",
-    "count": 181,
+    "count": 251,
     "strictShape": false
   },
   {
     "id": "comic-hero-villain",
     "text": "Назови супергероя или суперзлодея из комиксов",
-    "count": 174,
+    "count": 583,
     "strictShape": false
   },
   {
     "id": "moba-hero-shooter",
     "text": "Назови персонажа игры Dota 2, League of Legends, Valorant или Overwatch",
-    "count": 370,
+    "count": 433,
     "strictShape": false
   },
   {
@@ -514,7 +514,7 @@
   {
     "id": "mountain-range",
     "text": "Назови гору, вулкан или горный хребет",
-    "count": 173,
+    "count": 867,
     "strictShape": false
   },
   {
@@ -526,7 +526,7 @@
   {
     "id": "berry-fruit",
     "text": "Назови ягоду (настоящую или ту, что все считают ягодой)",
-    "count": 192,
+    "count": 203,
     "strictShape": false
   },
   {
@@ -544,13 +544,13 @@
   {
     "id": "sea-creature",
     "text": "Назови морского обитателя (кроме кита и акулы)",
-    "count": 494,
+    "count": 708,
     "strictShape": false
   },
   {
     "id": "dinosaur-prehistoric",
     "text": "Назови динозавра или доисторическое животное",
-    "count": 546,
+    "count": 780,
     "strictShape": false
   },
   {
@@ -562,7 +562,7 @@
   {
     "id": "soup-dish",
     "text": "Назови суп или первое блюдо любой кухни мира",
-    "count": 118,
+    "count": 261,
     "strictShape": false
   },
   {
@@ -574,7 +574,7 @@
   {
     "id": "sauce-condiment",
     "text": "Назови соус или заправку к блюду",
-    "count": 209,
+    "count": 227,
     "strictShape": false
   },
   {
@@ -586,13 +586,13 @@
   {
     "id": "cat-breed",
     "text": "Назови породу кошки",
-    "count": 114,
+    "count": 140,
     "strictShape": false
   },
   {
     "id": "insect-bug",
     "text": "Назови насекомое или паукообразное",
-    "count": 188,
+    "count": 561,
     "strictShape": false
   },
   {
@@ -604,7 +604,7 @@
   {
     "id": "historical-ruler",
     "text": "Назови исторического правителя, царя или полководца",
-    "count": 97,
+    "count": 1145,
     "strictShape": false
   },
   {
@@ -634,7 +634,7 @@
   {
     "id": "building-landmark",
     "text": "Назови известное здание, памятник или чудо света",
-    "count": 81,
+    "count": 857,
     "strictShape": false
   },
   {
@@ -652,25 +652,25 @@
   {
     "id": "sport-no-ball",
     "text": "Назови вид спорта, в котором НЕ используется мяч или шайба",
-    "count": 727,
+    "count": 866,
     "strictShape": false
   },
   {
     "id": "martial-art",
     "text": "Назови боевое искусство или вид единоборств",
-    "count": 229,
+    "count": 280,
     "strictShape": false
   },
   {
     "id": "greek-letter-symbol",
     "text": "Назови букву греческого алфавита или математический термин",
-    "count": 94,
+    "count": 699,
     "strictShape": false
   },
   {
     "id": "snake-reptile",
     "text": "Назови змею, ящерицу, черепаху или амфибию",
-    "count": 154,
+    "count": 573,
     "strictShape": false
   },
   {
@@ -688,31 +688,31 @@
   {
     "id": "pixar-disney-char",
     "text": "Назови персонажа мультфильма Disney, Pixar или DreamWorks",
-    "count": 106,
+    "count": 156,
     "strictShape": false
   },
   {
     "id": "harry-potter",
     "text": "Назови персонажа, заклинание или место из «Гарри Поттера»",
-    "count": 103,
+    "count": 598,
     "strictShape": false
   },
   {
     "id": "lord-of-rings",
     "text": "Назови персонажа, место или расу из «Властелина колец» и «Хоббита»",
-    "count": 87,
+    "count": 285,
     "strictShape": false
   },
   {
     "id": "star-wars",
     "text": "Назови персонажа, планету или корабль из «Звёздных войн»",
-    "count": 89,
+    "count": 238,
     "strictShape": false
   },
   {
     "id": "sci-fi-fantasy-movie",
     "text": "Назови культовый фантастический или киберпанк-фильм",
-    "count": 201,
+    "count": 773,
     "strictShape": false
   },
   {
@@ -754,19 +754,19 @@
   {
     "id": "music-genre",
     "text": "Назови музыкальный жанр или поджанр",
-    "count": 214,
+    "count": 724,
     "strictShape": false
   },
   {
     "id": "rock-pop-band",
     "text": "Назови музыкальную группу или культового исполнителя",
-    "count": 798,
+    "count": 1107,
     "strictShape": false
   },
   {
     "id": "soviet-cartoon",
     "text": "Назови советский или российский мультфильм",
-    "count": 91,
+    "count": 717,
     "strictShape": false
   },
   {
@@ -778,19 +778,19 @@
   {
     "id": "fairy-tale-folk",
     "text": "Назови сказку или фольклорного персонажа",
-    "count": 84,
+    "count": 500,
     "strictShape": false
   },
   {
     "id": "tech-brand",
     "text": "Назови бренд электроники, смартфонов, ПК-железа или техники",
-    "count": 109,
+    "count": 311,
     "strictShape": false
   },
   {
     "id": "social-app-site",
     "text": "Назови известный сайт, соцсеть, мессенджер или приложение",
-    "count": 94,
+    "count": 508,
     "strictShape": false
   },
   {
@@ -802,19 +802,19 @@
   {
     "id": "school-subject",
     "text": "Назови школьный предмет или университетскую дисциплину",
-    "count": 85,
+    "count": 538,
     "strictShape": false
   },
   {
     "id": "phobia-fear",
     "text": "Назови человеческий страх или фобию",
-    "count": 84,
+    "count": 197,
     "strictShape": false
   },
   {
     "id": "holiday-tradition",
     "text": "Назови праздник в России или мире",
-    "count": 80,
+    "count": 275,
     "strictShape": false
   },
   {
@@ -850,13 +850,13 @@
   {
     "id": "hotel-forgotten",
     "text": "Назови вещь, которую люди чаще всего забывают в отеле, поезде или самолёте",
-    "count": 96,
+    "count": 114,
     "strictShape": false
   },
   {
     "id": "childhood-toy-game",
     "text": "Назови детскую игрушку или дворовую игру",
-    "count": 76,
+    "count": 96,
     "strictShape": false
   }
 ].map((p) => Object.assign(p, { answers: null }));
@@ -869,7 +869,7 @@
     if (Array.isArray(prompt.answers)) return prompt.answers;
     if (pendingLoads[promptId]) return pendingLoads[promptId];
 
-    pendingLoads[promptId] = fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118g`)
+    pendingLoads[promptId] = fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118h`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();

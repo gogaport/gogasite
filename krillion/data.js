@@ -826,25 +826,25 @@
   {
     "id": "rare-letter-start",
     "text": "Назови существительное, начинающееся на букву Й, Ф, Щ, Э или Ю",
-    "count": 2326,
+    "count": 5264,
     "strictShape": true
   },
   {
     "id": "word-double-letter",
     "text": "Назови слово с удвоенной согласной внутри (например: класс, ванна, теннис)",
-    "count": 1900,
+    "count": 4223,
     "strictShape": true
   },
   {
     "id": "word-4-letters",
     "text": "Назови существительное ровно из 4 букв",
-    "count": 1141,
+    "count": 2112,
     "strictShape": true
   },
   {
     "id": "one-syllable-noun",
     "text": "Назови существительное из одного слога (только одна гласная буква)",
-    "count": 1113,
+    "count": 2112,
     "strictShape": true
   },
   {
@@ -856,7 +856,7 @@
   {
     "id": "childhood-toy-game",
     "text": "Назови детскую игрушку или дворовую игру",
-    "count": 96,
+    "count": 103,
     "strictShape": false
   },
   {
@@ -986,15 +986,15 @@
     "strictShape": false
   },
   {
-    "id": "word-5-letters",
-    "text": "Назови существительное ровно из 5 букв",
-    "count": 1800,
-    "strictShape": true
+    "id": "cosmetics-hygiene",
+    "text": "Назови средство или предмет косметики, парфюмерии или личной гигиены",
+    "count": 320,
+    "strictShape": false
   },
   {
     "id": "word-same-edge",
     "text": "Назови существительное от 4 букв, начинающееся и заканчивающееся на одну и ту же букву",
-    "count": 755,
+    "count": 1861,
     "strictShape": true
   },
   {
@@ -1061,7 +1061,7 @@
 
   function fetchChunkWithRetry(promptId, attempt = 0) {
     const opts = attempt > 0 ? { cache: 'reload' } : undefined;
-    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118k`, opts)
+    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118l`, opts)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();

@@ -795,7 +795,7 @@
   },
   {
     "id": "clothing-item",
-    "text": "Назови предмет одежды, обуви или аксессуар из одного слова",
+    "text": "Назови предмет одежды, обуви или головной убор из одного слова",
     "count": 876,
     "strictShape": false
   },
@@ -869,7 +869,7 @@
     if (Array.isArray(prompt.answers)) return prompt.answers;
     if (pendingLoads[promptId]) return pendingLoads[promptId];
 
-    pendingLoads[promptId] = fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118e`)
+    pendingLoads[promptId] = fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118f`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();

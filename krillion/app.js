@@ -2068,7 +2068,7 @@
       const disp = maxPossible !== 700 ? Math.round((val / 700) * maxPossible) : val;
       return `
         <line x1="${tx}" y1="${baseY}" x2="${tx}" y2="${baseY + 4}" stroke="rgba(125,147,184,0.45)" stroke-width="1"></line>
-        <text x="${tx}" y="${baseY + 14}" fill="rgba(125,147,184,0.72)" font-size="9" text-anchor="middle" font-family="monospace">${disp}</text>
+        <text x="${tx}" y="${baseY + 14}" fill="rgba(125,147,184,0.72)" font-size="9" text-anchor="middle" font-family="'JetBrains Mono', monospace">${disp}</text>
       `;
     }).join('');
 
@@ -2089,7 +2089,7 @@
         ${axisLabels}
         <line x1="${curX}" y1="${curY}" x2="${curX}" y2="${baseY}" stroke="var(--color-lumen-pink)" stroke-width="2"></line>
         <circle cx="${curX}" cy="${curY}" r="3.5" fill="var(--color-lumen-pink)" stroke="#ffffff" stroke-width="0.8"></circle>
-        <text x="${curX}" y="${baseY + 25}" fill="var(--color-lumen-pink)" font-size="9.5" font-weight="700" text-anchor="middle" font-family="monospace">ВЫ</text>
+        <text x="${curX}" y="${baseY + 25}" fill="var(--color-lumen-pink)" font-size="9.5" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">ВЫ</text>
       </svg>
     `;
   }
@@ -2114,7 +2114,7 @@
     const gridHtml = gridLevels.map((g) => {
       const y = (topY + (g.pts / 100) * spanY).toFixed(1);
       return `
-        <text x="${leftPad - 8}" y="${y}" fill="rgba(125,147,184,0.7)" font-size="9" text-anchor="end" dominant-baseline="middle" font-family="monospace">${g.label}</text>
+        <text x="${leftPad - 8}" y="${y}" fill="rgba(125,147,184,0.7)" font-size="9" text-anchor="end" dominant-baseline="middle" font-family="'JetBrains Mono', monospace">${g.label}</text>
         <line x1="${leftPad}" y1="${y}" x2="${w - rightPad}" y2="${y}" stroke="rgba(125,147,184,0.2)" stroke-width="1" stroke-dasharray="2 3"></line>
       `;
     }).join('');
@@ -2128,7 +2128,7 @@
         <line x1="${cx}" y1="${topY}" x2="${cx}" y2="${lineLen}" stroke="${t.hex}" stroke-width="1.5" stroke-opacity="0.72"></line>
         <circle cx="${cx}" cy="${tipY}" r="9" fill="${t.hex}" fill-opacity="0.16"></circle>
         <image href="${t.sprite}" x="${(Number(cx) - 10).toFixed(1)}" y="${(Number(tipY) - 10).toFixed(1)}" width="20" height="20" style="image-rendering:pixelated;"></image>
-        <text x="${cx}" y="${topY + spanY + 20}" fill="rgba(125,147,184,0.8)" font-size="9.5" text-anchor="middle" font-family="monospace">${idx + 1}</text>
+        <text x="${cx}" y="${topY + spanY + 20}" fill="rgba(125,147,184,0.8)" font-size="9.5" text-anchor="middle" font-family="'JetBrains Mono', monospace">${idx + 1}</text>
       `;
     }).join('');
 

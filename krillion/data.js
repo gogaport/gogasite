@@ -741,8 +741,8 @@
   },
   {
     "id": "minecraft-mob-item",
-    "text": "Назови моба, биом или предмет из Minecraft",
-    "count": 95,
+    "text": "Назови моба, биом, блок или предмет из Minecraft",
+    "count": 1841,
     "strictShape": false
   },
   {
@@ -869,7 +869,7 @@
     if (Array.isArray(prompt.answers)) return prompt.answers;
     if (pendingLoads[promptId]) return pendingLoads[promptId];
 
-    pendingLoads[promptId] = fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118f`)
+    pendingLoads[promptId] = fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118g`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();

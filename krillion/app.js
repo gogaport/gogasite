@@ -364,9 +364,13 @@
 
   const ADJ_TOKEN_END_RE = /(?:ый|ий|ой|ая|яя|ое|ее|ые|ие|ого|ому|ым|им|ую|юю)$/;
 
+  function hasLoadedAnswers(prompt) {
+    return Boolean(prompt && Array.isArray(prompt.answers) && prompt.answers.length > 0);
+  }
+
   function getPromptIndex(prompt) {
-    if (prompt._index) return prompt._index;
-    const answers = Array.isArray(prompt.answers) ? prompt.answers : [];
+    if (prompt._index && hasLoadedAnswers(prompt)) return prompt._index;
+    const answers = hasLoadedAnswers(prompt) ? prompt.answers : [];
     const strict = !!prompt.strictShape;
     const allowTokenFallback = ENTITY_TOKEN_PROMPTS.has(prompt.id);
     const exactMap = new Map();
@@ -378,6 +382,9 @@
     const uniqueTokenMap = new Map();
     const tokenOwners = allowTokenFallback ? new Map() : null;
     const fuzzyEntries = [];
+    if (!answers.length) {
+      return { exactMap, compactMap, skeletonMap, strippedMap, stemMap, bagMap, uniqueTokenMap, fuzzyEntries };
+    }
 
     const addTo = (map, key, ans) => {
       if (key && !map.has(key)) map.set(key, ans);
@@ -1774,7 +1781,7 @@
   function startNextRound() {
     clearTimers();
     const prompt = getCurrentPrompt();
-    const loadPromise = (DATA.loadPromptAnswers && !Array.isArray(prompt.answers))
+    const loadPromise = (DATA.loadPromptAnswers && !hasLoadedAnswers(prompt))
       ? DATA.loadPromptAnswers(prompt.id)
       : Promise.resolve(prompt.answers);
     if (DATA.preloadPrompts && session.prompts[session.roundIndex + 1]) {
@@ -1796,6 +1803,12 @@
     appEl.classList.remove('hot');
     answerForm.classList.remove('hot');
 
+    const pill = previewSecEl.parentElement;
+    if (pill) {
+      pill.onclick = null;
+      pill.style.cursor = '';
+    }
+
     updateHud();
 
     cardRoundEl.textContent = session.mode === 'endless'
@@ -1811,6 +1824,28 @@
     previewSecEl.textContent = String(left);
     sfx.countdownTick(false);
 
+    const beginWhenReady = () => {
+      if (session.phase !== 'preview') return;
+      if (hasLoadedAnswers(prompt)) {
+        if (pill) {
+          pill.onclick = null;
+          pill.style.cursor = '';
+        }
+        sfx.countdownTick(true);
+        beginAnsweringPhase();
+        return;
+      }
+      previewSecEl.textContent = 'ошибка (нажмите для повтора)';
+      if (pill) {
+        pill.style.cursor = 'pointer';
+        pill.onclick = () => {
+          if (session.phase !== 'preview') return;
+          previewSecEl.textContent = '…';
+          DATA.loadPromptAnswers(prompt.id).then(beginWhenReady);
+        };
+      }
+    };
+
     session.previewTimer = setInterval(() => {
       left -= 1;
       if (left > 0) {
@@ -1819,17 +1854,11 @@
       } else {
         clearInterval(session.previewTimer);
         session.previewTimer = null;
-        if (Array.isArray(prompt.answers)) {
-          sfx.countdownTick(true);
-          beginAnsweringPhase();
+        if (hasLoadedAnswers(prompt)) {
+          beginWhenReady();
         } else {
           previewSecEl.textContent = '…';
-          loadPromise.then(() => {
-            if (session.phase === 'preview') {
-              sfx.countdownTick(true);
-              beginAnsweringPhase();
-            }
-          });
+          loadPromise.then(beginWhenReady);
         }
       }
     }, 820);
@@ -2527,9 +2556,26 @@
     const prompt = DATA.PROMPTS.find((p) => p.id === promptId);
     if (!prompt) return;
 
-    if (DATA.loadPromptAnswers && !Array.isArray(prompt.answers)) {
+    if (DATA.loadPromptAnswers && !hasLoadedAnswers(prompt)) {
       drawerEl.innerHTML = '<div style="padding:10px;color:var(--color-drift);font-size:13px;">Загрузка ответов…</div>';
       await DATA.loadPromptAnswers(prompt.id);
+    }
+
+    if (!hasLoadedAnswers(prompt)) {
+      drawerEl.innerHTML = `
+        <div style="padding:10px;color:var(--color-drift);font-size:13px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+          <span>Не удалось загрузить базу ответов.</span>
+          <button type="button" class="ds-endless-surface-btn" data-retry-chunk="1">↻ Повторить</button>
+        </div>
+      `;
+      const retryBtn = drawerEl.querySelector('[data-retry-chunk]');
+      if (retryBtn) {
+        retryBtn.addEventListener('click', () => {
+          sfx.click();
+          renderCatchDrawerContent(drawerEl, promptId, userAnswer);
+        });
+      }
+      return;
     }
 
     const sorted = (prompt.answers || []).slice().sort((a, b) => DATA.TIERS[b.tier].pts - DATA.TIERS[a.tier].pts || a.players - b.players);

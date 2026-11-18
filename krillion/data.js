@@ -676,7 +676,7 @@
   {
     "id": "anime-title",
     "text": "Назови аниме-сериал или полнометражное аниме",
-    "count": 1664,
+    "count": 1665,
     "strictShape": false
   },
   {
@@ -863,19 +863,36 @@
 
   const pendingLoads = Object.create(null);
 
-  async function loadPromptAnswers(promptId) {
-    const prompt = PROMPTS.find((p) => p.id === promptId);
-    if (!prompt) return [];
-    if (Array.isArray(prompt.answers)) return prompt.answers;
-    if (pendingLoads[promptId]) return pendingLoads[promptId];
+  function isPromptLoaded(p) {
+    return Boolean(p && Array.isArray(p.answers) && p.answers.length > 0);
+  }
 
-    pendingLoads[promptId] = fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118i`)
+  function fetchChunkWithRetry(promptId, attempt = 0) {
+    const opts = attempt > 0 ? { cache: 'reload' } : undefined;
+    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118j`, opts)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();
       })
+      .catch((err) => {
+        if (attempt < 2) {
+          return new Promise((resolve) => setTimeout(resolve, 250 * (attempt + 1)))
+            .then(() => fetchChunkWithRetry(promptId, attempt + 1));
+        }
+        throw err;
+      });
+  }
+
+  async function loadPromptAnswers(promptId) {
+    const prompt = PROMPTS.find((p) => p.id === promptId);
+    if (!prompt) return [];
+    if (isPromptLoaded(prompt)) return prompt.answers;
+    if (pendingLoads[promptId]) return pendingLoads[promptId];
+
+    pendingLoads[promptId] = fetchChunkWithRetry(promptId, 0)
       .then((raw) => {
         const built = buildAnswers(raw);
+        if (!built.length) throw new Error(`Empty dataset for ${promptId}`);
         prompt.answers = built;
         prompt.count = built.length;
         delete prompt._index;
@@ -885,18 +902,35 @@
       .catch((err) => {
         console.error('[krillion] Failed loading chunk:', promptId, err);
         delete pendingLoads[promptId];
-        prompt.answers = prompt.answers || [];
-        return prompt.answers;
+        if (!isPromptLoaded(prompt)) prompt.answers = null;
+        return prompt.answers || [];
       });
     return pendingLoads[promptId];
+  }
+
+  const preloadQueue = [];
+  let activePreloads = 0;
+
+  function pumpPreloadQueue() {
+    while (activePreloads < 2 && preloadQueue.length > 0) {
+      const id = preloadQueue.shift();
+      const p = PROMPTS.find((x) => x.id === id);
+      if (!p || isPromptLoaded(p) || pendingLoads[id]) continue;
+      activePreloads += 1;
+      Promise.resolve(loadPromptAnswers(id)).finally(() => {
+        activePreloads -= 1;
+        pumpPreloadQueue();
+      });
+    }
   }
 
   function preloadPrompts(promptList) {
     if (!Array.isArray(promptList)) return;
     promptList.forEach((item) => {
       const id = typeof item === 'string' ? item : (item && item.id);
-      if (id) loadPromptAnswers(id);
+      if (id && !preloadQueue.includes(id)) preloadQueue.push(id);
     });
+    pumpPreloadQueue();
   }
 
   const EPOCH_UTC = Date.UTC(2026, 6, 16);

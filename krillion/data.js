@@ -869,7 +869,7 @@
     if (Array.isArray(prompt.answers)) return prompt.answers;
     if (pendingLoads[promptId]) return pendingLoads[promptId];
 
-    pendingLoads[promptId] = fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118h`)
+    pendingLoads[promptId] = fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118i`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();

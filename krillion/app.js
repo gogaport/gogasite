@@ -344,7 +344,10 @@
     'horror-movie', 'tv-series-hit', 'indie-game', 'retro-console-game',
     'open-world-game', 'minecraft-mob-item', 'moba-hero-shooter', 'comic-hero-villain',
     'russian-literature', 'soviet-cartoon', 'soviet-comedy', 'fairy-tale-folk',
-    'scientist-inventor', 'historical-ruler', 'rock-pop-band', 'building-landmark'
+    'scientist-inventor', 'historical-ruler', 'rock-pop-band', 'building-landmark',
+    'video-game-char', 'world-literature', 'film-director', 'movie-actor',
+    'classical-composer', 'painter-artist', 'historic-event', 'animated-series',
+    'ancient-state', 'football-club'
   ]);
 
   const COMMON_STOP_TOKENS = new Set([
@@ -1693,7 +1696,7 @@
       const seenCount = new Set(appState.seenEndlessIds || []).size;
       const freshLeft = Math.max(1, DATA.PROMPTS.length - seenCount);
       heroTaglineEl.textContent = 'БЕСКОНЕЧНОЕ ПОГРУЖЕНИЕ';
-      heroSublineEl.textContent = '90+ тем без повторов · без ограничений · всплывайте в любой момент';
+      heroSublineEl.textContent = '122 темы без повторов · без ограничений · всплывайте в любой момент';
       surfaceNoteEl.hidden = true;
       introDiveNumEl.textContent = `БЕСКОНЕЧНЫЙ · ${freshLeft} НОВЫХ ТЕМ`;
       metaDailyBtn.hidden = false;
@@ -2847,7 +2850,7 @@
   function renderArchive() {
     const grid = document.getElementById('archive-grid');
     const todayNum = DATA.getTodayDiveNumber();
-    const minNum = Math.max(1, todayNum - 41);
+    const minNum = Math.max(1, todayNum - 13);
     const items = [];
     for (let n = todayNum; n >= minNum; n--) {
       const saved = appState.completedDives[String(n)];

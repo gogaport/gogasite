@@ -858,6 +858,198 @@
     "text": "Назови детскую игрушку или дворовую игру",
     "count": 96,
     "strictShape": false
+  },
+  {
+    "id": "bread-pastry",
+    "text": "Назови вид хлеба, пирога или несладкой выпечки",
+    "count": 526,
+    "strictShape": false
+  },
+  {
+    "id": "nut-seed",
+    "text": "Назови орех, семечко или бобовую культуру",
+    "count": 326,
+    "strictShape": false
+  },
+  {
+    "id": "famous-salad",
+    "text": "Назови салат (любой кухни мира)",
+    "count": 92,
+    "strictShape": false
+  },
+  {
+    "id": "meat-charcuterie",
+    "text": "Назови вид колбасы, сосисок или мясного деликатеса",
+    "count": 149,
+    "strictShape": false
+  },
+  {
+    "id": "vegetable-green",
+    "text": "Назови овощ или салатную зелень",
+    "count": 378,
+    "strictShape": false
+  },
+  {
+    "id": "tropical-fruit",
+    "text": "Назови фрукт или цитрус (кроме ягод)",
+    "count": 360,
+    "strictShape": false
+  },
+  {
+    "id": "video-game-char",
+    "text": "Назови культового персонажа видеоигр (не из Dota 2 / LoL / Overwatch / Valorant)",
+    "count": 168,
+    "strictShape": false
+  },
+  {
+    "id": "world-literature",
+    "text": "Назови произведение зарубежной литературы (книгу, роман или пьесу)",
+    "count": 621,
+    "strictShape": false
+  },
+  {
+    "id": "film-director",
+    "text": "Назови известного кинорежиссёра",
+    "count": 1048,
+    "strictShape": false
+  },
+  {
+    "id": "movie-actor",
+    "text": "Назови известного актёра или актрису кино",
+    "count": 1227,
+    "strictShape": false
+  },
+  {
+    "id": "classical-composer",
+    "text": "Назови известного классического композитора",
+    "count": 1053,
+    "strictShape": false
+  },
+  {
+    "id": "painter-artist",
+    "text": "Назови известного художника или скульптора",
+    "count": 631,
+    "strictShape": false
+  },
+  {
+    "id": "world-language",
+    "text": "Назови язык народов мира (живой, мёртвый или вымышленный — не язык программирования)",
+    "count": 262,
+    "strictShape": false
+  },
+  {
+    "id": "ancient-state",
+    "text": "Назови древнюю цивилизацию, империю или исчезнувшее государство",
+    "count": 143,
+    "strictShape": false
+  },
+  {
+    "id": "transport-vehicle",
+    "text": "Назови вид транспорта (наземного, водного или воздушного)",
+    "count": 700,
+    "strictShape": false
+  },
+  {
+    "id": "world-lake-strait",
+    "text": "Назови озеро, водопад или морской пролив",
+    "count": 679,
+    "strictShape": false
+  },
+  {
+    "id": "furniture-interior",
+    "text": "Назови предмет мебели или домашнего интерьера",
+    "count": 136,
+    "strictShape": false
+  },
+  {
+    "id": "sports-gear",
+    "text": "Назови спортивный инвентарь или снаряд",
+    "count": 174,
+    "strictShape": false
+  },
+  {
+    "id": "electronic-gadget",
+    "text": "Назови электронное устройство, гаджет или бытовую технику",
+    "count": 500,
+    "strictShape": false
+  },
+  {
+    "id": "weapon-armor",
+    "text": "Назови холодное оружие, доспех или элемент старинной экипировки",
+    "count": 679,
+    "strictShape": false
+  },
+  {
+    "id": "geometric-shape",
+    "text": "Назови геометрическую фигуру, объёмное тело или кривую",
+    "count": 281,
+    "strictShape": false
+  },
+  {
+    "id": "word-5-letters",
+    "text": "Назови существительное ровно из 5 букв",
+    "count": 1800,
+    "strictShape": true
+  },
+  {
+    "id": "word-same-edge",
+    "text": "Назови существительное от 4 букв, начинающееся и заканчивающееся на одну и ту же букву",
+    "count": 755,
+    "strictShape": true
+  },
+  {
+    "id": "fashion-brand",
+    "text": "Назови бренд одежды, обуви или модный дом",
+    "count": 141,
+    "strictShape": false
+  },
+  {
+    "id": "fastfood-chain",
+    "text": "Назови сеть фастфуда, кафе или ресторанов",
+    "count": 125,
+    "strictShape": false
+  },
+  {
+    "id": "historic-event",
+    "text": "Назови крупное историческое событие, битву или эпоху",
+    "count": 995,
+    "strictShape": false
+  },
+  {
+    "id": "football-club",
+    "text": "Назови футбольный клуб (российский или зарубежный)",
+    "count": 864,
+    "strictShape": false
+  },
+  {
+    "id": "animated-series",
+    "text": "Назови зарубежный или российский мультсериал (не аниме)",
+    "count": 176,
+    "strictShape": false
+  },
+  {
+    "id": "stationery-item",
+    "text": "Назови канцелярский или офисный предмет",
+    "count": 138,
+    "strictShape": false
+  },
+  {
+    "id": "game-genre",
+    "text": "Назови жанр или поджанр видеоигр",
+    "count": 135,
+    "strictShape": false
+  },
+  {
+    "id": "human-emotion",
+    "text": "Назови эмоцию, чувство или черту характера человека",
+    "count": 270,
+    "strictShape": false
+  },
+  {
+    "id": "jewelry-accessory",
+    "text": "Назови ювелирное украшение или аксессуар",
+    "count": 363,
+    "strictShape": false
   }
 ].map((p) => Object.assign(p, { answers: null }));
 
@@ -869,7 +1061,7 @@
 
   function fetchChunkWithRetry(promptId, attempt = 0) {
     const opts = attempt > 0 ? { cache: 'reload' } : undefined;
-    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118j`, opts)
+    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118k`, opts)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();
@@ -967,13 +1159,39 @@
     return copy;
   }
 
+  const EPOCH_CACHE = Object.create(null);
+
+  function getEpochDeck(epoch) {
+    if (EPOCH_CACHE[epoch]) return EPOCH_CACHE[epoch];
+    const deck = shuffleWithSeed(PROMPTS, epoch * 7919 + 424242);
+    if (epoch > 0) {
+      const prevDeck = getEpochDeck(epoch - 1);
+      const deckSize = Math.floor(PROMPTS.length / 7);
+      const usableLen = deckSize * 7;
+      // Guarantee >= 8-day cooldown across epoch boundaries
+      const span = Math.min(56, Math.floor(usableLen / 2));
+      const cooldownIds = new Set(prevDeck.slice(Math.max(0, usableLen - span), usableLen).map((p) => p.id));
+      let swapIdx = span;
+      for (let i = 0; i < span; i++) {
+        if (!cooldownIds.has(deck[i].id)) continue;
+        while (swapIdx < usableLen && cooldownIds.has(deck[swapIdx].id)) swapIdx += 1;
+        if (swapIdx >= usableLen) break;
+        const tmp = deck[i];
+        deck[i] = deck[swapIdx];
+        deck[swapIdx] = tmp;
+        swapIdx += 1;
+      }
+    }
+    EPOCH_CACHE[epoch] = deck;
+    return deck;
+  }
+
   function getDailyPrompts(diveNumber) {
     // Non-repeating deck per epoch cycle of floor(PROMPTS.length / 7) days
     const deckSize = Math.floor(PROMPTS.length / 7);
     const epoch = Math.floor((diveNumber - 1) / deckSize);
     const dayInEpoch = (diveNumber - 1) % deckSize;
-    const shuffledDeck = shuffleWithSeed(PROMPTS, epoch * 7919 + 424242);
-    return shuffledDeck.slice(dayInEpoch * 7, dayInEpoch * 7 + 7);
+    return getEpochDeck(epoch).slice(dayInEpoch * 7, dayInEpoch * 7 + 7);
   }
 
   window.KRILLION_DATA = {

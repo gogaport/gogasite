@@ -637,8 +637,9 @@
     }
 
     resize() {
-      this.width = window.innerWidth;
-      this.height = window.innerHeight;
+      const vv = window.visualViewport;
+      this.width = vv ? Math.round(vv.width) : window.innerWidth;
+      this.height = vv ? Math.round(vv.height) : window.innerHeight;
       this.dpr = appState.settings.lowPower ? 1 : Math.min(window.devicePixelRatio || 1, 2);
 
       [this.sea, this.fore].forEach((c) => {
@@ -1190,15 +1191,22 @@
     }
 
     update(ts, phase) {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
+      const vv = window.visualViewport;
+      const w = vv ? vv.width : window.innerWidth;
+      const h = vv ? vv.height : window.innerHeight;
       if (phase === 'done') {
+        if (w < 560) {
+          this.el.style.opacity = '0';
+          return;
+        }
+        this.el.style.opacity = '';
         // Done screen covers stage behind semi-transparent glass; tuck buddy neatly upper-right
         this.x = Math.max(w - 110, w * 0.78);
         this.y = 115 + Math.sin(ts * 0.002) * 8;
         this.el.style.transform = `translate3d(${this.x.toFixed(1)}px, ${this.y.toFixed(1)}px, 0) rotate(-6deg)`;
         return;
       }
+      this.el.style.opacity = '';
       if (appState.settings.lowPower) {
         this.x = phase === 'intro' ? Math.round(w - 108) : 28;
         this.y = phase === 'intro' ? Math.round(h * 0.62) : Math.round(h - 178);
@@ -1335,8 +1343,15 @@
   };
 
   function setPhase(phase) {
+    const prevPhase = session.phase;
     session.phase = phase;
     appEl.dataset.phase = phase;
+    if (phase !== 'answering') {
+      document.documentElement.classList.remove('kb-open');
+      if (prevPhase === 'answering' && typeof syncViewportLayout === 'function') {
+        requestAnimationFrame(syncViewportLayout);
+      }
+    }
     crtEl.classList.remove('zap');
     void crtEl.offsetWidth;
     crtEl.classList.add('zap');
@@ -1746,6 +1761,7 @@
 
   function acceptAnswer(answerObj) {
     clearTimers();
+    answerInput.blur();
     answerInput.disabled = true;
     diveBtn.disabled = true;
     correctionBoxEl.hidden = true;
@@ -2689,15 +2705,51 @@
     });
   });
 
-  window.addEventListener('resize', () => {
+  let maxViewportH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+  let prevViewportW = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+
+  function syncViewportLayout() {
+    const vv = window.visualViewport;
+    const w = vv ? vv.width : window.innerWidth;
+    const h = vv ? vv.height : window.innerHeight;
+
+    if (Math.abs(w - prevViewportW) > 30) {
+      prevViewportW = w;
+      maxViewportH = h;
+    } else if (h > maxViewportH) {
+      maxViewportH = h;
+    }
+
+    document.documentElement.style.setProperty('--vvh', `${Math.round(h)}px`);
+    const isTouchWidth = w <= 900 || 'ontouchstart' in window;
+    const isKbOpen = session.phase === 'answering' && isTouchWidth && (h < maxViewportH * 0.78);
+    document.documentElement.classList.toggle('kb-open', isKbOpen);
+
+    if (isKbOpen && (window.scrollY !== 0 || (vv && vv.offsetTop !== 0))) {
+      window.scrollTo(0, 0);
+    }
+
     ocean.resize();
     if (session.phase === 'intro') {
       ocean.setCameraDepthPx(0, 0.54);
     } else if (session.phase === 'done') {
       ocean.setCameraDepthPx(0, 0.42);
     } else {
-      ocean.setCameraDepthPx(session.totalDepthM * PX_PER_METER, 0.38);
+      ocean.setCameraDepthPx(session.totalDepthM * PX_PER_METER, isKbOpen ? 0.46 : 0.38);
     }
+  }
+
+  window.addEventListener('resize', syncViewportLayout);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', syncViewportLayout);
+    window.visualViewport.addEventListener('scroll', syncViewportLayout);
+  }
+  answerInput.addEventListener('focus', () => {
+    setTimeout(syncViewportLayout, 60);
+    setTimeout(syncViewportLayout, 280);
+  });
+  answerInput.addEventListener('blur', () => {
+    setTimeout(syncViewportLayout, 80);
   });
 
   function escapeHtml(str) {

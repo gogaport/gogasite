@@ -910,13 +910,13 @@
   {
     "id": "film-director",
     "text": "Назови известного кинорежиссёра",
-    "count": 1048,
+    "count": 1083,
     "strictShape": false
   },
   {
     "id": "movie-actor",
     "text": "Назови известного актёра или актрису кино",
-    "count": 1227,
+    "count": 1619,
     "strictShape": false
   },
   {
@@ -1061,7 +1061,7 @@
 
   function fetchChunkWithRetry(promptId, attempt = 0) {
     const opts = attempt > 0 ? { cache: 'reload' } : undefined;
-    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118l`, opts)
+    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118m`, opts)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();

@@ -772,7 +772,7 @@
   {
     "id": "soviet-cartoon",
     "text": "Назови советский или российский мультфильм",
-    "count": 712,
+    "count": 741,
     "strictShape": false
   },
   {
@@ -790,7 +790,7 @@
   {
     "id": "tech-brand",
     "text": "Назови бренд электроники, смартфонов, ПК-железа или техники",
-    "count": 309,
+    "count": 323,
     "strictShape": false
   },
   {
@@ -1030,7 +1030,7 @@
   {
     "id": "animated-series",
     "text": "Назови зарубежный или российский мультсериал (не аниме)",
-    "count": 331,
+    "count": 358,
     "strictShape": false
   },
   {

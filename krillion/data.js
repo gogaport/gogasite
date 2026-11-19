@@ -634,7 +634,7 @@
   {
     "id": "building-landmark",
     "text": "Назови известное здание, памятник или чудо света",
-    "count": 856,
+    "count": 858,
     "strictShape": false
   },
   {

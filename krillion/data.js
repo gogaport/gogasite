@@ -604,7 +604,7 @@
   {
     "id": "historical-ruler",
     "text": "Назови исторического правителя, царя или полководца",
-    "count": 1145,
+    "count": 1146,
     "strictShape": false
   },
   {

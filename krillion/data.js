@@ -508,7 +508,7 @@
   {
     "id": "world-river",
     "text": "Назови реку в России или мире",
-    "count": 655,
+    "count": 656,
     "strictShape": false
   },
   {

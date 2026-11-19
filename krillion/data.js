@@ -1131,7 +1131,7 @@
     pumpPreloadQueue();
   }
 
-  const EPOCH_UTC = Date.UTC(2026, 6, 16);
+  const EPOCH_UTC = Date.UTC(2026, 10, 6);
 
   function getTodayDiveNumber() {
     const now = new Date();
@@ -1141,7 +1141,7 @@
   }
 
   function getDiveDateLabel(diveNumber) {
-    const d = new Date(2026, 6, 16 + (diveNumber - 1));
+    const d = new Date(2026, 10, 6 + (diveNumber - 1));
     return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
   }
 

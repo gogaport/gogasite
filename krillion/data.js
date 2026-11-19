@@ -322,7 +322,7 @@
   {
     "id": "talking-animal-movie",
     "text": "Назови фильм или мультфильм, где главный герой — говорящее животное",
-    "count": 230,
+    "count": 227,
     "strictShape": false
   },
   {
@@ -340,7 +340,7 @@
   {
     "id": "cities-suffix",
     "text": "Назови город мира, заканчивающийся на -бург (-берг), -виль (-вилл), -дорф или -штадт",
-    "count": 316,
+    "count": 315,
     "strictShape": true
   },
   {
@@ -364,7 +364,7 @@
   {
     "id": "open-world-game",
     "text": "Назови видеоигру с открытым миром",
-    "count": 547,
+    "count": 546,
     "strictShape": false
   },
   {
@@ -382,13 +382,13 @@
   {
     "id": "cheese-type",
     "text": "Назови сорт или вид сыра",
-    "count": 313,
+    "count": 310,
     "strictShape": false
   },
   {
     "id": "russian-literature",
     "text": "Назови произведение русской классической литературы",
-    "count": 711,
+    "count": 707,
     "strictShape": false
   },
   {
@@ -418,13 +418,13 @@
   {
     "id": "board-game",
     "text": "Назови настольную или карточную игру",
-    "count": 277,
+    "count": 315,
     "strictShape": false
   },
   {
     "id": "car-brand",
     "text": "Назови марку автомобиля",
-    "count": 502,
+    "count": 501,
     "strictShape": false
   },
   {
@@ -442,13 +442,13 @@
   {
     "id": "gemstone",
     "text": "Назови драгоценный или поделочный камень",
-    "count": 493,
+    "count": 492,
     "strictShape": false
   },
   {
     "id": "pasta-shape",
     "text": "Назови вид пасты (макаронных изделий)",
-    "count": 169,
+    "count": 168,
     "strictShape": false
   },
   {
@@ -466,13 +466,13 @@
   {
     "id": "color-shade",
     "text": "Назови цвет или оттенок",
-    "count": 251,
+    "count": 238,
     "strictShape": false
   },
   {
     "id": "comic-hero-villain",
     "text": "Назови супергероя или суперзлодея из комиксов",
-    "count": 583,
+    "count": 580,
     "strictShape": false
   },
   {
@@ -484,7 +484,7 @@
   {
     "id": "vowel-country",
     "text": "Назови страну, название которой начинается на гласную букву",
-    "count": 59,
+    "count": 58,
     "strictShape": true
   },
   {
@@ -496,7 +496,7 @@
   {
     "id": "world-capital",
     "text": "Назови столицу любого государства мира",
-    "count": 201,
+    "count": 200,
     "strictShape": false
   },
   {
@@ -508,7 +508,7 @@
   {
     "id": "world-river",
     "text": "Назови реку в России или мире",
-    "count": 656,
+    "count": 655,
     "strictShape": false
   },
   {
@@ -526,7 +526,7 @@
   {
     "id": "berry-fruit",
     "text": "Назови ягоду (настоящую или ту, что все считают ягодой)",
-    "count": 202,
+    "count": 201,
     "strictShape": false
   },
   {
@@ -544,7 +544,7 @@
   {
     "id": "sea-creature",
     "text": "Назови морского обитателя (кроме кита и акулы)",
-    "count": 710,
+    "count": 707,
     "strictShape": false
   },
   {
@@ -556,19 +556,19 @@
   {
     "id": "spice-herb",
     "text": "Назови специю, пряность или приправу",
-    "count": 394,
+    "count": 391,
     "strictShape": false
   },
   {
     "id": "soup-dish",
     "text": "Назови суп или первое блюдо любой кухни мира",
-    "count": 261,
+    "count": 260,
     "strictShape": false
   },
   {
     "id": "dessert-sweet",
     "text": "Назови десерт или сладость",
-    "count": 343,
+    "count": 341,
     "strictShape": false
   },
   {
@@ -580,19 +580,19 @@
   {
     "id": "cocktail-drink",
     "text": "Назови коктейль или популярный напиток из кофейни / бара",
-    "count": 383,
+    "count": 378,
     "strictShape": false
   },
   {
     "id": "cat-breed",
     "text": "Назови породу кошки",
-    "count": 140,
+    "count": 132,
     "strictShape": false
   },
   {
     "id": "insect-bug",
     "text": "Назови насекомое или паукообразное",
-    "count": 560,
+    "count": 557,
     "strictShape": false
   },
   {
@@ -622,7 +622,7 @@
   {
     "id": "body-organ-bone",
     "text": "Назови орган, кость или мышцу человека",
-    "count": 618,
+    "count": 617,
     "strictShape": false
   },
   {
@@ -634,31 +634,31 @@
   {
     "id": "building-landmark",
     "text": "Назови известное здание, памятник или чудо света",
-    "count": 857,
+    "count": 856,
     "strictShape": false
   },
   {
     "id": "fabric-material",
     "text": "Назови ткань или материал для одежды",
-    "count": 306,
+    "count": 304,
     "strictShape": false
   },
   {
     "id": "dance-style",
     "text": "Назови танец или танцевальное направление",
-    "count": 305,
+    "count": 303,
     "strictShape": false
   },
   {
     "id": "sport-no-ball",
     "text": "Назови вид спорта, в котором НЕ используется мяч или шайба",
-    "count": 846,
+    "count": 836,
     "strictShape": false
   },
   {
     "id": "martial-art",
     "text": "Назови боевое искусство или вид единоборств",
-    "count": 280,
+    "count": 277,
     "strictShape": false
   },
   {
@@ -682,7 +682,7 @@
   {
     "id": "anime-character",
     "text": "Назови персонажа из аниме",
-    "count": 2251,
+    "count": 2248,
     "strictShape": false
   },
   {
@@ -694,7 +694,7 @@
   {
     "id": "harry-potter",
     "text": "Назови персонажа, заклинание или место из «Гарри Поттера»",
-    "count": 597,
+    "count": 589,
     "strictShape": false
   },
   {
@@ -706,13 +706,13 @@
   {
     "id": "star-wars",
     "text": "Назови персонажа, планету или корабль из «Звёздных войн»",
-    "count": 240,
+    "count": 235,
     "strictShape": false
   },
   {
     "id": "sci-fi-fantasy-movie",
     "text": "Назови культовый фантастический или киберпанк-фильм",
-    "count": 773,
+    "count": 771,
     "strictShape": false
   },
   {
@@ -724,7 +724,7 @@
   {
     "id": "tv-series-hit",
     "text": "Назови популярный сериал (зарубежный или российский)",
-    "count": 525,
+    "count": 522,
     "strictShape": false
   },
   {
@@ -742,7 +742,7 @@
   {
     "id": "minecraft-mob-item",
     "text": "Назови моба, биом, блок или предмет из Minecraft",
-    "count": 1841,
+    "count": 1840,
     "strictShape": false
   },
   {
@@ -754,19 +754,25 @@
   {
     "id": "music-genre",
     "text": "Назови музыкальный жанр или поджанр",
-    "count": 724,
+    "count": 722,
     "strictShape": false
   },
   {
     "id": "rock-pop-band",
-    "text": "Назови музыкальную группу или культового исполнителя",
-    "count": 1107,
+    "text": "Назови зарубежную музыкальную группу или исполнителя",
+    "count": 1160,
+    "strictShape": false
+  },
+  {
+    "id": "cis-music-artist",
+    "text": "Назови русскоязычную группу или исполнителя (Россия и СНГ)",
+    "count": 661,
     "strictShape": false
   },
   {
     "id": "soviet-cartoon",
     "text": "Назови советский или российский мультфильм",
-    "count": 717,
+    "count": 712,
     "strictShape": false
   },
   {
@@ -778,19 +784,19 @@
   {
     "id": "fairy-tale-folk",
     "text": "Назови сказку или фольклорного персонажа",
-    "count": 503,
+    "count": 496,
     "strictShape": false
   },
   {
     "id": "tech-brand",
     "text": "Назови бренд электроники, смартфонов, ПК-железа или техники",
-    "count": 311,
+    "count": 309,
     "strictShape": false
   },
   {
     "id": "social-app-site",
     "text": "Назови известный сайт, соцсеть, мессенджер или приложение",
-    "count": 508,
+    "count": 505,
     "strictShape": false
   },
   {
@@ -802,19 +808,19 @@
   {
     "id": "school-subject",
     "text": "Назови школьный предмет или университетскую дисциплину",
-    "count": 544,
+    "count": 543,
     "strictShape": false
   },
   {
     "id": "phobia-fear",
     "text": "Назови человеческий страх или фобию",
-    "count": 197,
+    "count": 195,
     "strictShape": false
   },
   {
     "id": "holiday-tradition",
     "text": "Назови праздник в России или мире",
-    "count": 276,
+    "count": 274,
     "strictShape": false
   },
   {
@@ -856,7 +862,7 @@
   {
     "id": "childhood-toy-game",
     "text": "Назови детскую игрушку или дворовую игру",
-    "count": 210,
+    "count": 209,
     "strictShape": false
   },
   {
@@ -874,7 +880,7 @@
   {
     "id": "famous-salad",
     "text": "Назови салат (любой кухни мира)",
-    "count": 182,
+    "count": 179,
     "strictShape": false
   },
   {
@@ -886,19 +892,19 @@
   {
     "id": "vegetable-green",
     "text": "Назови овощ или салатную зелень",
-    "count": 378,
+    "count": 372,
     "strictShape": false
   },
   {
     "id": "tropical-fruit",
     "text": "Назови фрукт или цитрус (кроме ягод)",
-    "count": 360,
+    "count": 355,
     "strictShape": false
   },
   {
     "id": "video-game-char",
     "text": "Назови культового персонажа видеоигр (не из Dota 2 / LoL / Overwatch / Valorant)",
-    "count": 387,
+    "count": 383,
     "strictShape": false
   },
   {
@@ -916,7 +922,7 @@
   {
     "id": "movie-actor",
     "text": "Назови известного актёра или актрису кино",
-    "count": 1619,
+    "count": 1919,
     "strictShape": false
   },
   {
@@ -934,7 +940,7 @@
   {
     "id": "world-language",
     "text": "Назови язык народов мира (живой, мёртвый или вымышленный — не язык программирования)",
-    "count": 262,
+    "count": 255,
     "strictShape": false
   },
   {
@@ -946,19 +952,19 @@
   {
     "id": "transport-vehicle",
     "text": "Назови вид транспорта (наземного, водного или воздушного)",
-    "count": 700,
+    "count": 690,
     "strictShape": false
   },
   {
     "id": "world-lake-strait",
     "text": "Назови озеро, водопад или морской пролив",
-    "count": 679,
+    "count": 677,
     "strictShape": false
   },
   {
     "id": "furniture-interior",
     "text": "Назови предмет мебели или домашнего интерьера",
-    "count": 136,
+    "count": 135,
     "strictShape": false
   },
   {
@@ -970,13 +976,13 @@
   {
     "id": "electronic-gadget",
     "text": "Назови электронное устройство, гаджет или бытовую технику",
-    "count": 500,
+    "count": 474,
     "strictShape": false
   },
   {
     "id": "weapon-armor",
     "text": "Назови холодное оружие, доспех или элемент старинной экипировки",
-    "count": 679,
+    "count": 633,
     "strictShape": false
   },
   {
@@ -988,7 +994,7 @@
   {
     "id": "cosmetics-hygiene",
     "text": "Назови средство или предмет косметики, парфюмерии или личной гигиены",
-    "count": 320,
+    "count": 319,
     "strictShape": false
   },
   {
@@ -1000,13 +1006,13 @@
   {
     "id": "fashion-brand",
     "text": "Назови бренд одежды, обуви или модный дом",
-    "count": 242,
+    "count": 236,
     "strictShape": false
   },
   {
     "id": "fastfood-chain",
     "text": "Назови сеть фастфуда, кафе или ресторанов",
-    "count": 199,
+    "count": 196,
     "strictShape": false
   },
   {
@@ -1018,19 +1024,19 @@
   {
     "id": "football-club",
     "text": "Назови футбольный клуб (российский или зарубежный)",
-    "count": 864,
+    "count": 862,
     "strictShape": false
   },
   {
     "id": "animated-series",
     "text": "Назови зарубежный или российский мультсериал (не аниме)",
-    "count": 333,
+    "count": 331,
     "strictShape": false
   },
   {
     "id": "stationery-item",
     "text": "Назови канцелярский или офисный предмет",
-    "count": 138,
+    "count": 134,
     "strictShape": false
   },
   {
@@ -1042,13 +1048,13 @@
   {
     "id": "human-emotion",
     "text": "Назови эмоцию, чувство или черту характера человека",
-    "count": 270,
+    "count": 262,
     "strictShape": false
   },
   {
     "id": "jewelry-accessory",
     "text": "Назови ювелирное украшение или аксессуар",
-    "count": 363,
+    "count": 359,
     "strictShape": false
   }
 ].map((p) => Object.assign(p, { answers: null }));
@@ -1061,7 +1067,7 @@
 
   function fetchChunkWithRetry(promptId, attempt = 0) {
     const opts = attempt > 0 ? { cache: 'reload' } : undefined;
-    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118q`, opts)
+    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118r`, opts)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();

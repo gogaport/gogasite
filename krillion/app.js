@@ -605,13 +605,25 @@
     }
 
     initEntities() {
-      this.particles = Array.from({ length: 120 }, () => ({
+      this.particles = Array.from({ length: 145 }, (_, i) => ({
         x: Math.random(),
         y: Math.random(),
-        r: 1.2 + Math.random() * 1.6,
-        speed: 0.16 + Math.random() * 0.45,
-        alpha: 0.12 + Math.random() * 0.35,
-        parallax: 0.16 + Math.random() * 0.42
+        r: 1.1 + Math.random() * 1.7,
+        speed: 0.14 + Math.random() * 0.44,
+        alpha: 0.12 + Math.random() * 0.36,
+        parallax: 0.14 + Math.random() * 0.46,
+        twinkle: Math.random() * Math.PI * 2,
+        spark: i % 9 === 0,
+        gold: i % 27 === 0
+      }));
+
+      this.currents = Array.from({ length: 14 }, (_, i) => ({
+        x: Math.random(),
+        y: 0.08 + ((i * 0.071) % 0.86),
+        len: 22 + Math.random() * 44,
+        speed: 0.008 + Math.random() * 0.014,
+        alpha: 0.05 + Math.random() * 0.07,
+        parallax: 0.18 + (i % 4) * 0.08
       }));
 
       this.fish = Array.from({ length: 18 }, (_, i) => ({
@@ -619,14 +631,39 @@
         depthPx: 140 + i * 320 + Math.random() * 200,
         size: 10 + Math.random() * 14,
         speed: (Math.random() > 0.5 ? 1 : -1) * (0.00014 + Math.random() * 0.0002),
-        alpha: 0.25 + Math.random() * 0.25
+        alpha: 0.25 + Math.random() * 0.25,
+        phase: Math.random() * Math.PI * 2
       }));
 
-      this.bubbles = Array.from({ length: 26 }, () => ({
+      this.schools = Array.from({ length: 5 }, (_, i) => ({
+        x: (i * 0.21 + 0.12) % 1,
+        depthPx: 210 + i * 420,
+        dir: i % 2 === 0 ? 1 : -1,
+        speed: 0.00022 + (i % 3) * 0.00006,
+        phase: i * 1.7,
+        members: Array.from({ length: 6 }, (_, m) => ({
+          ox: (m - 2.5) * 11 + ((m * 7) % 5) - 2,
+          oy: ((m % 3) - 1) * 7 + ((m * 13) % 5) - 2,
+          phase: m * 0.9
+        }))
+      }));
+
+      this.mantas = [
+        { x: 0.15, depthPx: 1120, speed: 0.00011, size: 1.0, phase: 0.4 },
+        { x: 0.72, depthPx: 2650, speed: -0.00009, size: 1.2, phase: 2.6 }
+      ];
+
+      this.anglers = [
+        { x: 0.22, depthPx: 3650, speed: 0.00007, phase: 0.8 },
+        { x: 0.76, depthPx: 5400, speed: -0.000065, phase: 3.1 },
+        { x: 0.42, depthPx: 8900, speed: 0.00006, phase: 1.9 }
+      ];
+
+      this.bubbles = Array.from({ length: 30 }, () => ({
         x: Math.random() * this.width,
         y: Math.random() * this.height,
-        r: 1.5 + Math.random() * 3.2,
-        vy: 0.45 + Math.random() * 1.1,
+        r: 1.3 + Math.random() * 3.1,
+        vy: 0.42 + Math.random() * 1.05,
         wobble: Math.random() * Math.PI * 2
       }));
 
@@ -637,26 +674,37 @@
         { x: 0.86, y: 0.36, scale: 1.05, speed: 0.0035 }
       ];
 
-      this.gulls = [
-        { x: 0.18, y: 0.24, speed: 0.0085, phase: 0.3 },
-        { x: 0.24, y: 0.29, speed: 0.0075, phase: 2.1 },
-        { x: 0.67, y: 0.22, speed: 0.0095, phase: 4.0 }
+      this.cirrus = [
+        { x: 0.14, y: 0.14, w: 68, speed: 0.0016 },
+        { x: 0.58, y: 0.11, w: 86, speed: 0.0012 },
+        { x: 0.79, y: 0.24, w: 54, speed: 0.0019 }
       ];
 
-      this.jellies = Array.from({ length: 7 }, (_, i) => ({
-        x: 0.1 + ((i * 0.23) % 0.82),
-        depthPx: 1450 + i * 740 + (i % 2) * 180,
+      this.gulls = [
+        { x: 0.18, y: 0.24, speed: 0.0085, phase: 0.3, scale: 1.0 },
+        { x: 0.24, y: 0.29, speed: 0.0075, phase: 2.1, scale: 0.85 },
+        { x: 0.67, y: 0.22, speed: 0.0095, phase: 4.0, scale: 1.1 },
+        { x: 0.74, y: 0.27, speed: 0.0082, phase: 1.2, scale: 0.8 }
+      ];
+
+      this.jellies = Array.from({ length: 9 }, (_, i) => ({
+        x: 0.08 + ((i * 0.21) % 0.84),
+        depthPx: 1250 + i * 680 + (i % 2) * 160,
         pink: i % 3 === 1,
+        gold: i % 5 === 4,
+        scale: 0.85 + (i % 3) * 0.18,
         phase: i * 1.4,
         drift: (i % 2 === 0 ? 1 : -1) * 18
       }));
 
       this.kelp = [
-        { side: 'L', offset: 22, depthPx: 620, height: 220, phase: 0.2 },
-        { side: 'L', offset: 54, depthPx: 710, height: 170, phase: 1.3 },
-        { side: 'R', offset: 56, depthPx: 660, height: 210, phase: 2.1 },
-        { side: 'L', offset: 36, depthPx: 1220, height: 190, phase: 0.9 },
-        { side: 'R', offset: 48, depthPx: 1280, height: 165, phase: 3.1 }
+        { side: 'L', offset: 16, depthPx: 580, height: 245, phase: 0.2, back: true },
+        { side: 'L', offset: 42, depthPx: 660, height: 210, phase: 1.3, back: false },
+        { side: 'L', offset: 68, depthPx: 740, height: 155, phase: 2.6, back: true },
+        { side: 'R', offset: 22, depthPx: 630, height: 235, phase: 2.1, back: true },
+        { side: 'R', offset: 54, depthPx: 690, height: 195, phase: 0.8, back: false },
+        { side: 'L', offset: 32, depthPx: 1220, height: 195, phase: 0.9, back: false },
+        { side: 'R', offset: 44, depthPx: 1290, height: 175, phase: 3.1, back: false }
       ];
     }
 
@@ -831,18 +879,39 @@
         }
       }
 
-      // Tall mast + radar spinner + flapping Krillion Pink Pennant Flag
+      // Tall mast + radar spinner + blinking beacon + flapping Krillion Pink Pennant Flag
       ctx.fillStyle = '#0c1c30';
       ctx.fillRect(0, -18.5 * u, u, 8.5 * u);
       const radarW = Math.max(u, Math.round(Math.abs(Math.cos(t * 2.4)) * 3.5 * u));
       ctx.fillStyle = '#20426b';
       ctx.fillRect(Math.round(u * 0.5 - radarW * 0.5), -12.8 * u, radarW, Math.max(2, u * 0.5));
+      // Masthead navigation beacon
+      const beaconOn = Math.sin(t * 3.8) > 0.15;
+      ctx.fillStyle = beaconOn ? '#ff5d8f' : 'rgba(255, 93, 143, 0.25)';
+      ctx.fillRect(0, -19.5 * u, u, u * 0.75);
+      if (beaconOn && !appState.settings.lowPower) {
+        ctx.fillStyle = 'rgba(255, 93, 143, 0.22)';
+        ctx.fillRect(-u, -20.5 * u, 3 * u, 2.5 * u);
+      }
 
       const flutter = Math.sin(t * 5.2) > 0 ? 0 : 1;
       ctx.fillStyle = '#ff5d8f';
       ctx.fillRect(-6 * u, -17.5 * u, 6 * u, 3 * u);
       ctx.fillStyle = '#ff99b8';
       ctx.fillRect(-8 * u, (-16.5 + flutter * 0.5) * u, 2 * u, u);
+
+      // Animated bow wave foam spray & subtle water reflections beneath keel
+      if (!appState.settings.lowPower) {
+        const spray = Math.round(Math.sin(t * 4.4) * 2);
+        ctx.fillStyle = 'rgba(232, 250, 255, 0.72)';
+        ctx.fillRect(12 * u, -1.6 * u + spray * 0.4, 2.2 * u, u * 0.55);
+        ctx.fillRect(14.5 * u, -2.4 * u - spray * 0.5, u * 1.1, u * 0.5);
+        ctx.fillStyle = 'rgba(77, 227, 255, 0.22)';
+        ctx.fillRect(-3 * u + spray, 1.4 * u, 6 * u, u * 0.45);
+        ctx.fillStyle = 'rgba(255, 209, 102, 0.24)';
+        ctx.fillRect(-7 * u - spray * 0.5, 1.8 * u, 2 * u, u * 0.4);
+        ctx.fillRect(4 * u + spray * 0.5, 2.1 * u, 2 * u, u * 0.4);
+      }
       ctx.restore();
     }
 
@@ -981,17 +1050,62 @@
         ctx.fillStyle = '#fffce0';
         ctx.fillRect(Math.round(sunX - 14), Math.round(sunY - 16), 16, 16);
 
-        // Distant gliding pixel seagulls above horizon
+        // High-altitude pixel cirrus wisps
         if (!appState.settings.lowPower) {
-          ctx.fillStyle = 'rgba(20, 44, 72, 0.55)';
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.34)';
+          for (const ci of this.cirrus) {
+            const cix = Math.round((((ci.x + t * ci.speed) % 1.2) - 0.1) * this.width);
+            const ciy = Math.round(Math.max(14, waterlineScreenY * ci.y));
+            if (ciy < waterlineScreenY - 22) {
+              ctx.fillRect(cix, ciy, ci.w, 2);
+              ctx.fillRect(cix + 10, ciy + 2, Math.round(ci.w * 0.65), 2);
+              ctx.fillRect(cix - 6, ciy - 2, Math.round(ci.w * 0.42), 2);
+            }
+          }
+        }
+
+        // Distant hazy pixel islet + tiny lighthouse silhouette on far left horizon
+        if (waterlineScreenY > 48) {
+          const lx = Math.round(this.width * 0.09);
+          const ly = Math.round(waterlineScreenY);
+          ctx.fillStyle = 'rgba(98, 165, 199, 0.58)';
+          ctx.fillRect(lx - 26, ly - 5, 58, 7);
+          ctx.fillRect(lx - 18, ly - 9, 36, 4);
+          ctx.fillRect(lx - 10, ly - 12, 18, 3);
+          // Miniature lighthouse tower
+          ctx.fillStyle = 'rgba(72, 126, 160, 0.72)';
+          ctx.fillRect(lx - 3, ly - 24, 5, 12);
+          ctx.fillStyle = 'rgba(232, 248, 255, 0.72)';
+          ctx.fillRect(lx - 2, ly - 21, 3, 3);
+          ctx.fillRect(lx - 2, ly - 15, 3, 2);
+          // Subtle blinking lighthouse beam
+          const lhPulse = 0.35 + 0.65 * Math.max(0, Math.sin(t * 2.1));
+          ctx.fillStyle = `rgba(255, 240, 170, ${(lhPulse * 0.85).toFixed(2)})`;
+          ctx.fillRect(lx - 2, ly - 26, 3, 2);
+          if (!appState.settings.lowPower && lhPulse > 0.6) {
+            ctx.fillStyle = `rgba(255, 243, 184, ${((lhPulse - 0.6) * 0.32).toFixed(2)})`;
+            ctx.fillRect(lx + 1, ly - 27, 16, 2);
+            ctx.fillRect(lx - 18, ly - 27, 16, 2);
+          }
+        }
+
+        // Distant gliding pixel seagulls above horizon (2-segment articulated wings)
+        if (!appState.settings.lowPower) {
           for (const g of this.gulls) {
             const gx = Math.round((((g.x + t * g.speed) % 1.15) - 0.08) * this.width);
             const gy = Math.round(Math.max(20, waterlineScreenY * g.y + Math.sin(t * 1.8 + g.phase) * 5));
             if (gy < waterlineScreenY - 14) {
-              const wingY = Math.sin(t * 5.4 + g.phase) > 0 ? -2 : 1;
-              ctx.fillRect(gx - 4, gy + wingY, 3, 2);
-              ctx.fillRect(gx - 1, gy, 3, 2);
-              ctx.fillRect(gx + 2, gy + wingY, 3, 2);
+              const flap = Math.sin(t * 5.4 + g.phase);
+              const w1 = flap > 0.2 ? -2 : flap < -0.2 ? 1 : -1;
+              const w2 = flap > 0.2 ? -4 : flap < -0.2 ? 2 : -1;
+              ctx.fillStyle = 'rgba(18, 42, 68, 0.62)';
+              ctx.fillRect(gx - 6, gy + w2, 3, 2);
+              ctx.fillRect(gx - 3, gy + w1, 3, 2);
+              ctx.fillRect(gx, gy, 3, 2);
+              ctx.fillRect(gx + 3, gy + w1, 3, 2);
+              ctx.fillRect(gx + 6, gy + w2, 3, 2);
+              ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+              ctx.fillRect(gx, gy + 1, 2, 1);
             }
           }
         }
@@ -1038,13 +1152,13 @@
         ctx.fillStyle = seaGrad;
         ctx.fillRect(0, oceanStart, this.width, this.height - oceanStart);
 
-        // Soft Sun Caustic Light Shafts near surface
+        // Soft Sun Caustic Light Shafts + crisp sub-surface caustic ripples near surface
         if (depthFrac < 0.14 && !appState.settings.lowPower) {
-          const rayAlpha = (1 - depthFrac / 0.14) * 0.055;
+          const rayAlpha = (1 - depthFrac / 0.14) * 0.058;
           for (let i = 0; i < 6; i++) {
             const rx = this.width * (0.08 + i * 0.17) + Math.sin(t * 0.35 + i * 1.1) * 24;
             const rGrad = ctx.createLinearGradient(0, oceanStart, 0, this.height * 0.9);
-            rGrad.addColorStop(0, `rgba(110, 224, 255, ${(rayAlpha * 1.4).toFixed(3)})`);
+            rGrad.addColorStop(0, `rgba(110, 224, 255, ${(rayAlpha * 1.45).toFixed(3)})`);
             rGrad.addColorStop(1, 'rgba(77, 227, 255, 0)');
             ctx.fillStyle = rGrad;
             ctx.beginPath();
@@ -1055,44 +1169,80 @@
             ctx.closePath();
             ctx.fill();
           }
+
+          // Subtle pixel caustic web just beneath waterline
+          const causticAlpha = (1 - depthFrac / 0.14) * 0.14;
+          for (let row = 0; row < 4; row++) {
+            const cy = Math.round(oceanStart + 24 + row * 24);
+            if (cy >= this.height) break;
+            const step = 64 + row * 14;
+            const fade = causticAlpha * (1 - row * 0.22);
+            ctx.fillStyle = `rgba(155, 236, 255, ${fade.toFixed(3)})`;
+            for (let cx = 18; cx < this.width - 18; cx += step) {
+              const drift = Math.round(Math.sin(t * 1.4 + row * 1.7 + cx * 0.03) * 10);
+              const w = 14 + ((cx + row * 11) % 14);
+              ctx.fillRect(cx + drift, cy, w, 2);
+              ctx.fillRect(cx + drift + 4, cy + 2, Math.max(4, w - 8), 1);
+            }
+          }
         }
       }
 
       // 3. Undulating Surface Wave Crest (rear + front parallax) + Pixel Trawler Boat + Horizon Buoy
       if (waterlineScreenY > -55 && waterlineScreenY < this.height + 40) {
-        // Distant rear wave layer
+        // Distant rear wave layer (smooth fade into ocean body)
         ctx.beginPath();
         ctx.moveTo(0, waterlineScreenY - 2);
         for (let x = 0; x <= this.width; x += 16) {
           const wy = waterlineScreenY - 2 + Math.sin(x * 0.011 - t * 1.2) * 3.5;
           ctx.lineTo(x, wy);
         }
-        ctx.lineTo(this.width, Math.min(this.height, waterlineScreenY + 28));
-        ctx.lineTo(0, Math.min(this.height, waterlineScreenY + 28));
+        const rearBotY = Math.min(this.height, waterlineScreenY + 32);
+        ctx.lineTo(this.width, rearBotY);
+        ctx.lineTo(0, rearBotY);
         ctx.closePath();
-        ctx.fillStyle = '#144064';
+        const rearGrad = ctx.createLinearGradient(0, waterlineScreenY - 6, 0, rearBotY);
+        rearGrad.addColorStop(0, '#144064');
+        rearGrad.addColorStop(0.55, 'rgba(20, 64, 100, 0.72)');
+        rearGrad.addColorStop(1, 'rgba(20, 64, 100, 0)');
+        ctx.fillStyle = rearGrad;
         ctx.fill();
 
-        // Distant channel marker buoy on right horizon
+        // Distant channel marker buoy on right horizon + water shimmer reflection
         const buoyX = Math.round(this.width * 0.79);
         const buoyY = Math.round(waterlineScreenY + Math.sin(buoyX * 0.011 - t * 1.2) * 3.5);
+        const buoyLit = Math.sin(t * 3.2) > 0.35;
         ctx.fillStyle = '#0c1c30';
         ctx.fillRect(buoyX - 5, buoyY - 4, 10, 5);
         ctx.fillRect(buoyX - 2, buoyY - 12, 4, 8);
-        ctx.fillStyle = (Math.sin(t * 3.2) > 0.35) ? '#4de3ff' : 'rgba(77, 227, 255, 0.3)';
+        ctx.fillStyle = '#ff5d8f';
+        ctx.fillRect(buoyX - 4, buoyY - 3, 8, 2);
+        ctx.fillStyle = buoyLit ? '#4de3ff' : 'rgba(77, 227, 255, 0.3)';
         ctx.fillRect(buoyX - 1, buoyY - 14, 3, 2);
+        if (buoyLit && !appState.settings.lowPower) {
+          ctx.fillStyle = 'rgba(77, 227, 255, 0.24)';
+          ctx.fillRect(buoyX - 4, buoyY - 16, 9, 6);
+          ctx.fillStyle = 'rgba(77, 227, 255, 0.34)';
+          ctx.fillRect(buoyX - 3 + Math.round(Math.sin(t * 4) * 2), buoyY + 5, 6, 2);
+          ctx.fillRect(buoyX - 2 - Math.round(Math.sin(t * 3.5) * 2), buoyY + 10, 4, 2);
+        }
 
-        // Foreground surface wave
+        // Foreground surface wave (seamless fade into ocean body so caustic rays don't clip)
         ctx.beginPath();
         ctx.moveTo(0, waterlineScreenY);
         for (let x = 0; x <= this.width; x += 16) {
           const wy = waterlineScreenY + Math.sin(x * 0.014 + t * 1.9) * 5 + Math.cos(x * 0.028 - t * 1.2) * 2.5;
           ctx.lineTo(x, wy);
         }
-        ctx.lineTo(this.width, Math.min(this.height, waterlineScreenY + 34));
-        ctx.lineTo(0, Math.min(this.height, waterlineScreenY + 34));
+        const waveBotY = Math.min(this.height, waterlineScreenY + 42);
+        ctx.lineTo(this.width, waveBotY);
+        ctx.lineTo(0, waveBotY);
         ctx.closePath();
-        ctx.fillStyle = '#184b73';
+        const waveGrad = ctx.createLinearGradient(0, waterlineScreenY - 8, 0, waveBotY);
+        waveGrad.addColorStop(0, '#1a527c');
+        waveGrad.addColorStop(0.45, 'rgba(24, 75, 115, 0.86)');
+        waveGrad.addColorStop(1, 'rgba(24, 75, 115, 0)');
+        ctx.fillStyle = waveGrad;
         ctx.fill();
 
         ctx.beginPath();
@@ -1105,12 +1255,24 @@
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        // Scattered crisp pixel foam flecks on crests
+        // Scattered crisp pixel foam flecks on crests + golden sun-glint path under sun
         if (!appState.settings.lowPower) {
           ctx.fillStyle = 'rgba(232, 250, 255, 0.55)';
           for (let fx = 24; fx < this.width - 24; fx += 72) {
             const crestY = waterlineScreenY + Math.sin(fx * 0.014 + t * 1.9) * 5 + Math.cos(fx * 0.028 - t * 1.2) * 2.5;
             ctx.fillRect(Math.round(fx + Math.sin(t + fx) * 6), Math.round(crestY + 4), 6, 2);
+          }
+
+          // Golden pixel sun shimmer path on waves below upper-right sun
+          const sunX = this.width * 0.84;
+          for (let g = 0; g < 6; g++) {
+            const gy = Math.round(waterlineScreenY + 6 + g * 8);
+            if (gy >= this.height) break;
+            const spread = 28 - g * 3;
+            const gx = Math.round(sunX + Math.sin(t * 2.4 + g * 1.9) * (8 + g * 2) - spread * 0.5);
+            const alpha = (0.42 - g * 0.055) * (0.7 + 0.3 * Math.sin(t * 4.2 + g));
+            ctx.fillStyle = `rgba(255, 240, 175, ${Math.max(0.05, alpha).toFixed(2)})`;
+            ctx.fillRect(gx, gy, Math.max(6, spread), 2);
           }
         }
 
@@ -1121,38 +1283,52 @@
         this.drawPixelBoat(ctx, boatX, boatWaveY + 2, slope, t);
       }
 
-      // 4. Pixel Kelp Silhouettes (200m - 700m depth band)
+      // 4. Pixel Kelp Silhouettes + rising oxygen micro-bubbles (200m - 700m depth band)
       for (const k of this.kelp) {
         const ky = this.worldOffset + k.depthPx;
         if (ky < waterlineScreenY + 40 || ky - k.height > this.height) continue;
         const kx = k.side === 'L' ? k.offset : this.width - k.offset;
         const segH = 12;
         const steps = Math.floor(k.height / segH);
+        const backScale = k.back ? 0.62 : 1.0;
         for (let s = 0; s < steps; s++) {
           const sy = ky - s * segH;
           const sway = Math.sin(t * 1.2 + k.phase + s * 0.32) * (s * 0.75);
-          const w = 10 - (s / steps) * 4;
+          const w = (k.back ? 8 : 10) - (s / steps) * 3.5;
           const rx = Math.round(kx + sway);
           const ry = Math.round(sy);
-          ctx.fillStyle = 'rgba(7, 20, 38, 0.88)';
+          ctx.fillStyle = `rgba(7, 20, 38, ${(0.88 * backScale).toFixed(2)})`;
           ctx.fillRect(rx, ry, Math.round(w), segH + 1);
-          ctx.fillStyle = 'rgba(15, 44, 68, 0.72)';
+          ctx.fillStyle = `rgba(15, 44, 68, ${(0.72 * backScale).toFixed(2)})`;
           ctx.fillRect(rx + 2, ry + 1, Math.max(2, Math.round(w * 0.45)), segH);
           if (s % 2 === 0 && s > 1) {
             const leafDir = s % 4 === 0 ? 1 : -1;
             const lx = Math.round(kx + sway + leafDir * w);
-            ctx.fillStyle = 'rgba(11, 34, 56, 0.85)';
+            ctx.fillStyle = `rgba(11, 34, 56, ${(0.85 * backScale).toFixed(2)})`;
             ctx.fillRect(lx, ry + 2, Math.round(w * 1.4), 7);
             ctx.fillRect(lx + (leafDir > 0 ? Math.round(w * 0.9) : -3), ry + 4, 4, 4);
-            if (s % 6 === 0) {
-              ctx.fillStyle = 'rgba(77, 227, 255, 0.28)';
+            if (s % 6 === 0 && !k.back) {
+              const podGlow = 0.22 + 0.2 * Math.sin(t * 2.4 + k.phase + s);
+              ctx.fillStyle = `rgba(77, 227, 255, ${podGlow.toFixed(2)})`;
               ctx.fillRect(lx + (leafDir > 0 ? 2 : 1), ry + 3, 2, 2);
+            }
+          }
+        }
+        // Tiny oxygen micro-bubbles rising from kelp tips
+        if (!appState.settings.lowPower && !k.back) {
+          for (let b = 0; b < 2; b++) {
+            const prog = (t * 0.24 + k.phase * 0.3 + b * 0.5) % 1;
+            const bx = Math.round(kx + Math.sin(t * 2.2 + b * 3 + k.phase) * 6);
+            const by = Math.round((ky - k.height) - prog * 54);
+            if (by > waterlineScreenY + 8 && by < this.height) {
+              ctx.fillStyle = `rgba(165, 236, 255, ${((1 - prog) * 0.36).toFixed(2)})`;
+              ctx.fillRect(bx, by, 2, 2);
             }
           }
         }
       }
 
-      // 5. Rocky Trench Walls + Glowing Cyan/Pink Crystal Clusters (deep > 1800px / 900m)
+      // 5. Rocky Trench Walls + Glowing Crystal Clusters + Deep Hydrothermal Vents (deep > 1800px / 900m)
       if (this.cameraY > 1400 || this.worldOffset < -1000) {
         const wallAlpha = Math.min(0.92, Math.max(0, (this.cameraY - 1200) / 2200));
         if (wallAlpha > 0.04) {
@@ -1175,15 +1351,19 @@
             ctx.fillRect(lw - 3, sy + 10, 3, blockH - 22);
             ctx.fillRect(this.width - rw, sy + 12, 3, blockH - 24);
 
-            // Faceted bioluminescent crystal clusters in trench rocks
+            // Faceted bioluminescent crystal clusters in trench rocks (with soft ambient halo)
             if (i % 3 === 0) {
-              const pulse = 0.4 + 0.55 * Math.sin(t * 2.1 + i);
+              const pulse = 0.42 + 0.52 * Math.sin(t * 2.1 + i);
               const pinkCrystal = i % 6 === 0;
-              ctx.fillStyle = pinkCrystal
-                ? `rgba(255, 93, 143, ${(wallAlpha * pulse).toFixed(2)})`
-                : `rgba(77, 227, 255, ${(wallAlpha * pulse).toFixed(2)})`;
+              const rgb = pinkCrystal ? '255, 93, 143' : '77, 227, 255';
               const lx = Math.max(4, lw - 11);
               const rx = Math.min(this.width - 10, this.width - rw + 6);
+              if (!appState.settings.lowPower) {
+                ctx.fillStyle = `rgba(${rgb}, ${(wallAlpha * pulse * 0.16).toFixed(2)})`;
+                ctx.fillRect(lx - 4, sy + 12, 15, 15);
+                ctx.fillRect(rx - 6, sy + 32, 15, 15);
+              }
+              ctx.fillStyle = `rgba(${rgb}, ${(wallAlpha * pulse).toFixed(2)})`;
               ctx.fillRect(lx, sy + 16, 4, 7);
               ctx.fillRect(lx + 4, sy + 19, 3, 4);
               ctx.fillRect(rx, sy + 36, 4, 7);
@@ -1191,6 +1371,25 @@
               ctx.fillStyle = `rgba(230, 245, 255, ${(wallAlpha * pulse * 0.85).toFixed(2)})`;
               ctx.fillRect(lx + 1, sy + 17, 2, 2);
               ctx.fillRect(rx + 1, sy + 37, 2, 2);
+            }
+
+            // Deep hydrothermal crevice glow + warm rising plume particles (> 2200m / i >= 60)
+            if (i >= 60 && i % 7 === 0 && !appState.settings.lowPower) {
+              const glow = 0.35 + 0.3 * Math.sin(t * 3.1 + i * 1.3);
+              const onLeft = i % 14 === 0;
+              const vx = onLeft ? lw - 2 : this.width - rw;
+              const vy = Math.round(sy + 44);
+              ctx.fillStyle = `rgba(255, 130, 74, ${(wallAlpha * glow * 0.72).toFixed(2)})`;
+              ctx.fillRect(onLeft ? vx - 4 : vx, vy, 5, 3);
+              ctx.fillStyle = `rgba(255, 209, 102, ${(wallAlpha * glow * 0.55).toFixed(2)})`;
+              ctx.fillRect(onLeft ? vx - 2 : vx + 1, vy + 1, 2, 2);
+              for (let vp = 0; vp < 3; vp++) {
+                const prog = (t * 0.42 + vp * 0.33 + i) % 1;
+                const px = Math.round(vx + (onLeft ? 3 : -4) + Math.sin(t * 3 + vp * 2) * 3);
+                const py = Math.round(vy - prog * 34);
+                ctx.fillStyle = `rgba(255, 165, 110, ${((1 - prog) * 0.36 * wallAlpha).toFixed(2)})`;
+                ctx.fillRect(px, py, 2, 2);
+              }
             }
           }
         }
@@ -1207,12 +1406,22 @@
         // Upper superstructure & decks
         ctx.fillRect(tx - 84, titanicY - 38, 164, 16);
         ctx.fillRect(tx - 64, titanicY - 46, 120, 8);
-        // 4 iconic funnels (#4 slightly tilted/snapped) + mast
+        // 4 iconic funnels (#4 slightly tilted/snapped) + mast + aft mast
         ctx.fillRect(tx - 54, titanicY - 64, 13, 18);
         ctx.fillRect(tx - 24, titanicY - 64, 13, 18);
         ctx.fillRect(tx + 6, titanicY - 64, 13, 18);
         ctx.fillRect(tx + 36, titanicY - 58, 13, 12);
         ctx.fillRect(tx - 98, titanicY - 62, 4, 40);
+        ctx.fillRect(tx + 82, titanicY - 52, 3, 30);
+        // Faint rigging lines
+        ctx.strokeStyle = 'rgba(54, 92, 140, 0.28)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(tx - 96, titanicY - 60);
+        ctx.lineTo(tx - 132, titanicY - 26);
+        ctx.moveTo(tx - 96, titanicY - 58);
+        ctx.lineTo(tx - 54, titanicY - 56);
+        ctx.stroke();
         // Subtle hull rim + eerie sunken porthole glints
         ctx.fillStyle = 'rgba(42, 74, 118, 0.5)';
         ctx.fillRect(tx - 116, titanicY - 22, 232, 2);
@@ -1220,34 +1429,89 @@
         for (let px = -72; px <= 68; px += 16) {
           ctx.fillRect(tx + px, titanicY - 32, 4, 3);
         }
-        ctx.fillStyle = 'rgba(255, 209, 102, 0.24)';
+        const glint = 0.16 + 0.14 * Math.sin(t * 1.9);
+        ctx.fillStyle = `rgba(255, 209, 102, ${glint.toFixed(2)})`;
         ctx.fillRect(tx - 48, titanicY - 14, 4, 3);
         ctx.fillRect(tx + 12, titanicY - 14, 4, 3);
+        // Slow trail of bubbles escaping from snapped 4th funnel
+        if (!appState.settings.lowPower) {
+          for (let tb = 0; tb < 4; tb++) {
+            const prog = (t * 0.22 + tb * 0.25) % 1;
+            const bx = Math.round(tx + 42 + Math.sin(t * 2.5 + tb * 2) * 4);
+            const by = Math.round(titanicY - 60 - prog * 68);
+            ctx.fillStyle = `rgba(140, 224, 255, ${((1 - prog) * 0.32).toFixed(2)})`;
+            ctx.fillRect(bx, by, 2, 2);
+          }
+        }
       }
 
-      // 7. Marine Snow & Bioluminescent Particles
+      // 7. Deep Ambient Currents + Multi-Layer Marine Snow & Twinkling Bioluminescent Sparks
+      if (!appState.settings.lowPower) {
+        for (const c of this.currents) {
+          const cx = ((c.x + t * c.speed) % 1.15 - 0.08) * this.width;
+          const cy = ((c.y * this.height + this.worldOffset * c.parallax) % this.height + this.height) % this.height;
+          if (cy <= waterlineScreenY + 14) continue;
+          ctx.fillStyle = depthFrac > 0.45
+            ? `rgba(77, 227, 255, ${(c.alpha * 0.72).toFixed(3)})`
+            : `rgba(182, 232, 255, ${c.alpha.toFixed(3)})`;
+          ctx.fillRect(Math.round(cx), Math.round(cy), Math.round(c.len), 1);
+          ctx.fillRect(Math.round(cx + c.len * 0.25), Math.round(cy + 2), Math.round(c.len * 0.5), 1);
+        }
+      }
+
       const pLimit = appState.settings.lowPower ? 36 : this.particles.length;
       for (let i = 0; i < pLimit; i++) {
         const p = this.particles[i];
-        const px = ((p.x * this.width + Math.sin(t * p.speed + i) * 14) % this.width + this.width) % this.width;
+        const px = Math.round(((p.x * this.width + Math.sin(t * p.speed + i) * 14) % this.width + this.width) % this.width);
         const rawY = p.y * this.height + this.worldOffset * p.parallax + t * p.speed * 18;
-        const py = ((rawY % this.height) + this.height) % this.height;
+        const py = Math.round(((rawY % this.height) + this.height) % this.height);
         if (py <= waterlineScreenY + 4) continue;
-        if (depthFrac > 0.55) {
+
+        const tw = p.spark ? (0.45 + 0.55 * Math.sin(t * 2.6 + p.twinkle)) : 1;
+        const a = p.alpha * tw;
+        if (depthFrac > 0.35 && p.spark) {
+          const rgb = p.gold ? '255, 209, 102' : (i % 3 === 0 ? '255, 93, 143' : '77, 227, 255');
+          ctx.fillStyle = `rgba(${rgb}, ${(a * 0.95).toFixed(2)})`;
+          ctx.fillRect(px, py, 2, 2);
+          if (tw > 0.72 && !appState.settings.lowPower) {
+            ctx.fillStyle = `rgba(${rgb}, ${(a * 0.45).toFixed(2)})`;
+            ctx.fillRect(px - 2, py, 6, 2);
+            ctx.fillRect(px, py - 2, 2, 6);
+          }
+        } else if (depthFrac > 0.55) {
           ctx.fillStyle = i % 3 === 0
-            ? `rgba(255, 93, 143, ${p.alpha * 0.75})`
-            : `rgba(77, 227, 255, ${p.alpha * 0.75})`;
+            ? `rgba(255, 93, 143, ${(a * 0.75).toFixed(2)})`
+            : `rgba(77, 227, 255, ${(a * 0.75).toFixed(2)})`;
+          ctx.fillRect(px, py, p.r, p.r);
         } else {
-          ctx.fillStyle = `rgba(198, 236, 255, ${p.alpha * 0.85})`;
+          ctx.fillStyle = `rgba(198, 236, 255, ${(a * 0.85).toFixed(2)})`;
+          ctx.fillRect(px, py, p.r, p.r);
         }
-        ctx.fillRect(Math.round(px), Math.round(py), p.r, p.r);
       }
 
-      // 8. Pixel Fish Silhouettes & Bioluminescent Deep Jellyfish
+      // 8. Pixel Fish Silhouettes, Ambient Micro-Schools, Manta Rays, Deep Anglerfish & Jellyfish
       if (!appState.settings.lowPower) {
+        // Synchronized micro-fish schools in upper/mid zones
+        for (const sc of this.schools) {
+          sc.x = (sc.x + sc.dir * sc.speed + 1) % 1;
+          const sy = this.worldOffset + sc.depthPx;
+          if (sy < Math.max(waterlineScreenY + 24, -40) || sy > this.height + 40) continue;
+          const sx = sc.x * (this.width + 120) - 60;
+          for (const m of sc.members) {
+            const mx = Math.round(sx + m.ox);
+            const my = Math.round(sy + m.oy + Math.sin(t * 3.1 + sc.phase + m.phase) * 2.5);
+            ctx.fillStyle = 'rgba(10, 28, 52, 0.56)';
+            ctx.fillRect(mx - 3, my - 1, 6, 3);
+            ctx.fillRect(sc.dir > 0 ? mx - 5 : mx + 3, my - 2, 2, 4);
+            ctx.fillStyle = 'rgba(130, 220, 255, 0.28)';
+            ctx.fillRect(mx - 1, my, 3, 1);
+          }
+        }
+
+        // Individual pixel fish silhouettes
         for (const f of this.fish) {
           f.x = (f.x + f.speed + 1) % 1;
-          const fy = this.worldOffset + f.depthPx;
+          const fy = this.worldOffset + f.depthPx + Math.sin(t * 1.4 + f.phase) * 3;
           if (fy < Math.max(waterlineScreenY + 18, -40) || fy > this.height + 40) continue;
           const fx = f.x * (this.width + 80) - 40;
           const dir = f.speed > 0 ? 1 : -1;
@@ -1255,7 +1519,6 @@
           ctx.save();
           ctx.translate(fx, fy);
           ctx.scale(dir, 1);
-          // Body + dorsal fin + forked tail + belly tint
           ctx.fillStyle = `rgba(6, 16, 30, ${fa.toFixed(2)})`;
           ctx.fillRect(-f.size * 0.45, -f.size * 0.22, f.size * 0.95, f.size * 0.42);
           ctx.fillRect(-f.size * 0.12, -f.size * 0.38, f.size * 0.32, f.size * 0.16);
@@ -1264,28 +1527,92 @@
           ctx.fillStyle = `rgba(18, 42, 70, ${(fa * 0.7).toFixed(2)})`;
           ctx.fillRect(-f.size * 0.25, f.size * 0.05, f.size * 0.55, f.size * 0.12);
           if (depthFrac > 0.35) {
-            ctx.fillStyle = 'rgba(77, 227, 255, 0.55)';
+            ctx.fillStyle = 'rgba(77, 227, 255, 0.58)';
             ctx.fillRect(f.size * 0.26, -f.size * 0.1, 2, 2);
           }
           ctx.restore();
         }
 
-        // Translucent pulsing jellyfish in deep water
+        // Gliding manta ray silhouettes in mid twilight depths
+        for (const m of this.mantas) {
+          m.x = (m.x + m.speed + 1) % 1;
+          const my = this.worldOffset + m.depthPx + Math.sin(t * 0.8 + m.phase) * 10;
+          if (my < Math.max(waterlineScreenY + 36, -60) || my > this.height + 60) continue;
+          const mx = m.x * (this.width + 140) - 70;
+          const dir = m.speed > 0 ? 1 : -1;
+          const wing = Math.round(Math.sin(t * 1.9 + m.phase) * 4);
+          ctx.save();
+          ctx.translate(Math.round(mx), Math.round(my));
+          ctx.scale(dir * m.size, m.size);
+          ctx.fillStyle = 'rgba(7, 18, 34, 0.56)';
+          ctx.fillRect(-14, -4, 28, 8);
+          ctx.fillRect(-6, -10 + wing, 14, 6);
+          ctx.fillRect(-4, 4 - wing, 12, 6);
+          ctx.fillRect(-28, -1, 14, 2); // whip tail
+          ctx.fillStyle = 'rgba(28, 62, 98, 0.38)';
+          ctx.fillRect(-6, -2, 16, 3);
+          ctx.restore();
+        }
+
+        // Deep-sea anglerfish silhouettes with bobbing bioluminescent lure
+        for (const a of this.anglers) {
+          a.x = (a.x + a.speed + 1) % 1;
+          const ay = this.worldOffset + a.depthPx + Math.sin(t * 0.7 + a.phase) * 8;
+          if (ay < -50 || ay > this.height + 50) continue;
+          const ax = a.x * (this.width + 120) - 60;
+          const dir = a.speed > 0 ? 1 : -1;
+          const lurePulse = 0.55 + 0.45 * Math.sin(t * 3.4 + a.phase);
+          ctx.save();
+          ctx.translate(Math.round(ax), Math.round(ay));
+          ctx.scale(dir, 1);
+          ctx.fillStyle = 'rgba(8, 16, 30, 0.72)';
+          ctx.fillRect(-11, -6, 20, 12);
+          ctx.fillRect(-16, -4, 5, 8);
+          ctx.fillRect(6, -10, 2, 5); // lure stalk
+          ctx.fillRect(8, -10, 6, 2);
+          // Glowing lure bulb + halo
+          ctx.fillStyle = `rgba(255, 209, 102, ${(lurePulse * 0.22).toFixed(2)})`;
+          ctx.fillRect(11, -13, 10, 10);
+          ctx.fillStyle = `rgba(255, 230, 140, ${lurePulse.toFixed(2)})`;
+          ctx.fillRect(14, -10, 4, 4);
+          ctx.fillStyle = 'rgba(255, 93, 143, 0.6)';
+          ctx.fillRect(4, -3, 2, 2); // tiny eye
+          ctx.restore();
+        }
+
+        // Translucent pulsing jellyfish with soft bioluminescent halo & wavy segmented tentacles
         for (const j of this.jellies) {
           const jy = this.worldOffset + j.depthPx + Math.sin(t * 0.9 + j.phase) * 14;
-          if (jy < Math.max(waterlineScreenY + 24, -40) || jy > this.height + 50) continue;
+          if (jy < Math.max(waterlineScreenY + 24, -40) || jy > this.height + 55) continue;
           const jx = Math.round(j.x * this.width + Math.sin(t * 0.45 + j.phase) * j.drift);
-          const pulse = 0.22 + 0.14 * Math.sin(t * 2.2 + j.phase);
-          const rgb = j.pink ? '255, 93, 143' : '77, 227, 255';
-          ctx.fillStyle = `rgba(${rgb}, ${(pulse * 0.65).toFixed(2)})`;
-          ctx.fillRect(jx - 6, Math.round(jy) - 4, 12, 5);
-          ctx.fillRect(jx - 4, Math.round(jy) - 7, 8, 3);
-          ctx.fillStyle = `rgba(${rgb}, ${pulse.toFixed(2)})`;
-          ctx.fillRect(jx - 3, Math.round(jy) - 5, 6, 3);
-          const trail = Math.round(Math.sin(t * 2.8 + j.phase) * 2);
-          ctx.fillRect(jx - 4, Math.round(jy) + 1, 2, 8 + trail);
-          ctx.fillRect(jx, Math.round(jy) + 1, 2, 10 - trail);
-          ctx.fillRect(jx + 3, Math.round(jy) + 1, 2, 7 + trail);
+          const ry = Math.round(jy);
+          const pulse = 0.24 + 0.16 * Math.sin(t * 2.2 + j.phase);
+          const rgb = j.gold ? '255, 209, 102' : (j.pink ? '255, 93, 143' : '77, 227, 255');
+          const sc = j.scale || 1;
+          const bellW = Math.round(14 * sc);
+          const halfW = Math.round(bellW * 0.5);
+          // Soft ambient halo
+          ctx.fillStyle = `rgba(${rgb}, ${(pulse * 0.22).toFixed(2)})`;
+          ctx.fillRect(jx - halfW - 3, ry - 9, bellW + 6, 13);
+          // Stepped bell dome + glowing core
+          ctx.fillStyle = `rgba(${rgb}, ${(pulse * 0.72).toFixed(2)})`;
+          ctx.fillRect(jx - halfW, ry - 4, bellW, 5);
+          ctx.fillRect(jx - halfW + 2, ry - 7, bellW - 4, 3);
+          ctx.fillStyle = `rgba(${rgb}, ${(pulse * 1.15).toFixed(2)})`;
+          ctx.fillRect(jx - Math.round(halfW * 0.5), ry - 5, Math.max(4, Math.round(bellW * 0.5)), 3);
+          ctx.fillStyle = `rgba(240, 250, 255, ${(pulse * 0.85).toFixed(2)})`;
+          ctx.fillRect(jx - 2, ry - 6, 4, 2);
+          // Wavy 4-segment tentacles
+          const tentXs = [-halfW + 2, -1, halfW - 4];
+          for (let ti = 0; ti < tentXs.length; ti++) {
+            const baseTx = jx + tentXs[ti];
+            const segs = ti === 1 ? 5 : 4;
+            for (let s = 0; s < segs; s++) {
+              const waveX = Math.round(Math.sin(t * 3.0 + j.phase + s * 0.9 + ti) * 1.8);
+              ctx.fillStyle = `rgba(${rgb}, ${(pulse * (0.95 - s * 0.16)).toFixed(2)})`;
+              ctx.fillRect(baseTx + waveX, ry + 1 + s * 3, 2, 3);
+            }
+          }
         }
       }
 

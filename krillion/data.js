@@ -772,7 +772,7 @@
   {
     "id": "soviet-comedy",
     "text": "Назови культовый советский или российский фильм",
-    "count": 584,
+    "count": 842,
     "strictShape": false
   },
   {
@@ -1061,7 +1061,7 @@
 
   function fetchChunkWithRetry(promptId, attempt = 0) {
     const opts = attempt > 0 ? { cache: 'reload' } : undefined;
-    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118m`, opts)
+    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118n`, opts)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();

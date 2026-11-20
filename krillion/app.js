@@ -24,6 +24,7 @@
       bestScore: 0
     },
     completedDives: {}, // diveNumber -> { score, depth, results: [...] }
+    expeditions: {}, // expeditionId -> { bestScore, bestDepth, stars, plays }
     seenEndlessIds: [], // prompt IDs already seen in Endless shuffle bag
     suggestions: [],
     ratings: {}
@@ -39,6 +40,7 @@
         buddyId: parsed.buddyId || 'krillion',
         stats: { ...DEFAULT_STATE.stats, ...(parsed.stats || {}) },
         completedDives: parsed.completedDives || {},
+        expeditions: parsed.expeditions || {},
         seenEndlessIds: Array.isArray(parsed.seenEndlessIds) ? parsed.seenEndlessIds : [],
         suggestions: parsed.suggestions || [],
         ratings: parsed.ratings || {}
@@ -2006,10 +2008,12 @@
     return shufflePrompts(unseen).concat(shufflePrompts(rest));
   }
 
-  function openMode(mode, diveNumber = DATA.getTodayDiveNumber()) {
+  function openMode(mode, param = DATA.getTodayDiveNumber()) {
     clearTimers();
     session.mode = mode;
-    session.diveNumber = diveNumber;
+    session.diveNumber = mode === 'expedition' ? DATA.getTodayDiveNumber() : param;
+    session.expeditionId = mode === 'expedition' ? param : null;
+    session.newlyUnlockedBuddies = [];
     session.roundIndex = 0;
     session.totalScore = 0;
     session.totalDepthM = 0;
@@ -2031,14 +2035,18 @@
     answerForm.classList.remove('hot');
     floorEl.style.display = mode === 'endless' ? 'none' : 'block';
 
-    const diveTheme = (mode === 'daily' || mode === 'archive') && DATA.getDiveTheme
-      ? DATA.getDiveTheme(diveNumber)
-      : null;
+    const expObj = mode === 'expedition' && DATA.getExpedition ? DATA.getExpedition(param) : null;
+    const diveTheme = expObj
+      ? expObj
+      : (mode === 'daily' || mode === 'archive') && DATA.getDiveTheme
+        ? DATA.getDiveTheme(session.diveNumber)
+        : null;
 
     if (diveTheme) {
+      const kickerText = expObj ? `ЭКСПЕДИЦИЯ #${expObj.num}` : 'ТЕМА ДНЯ';
       surfaceNoteEl.classList.add('ds-theme-pill');
       surfaceNoteEl.style.setProperty('--theme-accent', diveTheme.accent);
-      surfaceNoteEl.innerHTML = `<span class="ds-theme-pill-kicker">ТЕМА ДНЯ</span><span class="ds-theme-pill-icon" aria-hidden="true">${escapeHtml(diveTheme.icon)}</span><span>${escapeHtml(diveTheme.title)}</span>`;
+      surfaceNoteEl.innerHTML = `<span class="ds-theme-pill-kicker">${kickerText}</span><span class="ds-theme-pill-icon" aria-hidden="true">${escapeHtml(diveTheme.icon)}</span><span>${escapeHtml(diveTheme.title)}</span>`;
       surfaceNoteEl.hidden = false;
     } else {
       surfaceNoteEl.classList.remove('ds-theme-pill');
@@ -2048,16 +2056,14 @@
     }
 
     if (mode === 'daily') {
-      session.prompts = DATA.getDailyPrompts(diveNumber);
+      session.prompts = DATA.getDailyPrompts(session.diveNumber);
       heroTaglineEl.textContent = 'ЕЖЕДНЕВНОЕ ПОГРУЖЕНИЕ';
       heroSublineEl.textContent = '7 вопросов · 25 секунд на каждый · редкие ответы погружают глубже';
-      introDiveNumEl.textContent = diveTheme
-        ? `ПОГРУЖЕНИЕ #${diveNumber} · ${diveTheme.short.toUpperCase()}`
-        : `ПОГРУЖЕНИЕ #${diveNumber}`;
+      introDiveNumEl.textContent = `ПОГРУЖЕНИЕ #${session.diveNumber}`;
       metaDailyBtn.hidden = true;
       metaEndlessBtn.hidden = false;
 
-      const saved = appState.completedDives[String(diveNumber)];
+      const saved = appState.completedDives[String(session.diveNumber)];
       if (saved) {
         beginBtn.textContent = '▼ ПОСМОТРЕТЬ РЕЗУЛЬТАТЫ ▼';
         beginBtn.classList.add('secondary');
@@ -2066,15 +2072,25 @@
         beginBtn.classList.remove('secondary');
       }
     } else if (mode === 'archive') {
-      session.prompts = DATA.getDailyPrompts(diveNumber);
-      heroTaglineEl.textContent = `АРХИВ · ПОГРУЖЕНИЕ #${diveNumber}`;
-      heroSublineEl.textContent = `7 вопросов от ${DATA.getDiveDateLabel(diveNumber)} · бесплатный доступ`;
-      introDiveNumEl.textContent = diveTheme
-        ? `АРХИВ #${diveNumber} · ${diveTheme.short.toUpperCase()}`
-        : `АРХИВ #${diveNumber}`;
+      session.prompts = DATA.getDailyPrompts(session.diveNumber);
+      heroTaglineEl.textContent = `АРХИВ · ПОГРУЖЕНИЕ #${session.diveNumber}`;
+      heroSublineEl.textContent = `7 вопросов от ${DATA.getDiveDateLabel(session.diveNumber)} · бесплатный доступ`;
+      introDiveNumEl.textContent = `АРХИВ #${session.diveNumber}`;
       metaDailyBtn.hidden = false;
       metaEndlessBtn.hidden = false;
       beginBtn.textContent = '▼ НАЧАТЬ ПОГРУЖЕНИЕ ▼';
+      beginBtn.classList.remove('secondary');
+    } else if (mode === 'expedition' && expObj) {
+      session.prompts = DATA.getExpeditionPrompts(expObj.id);
+      const savedExp = (appState.expeditions || {})[expObj.id];
+      heroTaglineEl.textContent = `ЭКСПЕДИЦИЯ #${expObj.num} ИЗ ${DATA.EXPEDITIONS.length}`;
+      heroSublineEl.textContent = savedExp
+        ? `7 вопросов по теме · лучший результат: ${savedExp.bestScore} очк (-${savedExp.bestDepth}м)`
+        : expObj.desc;
+      introDiveNumEl.textContent = `ЭКСПЕДИЦИЯ · ${expObj.short.toUpperCase()}`;
+      metaDailyBtn.hidden = false;
+      metaEndlessBtn.hidden = false;
+      beginBtn.textContent = savedExp ? '▼ ПОГРУЗИТЬСЯ ЕЩЁ РАЗ ▼' : '▼ НАЧАТЬ ЭКСПЕДИЦИЮ ▼';
       beginBtn.classList.remove('secondary');
     } else {
       session.prompts = buildEndlessDeck();
@@ -2114,7 +2130,8 @@
   function updateMenuCurrent() {
     document.querySelectorAll('[data-nav]').forEach((el) => {
       const target = el.dataset.nav;
-      el.setAttribute('aria-current', target === session.mode ? 'page' : 'false');
+      const active = target === session.mode || (target === 'expeditions' && session.mode === 'expedition');
+      el.setAttribute('aria-current', active ? 'page' : 'false');
     });
   }
 
@@ -2610,7 +2627,46 @@
   endlessSurfaceBtn.addEventListener('click', triggerSurfaceFromEndless);
 
   // ---------------- Finish Dive & Done Dashboard ----------------
+  function getExpeditionStars(score) {
+    if (score >= 450) return 3;
+    if (score >= 300) return 2;
+    return 1;
+  }
+
+  function getExpeditionStats() {
+    const map = appState.expeditions || {};
+    const list = DATA.EXPEDITIONS || [];
+    let completedCount = 0;
+    let goldCount = 0;
+    let totalBestDepth = 0;
+    list.forEach((exp) => {
+      const rec = map[exp.id];
+      if (rec) {
+        completedCount += 1;
+        if ((rec.stars || 0) >= 3 || (rec.bestScore || 0) >= 450) goldCount += 1;
+        totalBestDepth += rec.bestDepth || 0;
+      }
+    });
+    return { completedCount, goldCount, totalBestDepth, totalCount: list.length };
+  }
+
+  function isBuddyUnlocked(buddy, ignoreSandbox = false) {
+    if (!ignoreSandbox && appState.settings.unlockAllBuddies) return true;
+    if (buddy.expeditionGoldReq) {
+      return getExpeditionStats().goldCount >= buddy.expeditionGoldReq;
+    }
+    if (buddy.expeditionReq) {
+      return getExpeditionStats().completedCount >= buddy.expeditionReq;
+    }
+    return (appState.stats.bestStreak || 0) >= buddy.streak;
+  }
+
   function finishDive() {
+    session.newlyUnlockedBuddies = [];
+    const unlockedBefore = new Set(
+      DATA.BUDDIES.filter((b) => isBuddyUnlocked(b, true)).map((b) => b.id)
+    );
+
     if (session.mode === 'daily') {
       const key = String(session.diveNumber);
       if (!appState.completedDives[key]) {
@@ -2646,7 +2702,25 @@
         };
         saveState();
       }
+    } else if (session.mode === 'expedition' && session.expeditionId) {
+      if (!appState.expeditions) appState.expeditions = {};
+      const prev = appState.expeditions[session.expeditionId];
+      const stars = getExpeditionStars(session.totalScore);
+      const bestScore = prev ? Math.max(prev.bestScore || 0, session.totalScore) : session.totalScore;
+      const bestDepth = prev ? Math.max(prev.bestDepth || 0, session.totalDepthM) : session.totalDepthM;
+      const bestStars = prev ? Math.max(prev.stars || 1, stars) : stars;
+      appState.expeditions[session.expeditionId] = {
+        bestScore,
+        bestDepth,
+        stars: bestStars,
+        plays: (prev ? prev.plays || 0 : 0) + 1
+      };
+      saveState();
     }
+
+    session.newlyUnlockedBuddies = DATA.BUDDIES.filter(
+      (b) => !unlockedBefore.has(b.id) && isBuddyUnlocked(b, true)
+    );
 
     showDoneScreen();
   }
@@ -3077,15 +3151,25 @@
     copyBtn.addEventListener('click', () => {
       sfx.click();
       const blocks = session.results.map((r) => DATA.TIERS[r.tier].emoji).join('');
-      const shareTheme = session.mode !== 'endless' && DATA.getDiveTheme
-        ? DATA.getDiveTheme(session.diveNumber)
+      const expObj = session.mode === 'expedition' && DATA.getExpedition
+        ? DATA.getExpedition(session.expeditionId)
         : null;
+      const shareTheme = expObj
+        ? expObj
+        : session.mode !== 'endless' && DATA.getDiveTheme
+          ? DATA.getDiveTheme(session.diveNumber)
+          : null;
       const themeSuffix = shareTheme ? ` · ${shareTheme.icon} ${shareTheme.title}` : '';
+      const expStarsStr = expObj
+        ? ` (${'★'.repeat(getExpeditionStars(session.totalScore))}${'☆'.repeat(3 - getExpeditionStars(session.totalScore))})`
+        : '';
       const header = session.mode === 'daily'
         ? `КРИЛЛИОН #${session.diveNumber}${themeSuffix}`
         : session.mode === 'archive'
           ? `КРИЛЛИОН (Архив #${session.diveNumber}${themeSuffix})`
-          : `КРИЛЛИОН (Бесконечный · ${session.results.length} раунд.)`;
+          : expObj
+            ? `КРИЛЛИОН · Экспедиция #${expObj.num}${themeSuffix}${expStarsStr}`
+            : `КРИЛЛИОН (Бесконечный · ${session.results.length} раунд.)`;
       let text = `${header}\n${session.totalScore} очков · -${session.totalDepthM.toLocaleString('ru-RU')}м\n${blocks}`;
       if (appState.settings.shareLink) {
         text += `\n${window.location.href.split('#')[0]}`;
@@ -3099,21 +3183,36 @@
       }, 2200);
     });
 
-    document.getElementById('done-endless-btn').addEventListener('click', () => {
-      sfx.click();
-      openMode('endless');
-    });
+    const doneEndlessBtn = document.getElementById('done-endless-btn');
+    if (doneEndlessBtn) {
+      doneEndlessBtn.addEventListener('click', () => {
+        sfx.click();
+        openMode('endless');
+      });
+    }
 
-    document.getElementById('done-archive-btn').addEventListener('click', () => {
-      sfx.click();
-      openModal('archive-backdrop');
-    });
+    const doneArchiveBtn = document.getElementById('done-archive-btn');
+    if (doneArchiveBtn) {
+      doneArchiveBtn.addEventListener('click', () => {
+        sfx.click();
+        openModal('archive-backdrop');
+      });
+    }
+
+    const doneExpBtn = document.getElementById('done-expeditions-btn');
+    if (doneExpBtn) {
+      doneExpBtn.addEventListener('click', () => {
+        sfx.click();
+        openModal('expeditions-backdrop');
+      });
+    }
 
     const replayBtn = document.getElementById('done-replay-btn');
     if (replayBtn) {
       replayBtn.addEventListener('click', () => {
         sfx.click();
-        openMode(session.mode, session.diveNumber);
+        const arg = session.mode === 'expedition' ? session.expeditionId : session.diveNumber;
+        openMode(session.mode, arg);
         startNextRound();
       });
     }
@@ -3142,7 +3241,10 @@
       btn.addEventListener('click', () => {
         sfx.click();
         const val = Number(btn.dataset.rate);
-        appState.ratings[String(session.diveNumber)] = val;
+        const ratingKey = session.mode === 'expedition'
+          ? `exp:${session.expeditionId}`
+          : String(session.diveNumber);
+        appState.ratings[ratingKey] = val;
         saveState();
         document.querySelectorAll('.ds-rate-btn').forEach((b) => {
           b.setAttribute('aria-checked', String(Number(b.dataset.rate) === val));
@@ -3198,11 +3300,12 @@
     countdownInterval = setInterval(update, 1000);
   }
 
-  // ---------------- Modals (Menu, Settings, Wardrobe, Archive, FAQ) ----------------
+  // ---------------- Modals (Menu, Settings, Wardrobe, Archive, Expeditions, FAQ) ----------------
   function openModal(id) {
     closeAllModals();
     if (id === 'wardrobe-backdrop') renderWardrobe();
     if (id === 'archive-backdrop') renderArchive();
+    if (id === 'expeditions-backdrop') renderExpeditions();
     const el = document.getElementById(id);
     if (el) {
       el.hidden = false;
@@ -3219,13 +3322,23 @@
 
   function renderWardrobe() {
     const grid = document.getElementById('wardrobe-grid');
-    const streak = appState.stats.bestStreak || 0;
-    const unlockedAll = !!appState.settings.unlockAllBuddies;
+    const expStats = getExpeditionStats();
 
     grid.innerHTML = DATA.BUDDIES.map((b) => {
-      const unlocked = unlockedAll || streak >= b.streak;
+      const unlocked = isBuddyUnlocked(b, false);
       const active = appState.buddyId === b.id;
-      const reqText = b.streak === 0 ? 'Открыт' : unlocked ? `Открыт (${b.streak} дн.)` : `Серия ${b.streak} дн.`;
+      let reqText = 'Открыт';
+      if (b.expeditionGoldReq) {
+        reqText = unlocked
+          ? `Золото (${expStats.goldCount}/${b.expeditionGoldReq})`
+          : `${b.expeditionGoldReq} золота (${expStats.goldCount}/${b.expeditionGoldReq})`;
+      } else if (b.expeditionReq) {
+        reqText = unlocked
+          ? `Экспедиции (${expStats.completedCount}/${b.expeditionReq})`
+          : `${b.expeditionReq} экспед. (${expStats.completedCount}/${b.expeditionReq})`;
+      } else if (b.streak > 0) {
+        reqText = unlocked ? `Открыт (${b.streak} дн.)` : `Серия ${b.streak} дн.`;
+      }
       return `
         <button
           type="button"
@@ -3248,6 +3361,76 @@
         saveState();
         mascot.applyBuddy();
         renderWardrobe();
+      });
+    });
+  }
+
+  function renderExpeditions() {
+    const summaryEl = document.getElementById('expeditions-summary');
+    const grid = document.getElementById('expeditions-grid');
+    if (!summaryEl || !grid) return;
+
+    const list = DATA.EXPEDITIONS || [];
+    const expMap = appState.expeditions || {};
+    const stats = getExpeditionStats();
+    const pct = stats.totalCount > 0 ? Math.round((stats.completedCount / stats.totalCount) * 100) : 0;
+
+    const rewardBuddies = DATA.BUDDIES.filter((b) => b.expeditionReq || b.expeditionGoldReq);
+    const rewardHtml = rewardBuddies.map((b) => {
+      const unlocked = isBuddyUnlocked(b, true);
+      const reqLabel = b.expeditionGoldReq
+        ? `Золото 16/16 (${stats.goldCount}/16)`
+        : `${b.expeditionReq} уровн. (${Math.min(stats.completedCount, b.expeditionReq)}/${b.expeditionReq})`;
+      return `
+        <div class="ds-exp-reward-chip${unlocked ? ' unlocked' : ''}">
+          <img src="${b.sprite}" alt="">
+          <div>
+            <span class="ds-exp-reward-title">${escapeHtml(b.name)}</span>
+            <span class="ds-exp-reward-req">${unlocked ? '✓ Открыт в гардеробе' : reqLabel}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    summaryEl.innerHTML = `
+      <div class="ds-exp-stats-row">
+        <span>Пройдено уровней: <b>${stats.completedCount} / ${stats.totalCount}</b></span>
+        <span>Золото (450+): <b>${stats.goldCount} / ${stats.totalCount}</b></span>
+        <span>Общая глубина: <b>-${stats.totalBestDepth.toLocaleString('ru-RU')}м</b></span>
+      </div>
+      <div class="ds-exp-bar" role="progressbar" aria-valuenow="${stats.completedCount}" aria-valuemin="0" aria-valuemax="${stats.totalCount}">
+        <div class="ds-exp-bar-fill" style="width:${pct}%;"></div>
+      </div>
+      <div class="ds-exp-rewards">${rewardHtml}</div>
+    `;
+
+    grid.innerHTML = list.map((exp) => {
+      const rec = expMap[exp.id];
+      const stars = rec ? (rec.stars || getExpeditionStars(rec.bestScore || 0)) : 0;
+      const starsHtml = [1, 2, 3].map((i) => `<span class="${i <= stars ? 'on' : ''}">★</span>`).join('');
+      return `
+        <button type="button" class="ds-exp-card${rec ? ' completed' : ''}" data-exp-id="${exp.id}" style="--theme-accent:${exp.accent};">
+          <div class="ds-exp-card-top">
+            <span class="ds-exp-num">УРОВЕНЬ #${String(exp.num).padStart(2, '0')}</span>
+            <span class="ds-exp-stars" aria-label="${stars} из 3 звёзд">${starsHtml}</span>
+          </div>
+          <div class="ds-exp-title"><span>${escapeHtml(exp.icon)}</span><span>${escapeHtml(exp.title)}</span></div>
+          <div class="ds-exp-desc">${escapeHtml(exp.desc)}</div>
+          <div class="ds-exp-foot">
+            ${rec
+              ? `<span class="ds-exp-score">${rec.bestScore} очк · -${rec.bestDepth}м</span><span class="ds-exp-cta">улучшить →</span>`
+              : '<span style="color:var(--color-drift);">7 вопросов</span><span class="ds-exp-cta">нырнуть →</span>'}
+          </div>
+        </button>
+      `;
+    }).join('');
+
+    grid.querySelectorAll('[data-exp-id]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        sfx.click();
+        const expId = btn.dataset.expId;
+        closeAllModals();
+        openMode('expedition', expId);
       });
     });
   }
@@ -3297,7 +3480,8 @@
     if (!btn) return;
     sfx.click();
     const act = btn.dataset.action;
-    if (act === 'archive') openModal('archive-backdrop');
+    if (act === 'expeditions') openModal('expeditions-backdrop');
+    else if (act === 'archive') openModal('archive-backdrop');
     else if (act === 'endless') openMode('endless');
     else if (act === 'daily') openMode('daily');
   });
@@ -3360,6 +3544,7 @@
       const target = btn.dataset.nav;
       closeAllModals();
       if (target === 'daily') openMode('daily');
+      else if (target === 'expeditions') openModal('expeditions-backdrop');
       else if (target === 'endless') openMode('endless');
       else if (target === 'menu') openModal('menu-backdrop');
       else if (target === 'archive') openModal('archive-backdrop');

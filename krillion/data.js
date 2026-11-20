@@ -269,7 +269,10 @@
     { id: 'hackmanite', name: 'Хакманит', streak: 60, sprite: SPRITES.hackmanite, color: '#c77dff' },
     { id: 'fossil-krill', name: 'Ископаемый крилль', streak: 75, sprite: SPRITES.fossilKrill, color: '#dfd3a8' },
     { id: 'tiger-mantis', name: 'Рак-богомол', streak: 100, sprite: SPRITES.mantis, color: '#38d399' },
-    { id: 'leviathan', name: 'Левиафан', streak: 150, sprite: SPRITES.leviathan, color: '#4dd0c8', gold: true }
+    { id: 'leviathan', name: 'Левиафан', streak: 150, sprite: SPRITES.leviathan, color: '#4dd0c8', gold: true },
+    { id: 'nautilus-gold', name: 'Золотой наутилус', streak: 9999, expeditionReq: 5, sprite: SPRITES.nautilusGold, color: '#fbbf24' },
+    { id: 'cosmic-krill', name: 'Космический крилль', streak: 9999, expeditionReq: 16, sprite: SPRITES.cosmicKrill, color: '#a78bfa', gold: true },
+    { id: 'king-kraken', name: 'Король Кракен', streak: 9999, expeditionGoldReq: 16, sprite: SPRITES.kingKraken, color: '#ffd166', gold: true }
   ];
 
   const AMBIENT_MARKERS = [
@@ -1378,7 +1381,7 @@
   {
     "id": "symbol-key",
     "text": "Назови знак препинания, типографский символ или клавишу на клавиатуре",
-    "count": 117,
+    "count": 123,
     "strictShape": false
   },
   {
@@ -1739,7 +1742,7 @@
 
   function fetchChunkWithRetry(promptId, attempt = 0) {
     const opts = attempt > 0 ? { cache: 'reload' } : undefined;
-    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261120b`, opts)
+    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261120c`, opts)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();
@@ -1840,7 +1843,7 @@
   const PROMPT_BY_ID = Object.create(null);
   PROMPTS.forEach((p) => { PROMPT_BY_ID[p.id] = p; });
 
-  // Fixed daily schedule: #1-#15 (original archive locked), #16-#31 (16 themed days / 112 new topics), #32-#33 (remaining unplayed original topics)
+  // Fixed daily schedule for the first 15 days (#1-#15 remain untouched in archive)
   const LOCKED_DAILY_SCHEDULE = [
     /* #01 */ ["mythology-greek-norse","minecraft-mob-item","classical-composer","vegetable-green","programming-lang","tree-shrub","snake-reptile"],
     /* #02 */ ["childhood-toy-game","phobia-fear","cities-suffix","clothing-item","cosmetics-hygiene","cat-breed","cheese-type"],
@@ -1856,52 +1859,143 @@
     /* #12 */ ["weather-phenomenon","animal-8plus","moscow-spb-metro","fabric-material","meat-charcuterie","star-wars","open-world-game"],
     /* #13 */ ["island-world","music-genre","anime-character","animated-series","scientist-inventor","video-game-char","historical-ruler"],
     /* #14 */ ["one-syllable-noun","human-emotion","body-organ-bone","electronic-gadget","fastfood-chain","russian-literature","sci-fi-fantasy-movie"],
-    /* #15 */ ["musical-instrument","europe-country","spice-herb","moba-hero-shooter","car-brand","tv-series-hit","russia-city-million"],
-    /* #16 */ ["us-state","africa-country","asia-country","americas-country","landlocked-country","russia-region","peninsula-cape"],
-    /* #17 */ ["constellation","space-mission-phenom","chemical-compound","rock-mineral","vitamin-hormone","light-source","physics-law-particle"],
-    /* #18 */ ["grain-porridge","asian-dish","caucasus-oriental-dish","tea-infusion","pizza-topping","cooking-method","breakfast-egg-dish"],
-    /* #19 */ ["game-console","game-studio","cs-term-map","gta-rdr-entity","file-extension","it-network-term","gamer-internet-slang"],
-    /* #20 */ ["philosopher","rank-title","art-arch-style","ancient-wonder-ruin","great-invention","historical-dynasty-order","explorer-traveler"],
-    /* #21 */ ["freshwater-fish","horse-breed","primate-monkey","venomous-toxic","animal-nature-sound","desert-plain","wild-cat-predator"],
-    /* #22 */ ["car-trunk-glovebox","car-part","airport-plane-item","beach-item","camping-picnic-item","us-city","europe-noncapital"],
-    /* #23 */ ["movie-villain","movie-genre","ru-cartoon-char","film-studio-award","cinema-term-role","movie-franchise","tv-series-char"],
-    /* #24 */ ["music-term","famous-singer-solo","music-album-classic","soundtrack-composer-ost","concert-audio-gear","famous-song-title","music-fest-award"],
-    /* #25 */ ["witcher-skyrim","myth-egypt-slavic","internet-meme","fantasy-creature-race","scifi-universe-ship","superpower-ability","rpg-tabletop-term"],
-    /* #26 */ ["food-drink-brand","finance-econ-term","retail-marketplace-bank","airline-delivery-brand","crypto-tech-company","luxury-watch-perfume","business-job-role"],
-    /* #27 */ ["religion-belief","superstition-omen","alcohol-style","foreign-greeting-phrase","national-costume-item","world-folk-festival","proverb-idiom-ru"],
-    /* #28 */ ["literary-term","palindrome-word","symbol-key","math-term-theorem","famous-author","biology-cell-term","grammar-ru-term"],
-    /* #29 */ ["retro-gadget-90s","tv-show-90s-2000s","nostalgia-snack-90s","old-internet-2000s","ussr-everyday-item","school-90s-childhood","nostalgia-cartoon-series-90s"],
-    /* #30 */ ["ball-sport","hockey-nba-f1-team","workout-exercise","medical-specialty","pharmacy-item","hobby-activity","famous-athlete"],
-    /* #31 */ ["dacha-garden-item","building-type","round-object","paired-thing","lateness-excuse","popular-gift","hairstyle"],
-    /* #32 */ ["flower-plant","world-literature","board-game","fashion-brand","rare-letter-start","film-director","gemstone"],
-    /* #33 */ ["nut-seed","world-river","cis-music-artist","tropical-fruit","profession-oneword","sauce-condiment","historic-event"]
+    /* #15 */ ["musical-instrument","europe-country","spice-herb","moba-hero-shooter","car-brand","tv-series-hit","russia-city-million"]
   ];
 
-  // Theme day metadata (only for themed days #16-#31; #1-#15 stay classic/unthemed)
-  const DIVE_THEMES = {
-    16: {"title":"День географии и стран","short":"География","icon":"🌍","accent":"#4de3ff"},
-    17: {"title":"День науки и космоса","short":"Наука и космос","icon":"🔬","accent":"#a78bfa"},
-    18: {"title":"День еды и кухни","short":"Еда и кухня","icon":"🍜","accent":"#ffb347"},
-    19: {"title":"День игр и IT","short":"Игры и IT","icon":"🎮","accent":"#34d399"},
-    20: {"title":"День истории и цивилизаций","short":"История","icon":"🏛️","accent":"#f5c451"},
-    21: {"title":"День природы и живого мира","short":"Природа","icon":"🌿","accent":"#4ade80"},
-    22: {"title":"День дороги и путешествий","short":"Путешествия","icon":"✈️","accent":"#38bdf8"},
-    23: {"title":"День кино и сериалов","short":"Кино и сериалы","icon":"🎬","accent":"#fb7185"},
-    24: {"title":"День музыки","short":"Музыка","icon":"🎵","accent":"#f472b6"},
-    25: {"title":"День фэнтези и гик-культуры","short":"Фэнтези и гик","icon":"🐉","accent":"#c084fc"},
-    26: {"title":"День экономики и брендов","short":"Экономика и бренды","icon":"💼","accent":"#fbbf24"},
-    27: {"title":"День языков и традиций мира","short":"Языки и традиции","icon":"🏮","accent":"#2dd4bf"},
-    28: {"title":"День школы, эрудиции и фактов","short":"Школа и эрудиция","icon":"📚","accent":"#60a5fa"},
-    29: {"title":"День ностальгии (90-е и 2000-е)","short":"Ностальгия 90-х","icon":"📼","accent":"#fb923c"},
-    30: {"title":"День спорта, здоровья и хобби","short":"Спорт и здоровье","icon":"🏅","accent":"#a3e635"},
-    31: {"title":"День дома, быта и ассоциаций","short":"Быт и ассоциации","icon":"🏠","accent":"#67e8f9"}
-  };
+  // 16 themed Expedition campaign levels (7 questions each = 112 new topics)
+  const EXPEDITIONS = [
+    {
+      id: 'geo-countries', num: 1, title: 'География и страны', short: 'География',
+      icon: '🌍', accent: '#4de3ff', desc: 'Штаты США, страны мира, регионы России, полуострова и мысы',
+      promptIds: ['us-state', 'africa-country', 'asia-country', 'americas-country', 'landlocked-country', 'russia-region', 'peninsula-cape']
+    },
+    {
+      id: 'science-space', num: 2, title: 'Наука и космос', short: 'Наука и космос',
+      icon: '🔬', accent: '#a78bfa', desc: 'Созвездия, миссии, химия, минералы, витамины, свет и законы физики',
+      promptIds: ['constellation', 'space-mission-phenom', 'chemical-compound', 'rock-mineral', 'vitamin-hormone', 'light-source', 'physics-law-particle']
+    },
+    {
+      id: 'food-cuisine', num: 3, title: 'Еда и кухня мира', short: 'Еда и кухня',
+      icon: '🍜', accent: '#ffb347', desc: 'Крупы, кухни Азии и Кавказа, чай, пицца, готовка и завтраки',
+      promptIds: ['grain-porridge', 'asian-dish', 'caucasus-oriental-dish', 'tea-infusion', 'pizza-topping', 'cooking-method', 'breakfast-egg-dish']
+    },
+    {
+      id: 'games-it', num: 4, title: 'Игры и IT', short: 'Игры и IT',
+      icon: '🎮', accent: '#34d399', desc: 'Консоли, студии, CS, GTA/RDR, форматы файлов, сети и игровой сленг',
+      promptIds: ['game-console', 'game-studio', 'cs-term-map', 'gta-rdr-entity', 'file-extension', 'it-network-term', 'gamer-internet-slang']
+    },
+    {
+      id: 'history-civs', num: 5, title: 'История и цивилизации', short: 'История',
+      icon: '🏛️', accent: '#f5c451', desc: 'Философы, титулы, стили искусства, древние руины, изобретения и династии',
+      promptIds: ['philosopher', 'rank-title', 'art-arch-style', 'ancient-wonder-ruin', 'great-invention', 'historical-dynasty-order', 'explorer-traveler']
+    },
+    {
+      id: 'nature-wildlife', num: 6, title: 'Природа и живой мир', short: 'Природа',
+      icon: '🌿', accent: '#4ade80', desc: 'Пресноводные рыбы, лошади, приматы, ядовитые виды, пустыни и хищники',
+      promptIds: ['freshwater-fish', 'horse-breed', 'primate-monkey', 'venomous-toxic', 'animal-nature-sound', 'desert-plain', 'wild-cat-predator']
+    },
+    {
+      id: 'travel-road', num: 7, title: 'Дорога и путешествия', short: 'Путешествия',
+      icon: '✈️', accent: '#38bdf8', desc: 'Бардачок и детали авто, самолёт, пляж, поход, города США и Европы',
+      promptIds: ['car-trunk-glovebox', 'car-part', 'airport-plane-item', 'beach-item', 'camping-picnic-item', 'us-city', 'europe-noncapital']
+    },
+    {
+      id: 'cinema-tv', num: 8, title: 'Кино и сериалы', short: 'Кино и сериалы',
+      icon: '🎬', accent: '#fb7185', desc: 'Злодеи, жанры, наши мультфильмы, студии, кинотермины, франшизы и герои',
+      promptIds: ['movie-villain', 'movie-genre', 'ru-cartoon-char', 'film-studio-award', 'cinema-term-role', 'movie-franchise', 'tv-series-char']
+    },
+    {
+      id: 'music-world', num: 9, title: 'Мир музыки', short: 'Музыка',
+      icon: '🎵', accent: '#f472b6', desc: 'Термины, певцы, культовые альбомы, саундтреки, звук, хиты и фестивали',
+      promptIds: ['music-term', 'famous-singer-solo', 'music-album-classic', 'soundtrack-composer-ost', 'concert-audio-gear', 'famous-song-title', 'music-fest-award']
+    },
+    {
+      id: 'fantasy-geek', num: 10, title: 'Фэнтези и гик-культура', short: 'Фэнтези и гик',
+      icon: '🐉', accent: '#c084fc', desc: 'Ведьмак и Skyrim, мифы, мемы, расы фэнтези, sci-fi, суперсилы и RPG',
+      promptIds: ['witcher-skyrim', 'myth-egypt-slavic', 'internet-meme', 'fantasy-creature-race', 'scifi-universe-ship', 'superpower-ability', 'rpg-tabletop-term']
+    },
+    {
+      id: 'economy-brands', num: 11, title: 'Экономика и бренды', short: 'Экономика и бренды',
+      icon: '💼', accent: '#fbbf24', desc: 'Супермаркет, финансы, банки и маркетплейсы, доставка, IT-гиганты и люкс',
+      promptIds: ['food-drink-brand', 'finance-econ-term', 'retail-marketplace-bank', 'airline-delivery-brand', 'crypto-tech-company', 'luxury-watch-perfume', 'business-job-role']
+    },
+    {
+      id: 'languages-traditions', num: 12, title: 'Языки и традиции мира', short: 'Языки и традиции',
+      icon: '🏮', accent: '#2dd4bf', desc: 'Религии, приметы, напитки, иностранные фразы, костюмы, праздники и пословицы',
+      promptIds: ['religion-belief', 'superstition-omen', 'alcohol-style', 'foreign-greeting-phrase', 'national-costume-item', 'world-folk-festival', 'proverb-idiom-ru']
+    },
+    {
+      id: 'school-facts', num: 13, title: 'Школа и эрудиция', short: 'Школа и эрудиция',
+      icon: '📚', accent: '#60a5fa', desc: 'Литература, палиндромы, символы, математика, писатели, биология и грамматика',
+      promptIds: ['literary-term', 'palindrome-word', 'symbol-key', 'math-term-theorem', 'famous-author', 'biology-cell-term', 'grammar-ru-term']
+    },
+    {
+      id: 'nostalgia-90s', num: 14, title: 'Ностальгия 90-х и 2000-х', short: 'Ностальгия 90-х',
+      icon: '📼', accent: '#fb923c', desc: 'Тамагочи и пейджеры, телешоу, вкусняшки, старый рунет, СССР, двор и мультики',
+      promptIds: ['retro-gadget-90s', 'tv-show-90s-2000s', 'nostalgia-snack-90s', 'old-internet-2000s', 'ussr-everyday-item', 'school-90s-childhood', 'nostalgia-cartoon-series-90s']
+    },
+    {
+      id: 'sport-health', num: 15, title: 'Спорт, здоровье и хобби', short: 'Спорт и здоровье',
+      icon: '🏅', accent: '#a3e635', desc: 'Спорт с мячом, клубы НХЛ/НБА/Ф1, упражнения, врачи, аптечка, хобби и легенды',
+      promptIds: ['ball-sport', 'hockey-nba-f1-team', 'workout-exercise', 'medical-specialty', 'pharmacy-item', 'hobby-activity', 'famous-athlete']
+    },
+    {
+      id: 'home-life', num: 16, title: 'Дом, быт и ассоциации', short: 'Быт и ассоциации',
+      icon: '🏠', accent: '#67e8f9', desc: 'Дача, типы жилья, круглое и парное, отмазки, подарки и причёски',
+      promptIds: ['dacha-garden-item', 'building-type', 'round-object', 'paired-thing', 'lateness-excuse', 'popular-gift', 'hairstyle']
+    }
+  ];
 
-  function getDiveTheme(diveNumber) {
-    return DIVE_THEMES[diveNumber] || null;
+  const EXPEDITION_BY_ID = Object.create(null);
+  const PROMPT_EXPEDITION_GROUP = Object.create(null);
+  EXPEDITIONS.forEach((exp) => {
+    EXPEDITION_BY_ID[exp.id] = exp;
+    exp.promptIds.forEach((pid) => { PROMPT_EXPEDITION_GROUP[pid] = exp.id; });
+  });
+
+  function getExpedition(id) {
+    return EXPEDITION_BY_ID[id] || null;
   }
 
-  const PRIORITY_FIRST_CYCLE_IDS = ["movie-actor","soviet-comedy","cocktail-drink","indie-game"];
+  function getExpeditionPrompts(id) {
+    const exp = getExpedition(id);
+    if (!exp) return [];
+    return exp.promptIds.map((pid) => PROMPT_BY_ID[pid]).filter(Boolean);
+  }
+
+  // Daily dives stay classic balanced mixes (no theme lock on daily/archive)
+  function getDiveTheme() {
+    return null;
+  }
+
+  // Build deterministic mixed deck for Days #16-#33 from all 130 unplayed topics (112 new + 18 remaining original)
+  // Interleaved across categories so every day has a varied mix with zero same-expedition clustering.
+  let FIRST_MIXED_DECK = null;
+  function getFirstMixedDeck() {
+    if (FIRST_MIXED_DECK) return FIRST_MIXED_DECK;
+    const lockedSet = new Set(LOCKED_DAILY_SCHEDULE.flat());
+    const unplayed = PROMPTS.filter((p) => !lockedSet.has(p.id));
+    const shuffled = shuffleWithSeed(unplayed, 20261121);
+
+    // Greedy anti-clustering: pick next prompt whose expedition group is not yet in the current 7-question day
+    const remaining = shuffled.slice();
+    const ordered = [];
+    while (remaining.length > 0) {
+      const dayGroups = new Set();
+      for (let slot = 0; slot < 7 && remaining.length > 0; slot++) {
+        let pickIdx = remaining.findIndex((p) => {
+          const g = PROMPT_EXPEDITION_GROUP[p.id];
+          return !g || !dayGroups.has(g);
+        });
+        if (pickIdx === -1) pickIdx = 0;
+        const picked = remaining.splice(pickIdx, 1)[0];
+        if (PROMPT_EXPEDITION_GROUP[picked.id]) dayGroups.add(PROMPT_EXPEDITION_GROUP[picked.id]);
+        ordered.push(picked);
+      }
+    }
+    FIRST_MIXED_DECK = ordered;
+    return FIRST_MIXED_DECK;
+  }
 
   const EPOCH_CACHE = Object.create(null);
 
@@ -1914,8 +2008,9 @@
 
     let cooldownIds;
     if (epoch === 0) {
-      // Avoid repeating the last 10 days of LOCKED_DAILY_SCHEDULE at the start of post-locked cycling
-      cooldownIds = new Set(LOCKED_DAILY_SCHEDULE.slice(-10).flat());
+      // Avoid repeating the last 10 days of the initial #16-#33 mixed run
+      const firstMixed = getFirstMixedDeck();
+      cooldownIds = new Set(firstMixed.slice(Math.max(0, 18 * 7 - 70), 18 * 7).map((p) => p.id));
     } else {
       const prevDeck = getEpochDeck(epoch - 1);
       cooldownIds = new Set(prevDeck.slice(Math.max(0, usableLen - span), usableLen).map((p) => p.id));
@@ -1933,10 +2028,11 @@
     }
 
     if (epoch === 0) {
-      // Surface the remaining 4 never-played original prompts on Day #34
+      // Surface the remaining 4 leftover topics from the 130-topic unplayed pool at the start of Day #34
+      const leftover = getFirstMixedDeck().slice(18 * 7);
       let frontIdx = 0;
-      for (const pid of PRIORITY_FIRST_CYCLE_IDS) {
-        const pos = deck.findIndex((p) => p.id === pid);
+      for (const p of leftover) {
+        const pos = deck.findIndex((x) => x.id === p.id);
         if (pos > frontIdx) {
           const tmp = deck[frontIdx];
           deck[frontIdx] = deck[pos];
@@ -1957,9 +2053,14 @@
       if (resolved.length === 7) return resolved;
     }
     const postIdx = Math.max(0, diveNumber - 1 - LOCKED_DAILY_SCHEDULE.length);
+    const firstDays = 18; // #16..#33 = 18 fresh mixed days (126 topics)
+    if (postIdx < firstDays) {
+      return getFirstMixedDeck().slice(postIdx * 7, postIdx * 7 + 7);
+    }
+    const cycleIdx = postIdx - firstDays;
     const deckSize = Math.floor(PROMPTS.length / 7);
-    const epoch = Math.floor(postIdx / deckSize);
-    const dayInEpoch = postIdx % deckSize;
+    const epoch = Math.floor(cycleIdx / deckSize);
+    const dayInEpoch = cycleIdx % deckSize;
     return getEpochDeck(epoch).slice(dayInEpoch * 7, dayInEpoch * 7 + 7);
   }
 
@@ -1969,11 +2070,14 @@
     BUDDIES,
     AMBIENT_MARKERS,
     PROMPTS,
+    EXPEDITIONS,
     loadPromptAnswers,
     preloadPrompts,
     getTodayDiveNumber,
     getDiveDateLabel,
     getDailyPrompts,
-    getDiveTheme
+    getDiveTheme,
+    getExpedition,
+    getExpeditionPrompts
   };
 })();

@@ -127,6 +127,7 @@
         <div id="intro-meta" class="ds-intro-meta">
           <span id="intro-dive-num" class="ds-intro-divenum">ПОГРУЖЕНИЕ #125</span>
           <div class="ds-intro-links">
+            <button type="button" data-action="expeditions">ЭКСПЕДИЦИИ ✦</button>
             <button type="button" data-action="archive">АРХИВ ⟲</button>
             <button type="button" data-action="endless" id="meta-endless-btn">БЕСКОНЕЧНЫЙ ∞</button>
             <button type="button" data-action="daily" id="meta-daily-btn" hidden>ПОГРУЖЕНИЕ ДНЯ</button>
@@ -205,6 +206,10 @@
             <span class="ds-menu-icon">▼</span>
             <span class="ds-menu-lbl">Ежедневное<br>погружение</span>
           </button>
+          <button type="button" class="ds-menu-tile" data-nav="expeditions">
+            <span class="ds-menu-icon">✦</span>
+            <span class="ds-menu-lbl">Экспедиции<br>(16 тем)</span>
+          </button>
           <button type="button" class="ds-menu-tile" data-nav="endless">
             <span class="ds-menu-icon">∞</span>
             <span class="ds-menu-lbl">Бесконечный<br>режим</span>
@@ -213,14 +218,14 @@
             <span class="ds-menu-icon">⟲</span>
             <span class="ds-menu-lbl">Архив<br>погружений</span>
           </button>
-          <button type="button" class="ds-menu-tile" data-nav="wardrobe">
-            <span class="ds-menu-icon">◈</span>
-            <span class="ds-menu-lbl">Гардероб<br>спутников</span>
-          </button>
         </nav>
 
         <p class="ds-menu-rule"><span>Корабль</span></p>
         <nav class="ds-menu-nav" aria-label="Дополнительно">
+          <button type="button" class="ds-menu-tile" data-nav="wardrobe">
+            <span class="ds-menu-icon">◈</span>
+            <span class="ds-menu-lbl">Гардероб<br>спутников</span>
+          </button>
           <button type="button" class="ds-menu-tile" data-nav="settings">
             <span class="ds-menu-icon">⚙</span>
             <span class="ds-menu-lbl">Настройки</span>
@@ -229,9 +234,9 @@
             <span class="ds-menu-icon">?</span>
             <span class="ds-menu-lbl">Правила<br>и FAQ</span>
           </button>
-          <a class="ds-menu-tile ds-menu-wide" href="../">
+          <a class="ds-menu-tile" href="../">
             <span class="ds-menu-icon">↗</span>
-            <span class="ds-menu-lbl">На главную gogaportwine</span>
+            <span class="ds-menu-lbl">На главную<br>gogaportwine</span>
           </a>
         </nav>
       </div>
@@ -346,6 +351,24 @@
       </div>
     </div>
 
+    <!-- Expeditions Modal -->
+    <div id="expeditions-backdrop" class="ds-modal-backdrop" role="presentation" hidden>
+      <div class="ds-dialog ds-expeditions-dialog" role="dialog" aria-modal="true" aria-labelledby="expeditions-title">
+        <div class="ds-dialog-head">
+          <div>
+            <p class="ds-dialog-eyebrow">КАМПАНИЯ · 16 УРОВНЕЙ</p>
+            <h2 id="expeditions-title" class="ds-dialog-title">Экспедиции</h2>
+          </div>
+          <button type="button" class="ds-dialog-close" data-close-modal aria-label="Закрыть экспедиции">X</button>
+        </div>
+        <p class="ds-modal-sub">
+          Тематические наборы по 7 вопросов в свободном порядке. Проходите уровни, выбивайте золото (450+ очков) и открывайте редких спутников!
+        </p>
+        <div id="expeditions-summary" class="ds-exp-summary"></div>
+        <div id="expeditions-grid" class="ds-exp-grid"></div>
+      </div>
+    </div>
+
     <!-- FAQ Modal -->
     <div id="faq-backdrop" class="ds-modal-backdrop" role="presentation" hidden>
       <div class="ds-dialog" role="dialog" aria-modal="true" aria-labelledby="faq-title">
@@ -366,8 +389,8 @@
             <p>Это «ловушка для умников» — ответ, который не кажется банальным, но на деле его вспоминают почти все, кто пытается выделиться. Например, «Авокадо» среди продуктов на букву О или «Утконос» среди необычных животных.</p>
           </div>
           <div>
-            <h3>Какие бывают уровни редкости?</h3>
-            <p>Планктон (+10), Слишком умно (+15), Косяк (+30), Редкий (+60), Глубоководный (+85) и Один на криллион (+100).</p>
+            <h3>Что такое «Экспедиции»?</h3>
+            <p>Это кампания из 16 тематических уровней (по 7 вопросов в каждом). В отличие от ежедневного микса, каждый уровень посвящён одной большой теме. За 5 уровней, все 16 уровней и все 16 уровней на золото (450+ очков) открываются уникальные спутники в Гардеробе.</p>
           </div>
           <div>
             <h3>Как работает автоисправление и ввод?</h3>
@@ -378,7 +401,7 @@
     </div>
   </div>
 
-  <script src="data.js?v=20261120b"></script>
-  <script src="app.js?v=20261120b"></script>
+  <script src="data.js?v=20261120c"></script>
+  <script src="app.js?v=20261120c"></script>
 </body>
 </html>

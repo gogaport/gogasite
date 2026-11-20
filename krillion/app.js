@@ -344,10 +344,14 @@
     'horror-movie', 'tv-series-hit', 'indie-game', 'retro-console-game',
     'open-world-game', 'minecraft-mob-item', 'moba-hero-shooter', 'comic-hero-villain',
     'russian-literature', 'soviet-cartoon', 'soviet-comedy', 'fairy-tale-folk',
-    'scientist-inventor', 'historical-ruler', 'rock-pop-band', 'building-landmark',
-    'video-game-char', 'world-literature', 'film-director', 'movie-actor',
-    'classical-composer', 'painter-artist', 'historic-event', 'animated-series',
-    'ancient-state', 'football-club'
+    'scientist-inventor', 'historical-ruler', 'rock-pop-band', 'cis-music-artist',
+    'building-landmark', 'video-game-char', 'world-literature', 'film-director',
+    'movie-actor', 'classical-composer', 'painter-artist', 'historic-event',
+    'animated-series', 'ancient-state', 'football-club',
+    'philosopher', 'movie-villain', 'myth-egypt-slavic', 'game-studio',
+    'ru-cartoon-char', 'space-mission-phenom', 'cs-term-map', 'internet-meme',
+    'witcher-skyrim', 'food-drink-brand', 'hockey-nba-f1-team',
+    'film-studio-award', 'game-console'
   ]);
 
   const COMMON_STOP_TOKENS = new Set([
@@ -470,8 +474,36 @@
     return prompt._index;
   }
 
+  const SYMBOL_KEY_MAP = {
+    '.': 'точка', ',': 'запятая', '!': 'восклицательный знак', '?': 'вопросительный знак',
+    ':': 'двоеточие', ';': 'точка с запятой', '—': 'тире', '–': 'короткое тире',
+    '-': 'дефис', '...': 'многоточие', '…': 'многоточие', '"': 'кавычки',
+    '«»': 'кавычки-ёлочки', '«': 'кавычки-ёлочки', '»': 'кавычки-ёлочки',
+    '„“': 'кавычки-лапки', '()': 'скобки', '(': 'скобки', ')': 'скобки',
+    '[]': 'квадратные скобки', '[': 'квадратные скобки', ']': 'квадратные скобки',
+    '{}': 'фигурные скобки', '{': 'фигурные скобки', '}': 'фигурные скобки',
+    '<>': 'угловые скобки', "'": 'апостроф', '/': 'слэш', '\\': 'обратный слэш',
+    '|': 'вертикальная черта', '@': 'собака', '#': 'хэштег', '$': 'доллар',
+    '%': 'процент', '&': 'амперсанд', '*': 'звёздочка', '~': 'тильда',
+    '^': 'карет', '_': 'подчёркивание', '+': 'плюс', '=': 'равно',
+    '>': 'больше', '<': 'меньше', '§': 'параграф', '№': 'знак номера',
+    '©': 'копирайт', '™': 'трейдмарк', '®': 'знак зарегистрированной марки',
+    '°': 'градус', '±': 'плюс-минус', '×': 'знак умножения', '÷': 'знак деления',
+    '∞': 'бесконечность', '€': 'евро', '£': 'фунт', '₽': 'рубль', '¥': 'иена',
+    '•': 'буллит', '‽': 'интерробанг', '¶': 'пилкроу', '†': 'обелиск',
+    '‰': 'промилле', '≠': 'не равно', '≈': 'примерно равно', '√': 'знак корня',
+    '∑': 'знак суммы', '∫': 'знак интеграла', '₿': 'биткоин', '¢': 'цент',
+    '‽': 'интерробанг', '¿': 'перевёрнутый вопросительный знак', '♭': 'бемоль',
+    '♮': 'бекар', '♯': 'диесис'
+  };
+
   function matchAnswer(rawInput, prompt) {
-    const norm = normalizeInput(rawInput);
+    let effectiveInput = rawInput;
+    if (prompt && prompt.id === 'symbol-key') {
+      const trimmed = (rawInput || '').trim();
+      if (SYMBOL_KEY_MAP[trimmed]) effectiveInput = SYMBOL_KEY_MAP[trimmed];
+    }
+    const norm = normalizeInput(effectiveInput);
     const comp = compactStr(norm);
     if (!norm) return { status: 'empty' };
 
@@ -2023,7 +2055,11 @@
       const seenCount = new Set(appState.seenEndlessIds || []).size;
       const freshLeft = Math.max(1, DATA.PROMPTS.length - seenCount);
       heroTaglineEl.textContent = 'БЕСКОНЕЧНОЕ ПОГРУЖЕНИЕ';
-      heroSublineEl.textContent = '122 темы без повторов · без ограничений · всплывайте в любой момент';
+      const totalTopics = DATA.PROMPTS.length;
+      const m10 = totalTopics % 10;
+      const m100 = totalTopics % 100;
+      const topicsWord = (m10 === 1 && m100 !== 11) ? 'тема' : (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) ? 'темы' : 'тем';
+      heroSublineEl.textContent = `${totalTopics} ${topicsWord} без повторов · без ограничений · всплывайте в любой момент`;
       surfaceNoteEl.hidden = true;
       introDiveNumEl.textContent = `БЕСКОНЕЧНЫЙ · ${freshLeft} НОВЫХ ТЕМ`;
       metaDailyBtn.hidden = false;

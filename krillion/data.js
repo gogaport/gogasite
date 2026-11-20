@@ -1056,6 +1056,426 @@
     "text": "Назови ювелирное украшение или аксессуар",
     "count": 359,
     "strictShape": false
+  },
+  {
+    "id": "us-state",
+    "text": "Назови штат США",
+    "count": 50,
+    "strictShape": false
+  },
+  {
+    "id": "constellation",
+    "text": "Назови созвездие звёздного неба",
+    "count": 88,
+    "strictShape": false
+  },
+  {
+    "id": "grain-porridge",
+    "text": "Назови крупу, кашу или злак",
+    "count": 104,
+    "strictShape": false
+  },
+  {
+    "id": "car-trunk-glovebox",
+    "text": "Назови вещь, которую часто возят в багажнике или бардачке машины",
+    "count": 164,
+    "strictShape": false
+  },
+  {
+    "id": "philosopher",
+    "text": "Назови известного философа или мыслителя",
+    "count": 169,
+    "strictShape": false
+  },
+  {
+    "id": "ball-sport",
+    "text": "Назови вид спорта с мячом или шайбой",
+    "count": 112,
+    "strictShape": false
+  },
+  {
+    "id": "movie-villain",
+    "text": "Назови известного злодея из фильмов, сериалов или мультфильмов",
+    "count": 227,
+    "strictShape": false
+  },
+  {
+    "id": "africa-country",
+    "text": "Назови страну Африки",
+    "count": 58,
+    "strictShape": false
+  },
+  {
+    "id": "freshwater-fish",
+    "text": "Назови пресноводную (речную или озёрную) рыбу",
+    "count": 152,
+    "strictShape": false
+  },
+  {
+    "id": "asian-dish",
+    "text": "Назови блюдо японской, китайской, корейской или тайской кухни",
+    "count": 162,
+    "strictShape": false
+  },
+  {
+    "id": "dacha-garden-item",
+    "text": "Назови предмет, постройку или атрибут дачи и огорода",
+    "count": 156,
+    "strictShape": false
+  },
+  {
+    "id": "art-arch-style",
+    "text": "Назови архитектурный стиль или направление в искусстве",
+    "count": 139,
+    "strictShape": false
+  },
+  {
+    "id": "game-console",
+    "text": "Назови игровую приставку или консоль (любого поколения)",
+    "count": 116,
+    "strictShape": false
+  },
+  {
+    "id": "round-object",
+    "text": "Назови предмет или объект круглой / шарообразной формы",
+    "count": 168,
+    "strictShape": false
+  },
+  {
+    "id": "russia-region",
+    "text": "Назови республику, край или область России",
+    "count": 85,
+    "strictShape": false
+  },
+  {
+    "id": "vitamin-hormone",
+    "text": "Назови витамин, гормон или биологически активное вещество в организме",
+    "count": 122,
+    "strictShape": false
+  },
+  {
+    "id": "tea-infusion",
+    "text": "Назови сорт чая или травяного напитка",
+    "count": 110,
+    "strictShape": false
+  },
+  {
+    "id": "camping-picnic-item",
+    "text": "Назови вещь, которую берут с собой в поход или на пикник",
+    "count": 160,
+    "strictShape": false
+  },
+  {
+    "id": "myth-egypt-slavic",
+    "text": "Назови бога или существо из славянской, египетской или восточной мифологии",
+    "count": 162,
+    "strictShape": false
+  },
+  {
+    "id": "game-studio",
+    "text": "Назови известную студию разработки или издателя видеоигр",
+    "count": 180,
+    "strictShape": false
+  },
+  {
+    "id": "hairstyle",
+    "text": "Назови вид причёски или стрижки",
+    "count": 120,
+    "strictShape": false
+  },
+  {
+    "id": "asia-country",
+    "text": "Назови страну Азии",
+    "count": 52,
+    "strictShape": false
+  },
+  {
+    "id": "horse-breed",
+    "text": "Назови породу лошади",
+    "count": 120,
+    "strictShape": false
+  },
+  {
+    "id": "caucasus-oriental-dish",
+    "text": "Назови блюдо кавказской, турецкой или среднеазиатской кухни",
+    "count": 157,
+    "strictShape": false
+  },
+  {
+    "id": "pharmacy-item",
+    "text": "Назови предмет или популярное средство из домашней аптечки",
+    "count": 164,
+    "strictShape": false
+  },
+  {
+    "id": "rank-title",
+    "text": "Назови дворянский титул, воинское звание или исторический чин",
+    "count": 154,
+    "strictShape": false
+  },
+  {
+    "id": "movie-genre",
+    "text": "Назови жанр или поджанр кино",
+    "count": 113,
+    "strictShape": false
+  },
+  {
+    "id": "superstition-omen",
+    "text": "Назови популярную примету или суеверие",
+    "count": 114,
+    "strictShape": false
+  },
+  {
+    "id": "landlocked-country",
+    "text": "Назови страну, у которой нет выхода к Мировому океану",
+    "count": 47,
+    "strictShape": false
+  },
+  {
+    "id": "file-extension",
+    "text": "Назови формат файла или компьютерное расширение (например: PDF, MP3)",
+    "count": 182,
+    "strictShape": false
+  },
+  {
+    "id": "alcohol-style",
+    "text": "Назови вид алкогольного напитка, вина или пива (сорт, не бренд)",
+    "count": 160,
+    "strictShape": false
+  },
+  {
+    "id": "beach-item",
+    "text": "Назови вещь или объект, который можно увидеть на пляже",
+    "count": 145,
+    "strictShape": false
+  },
+  {
+    "id": "music-term",
+    "text": "Назови музыкальный термин или нотное обозначение (не жанр и не инструмент)",
+    "count": 145,
+    "strictShape": false
+  },
+  {
+    "id": "ru-cartoon-char",
+    "text": "Назови персонажа советского или российского мультфильма",
+    "count": 193,
+    "strictShape": false
+  },
+  {
+    "id": "animal-nature-sound",
+    "text": "Назови звук, который издаёт животное или природа (одним словом)",
+    "count": 122,
+    "strictShape": true
+  },
+  {
+    "id": "americas-country",
+    "text": "Назови страну Северной, Центральной или Южной Америки",
+    "count": 45,
+    "strictShape": false
+  },
+  {
+    "id": "medical-specialty",
+    "text": "Назови врачебную специальность",
+    "count": 114,
+    "strictShape": false
+  },
+  {
+    "id": "pizza-topping",
+    "text": "Назови популярную начинку или ингредиент для пиццы",
+    "count": 126,
+    "strictShape": false
+  },
+  {
+    "id": "airport-plane-item",
+    "text": "Назови предмет, место или явление в аэропорту и самолёте",
+    "count": 145,
+    "strictShape": false
+  },
+  {
+    "id": "space-mission-phenom",
+    "text": "Назови космическую миссию, телескоп, аппарат или астрономическое явление",
+    "count": 144,
+    "strictShape": false
+  },
+  {
+    "id": "cs-term-map",
+    "text": "Назови карту, оружие или термин из Counter-Strike (CS:GO / CS2)",
+    "count": 160,
+    "strictShape": false
+  },
+  {
+    "id": "paired-thing",
+    "text": "Назови вещь, которая обычно бывает парной (используется или носится парой)",
+    "count": 117,
+    "strictShape": false
+  },
+  {
+    "id": "peninsula-cape",
+    "text": "Назови полуостров или известный мыс на карте мира",
+    "count": 134,
+    "strictShape": false
+  },
+  {
+    "id": "rock-mineral",
+    "text": "Назови горную породу, минерал или полезное ископаемое (не драгоценный камень)",
+    "count": 162,
+    "strictShape": false
+  },
+  {
+    "id": "cooking-method",
+    "text": "Назови способ приготовления еды или кулинарный термин",
+    "count": 136,
+    "strictShape": false
+  },
+  {
+    "id": "car-part",
+    "text": "Назови деталь, узел или часть автомобиля",
+    "count": 172,
+    "strictShape": false
+  },
+  {
+    "id": "literary-term",
+    "text": "Назови литературный термин, троп или жанр",
+    "count": 142,
+    "strictShape": false
+  },
+  {
+    "id": "internet-meme",
+    "text": "Назови известный интернет-мем или мемного персонажа",
+    "count": 174,
+    "strictShape": false
+  },
+  {
+    "id": "lateness-excuse",
+    "text": "Назови типичную причину или отмазку, почему человек опоздал",
+    "count": 110,
+    "strictShape": false
+  },
+  {
+    "id": "desert-plain",
+    "text": "Назови пустыню, степь, долину или известный природный регион мира",
+    "count": 135,
+    "strictShape": false
+  },
+  {
+    "id": "venomous-toxic",
+    "text": "Назови ядовитое животное или растение",
+    "count": 158,
+    "strictShape": false
+  },
+  {
+    "id": "breakfast-egg-dish",
+    "text": "Назови популярное блюдо на завтрак или блюдо из яиц",
+    "count": 120,
+    "strictShape": false
+  },
+  {
+    "id": "popular-gift",
+    "text": "Назови популярный подарок на день рождения или Новый год",
+    "count": 158,
+    "strictShape": false
+  },
+  {
+    "id": "symbol-key",
+    "text": "Назови знак препинания, типографский символ или клавишу на клавиатуре",
+    "count": 117,
+    "strictShape": false
+  },
+  {
+    "id": "witcher-skyrim",
+    "text": "Назови персонажа, существо или место из «Ведьмака» или Skyrim (TES)",
+    "count": 188,
+    "strictShape": false
+  },
+  {
+    "id": "light-source",
+    "text": "Назови природный или искусственный источник света",
+    "count": 128,
+    "strictShape": false
+  },
+  {
+    "id": "us-city",
+    "text": "Назови город США (кроме Нью-Йорка и Лос-Анджелеса)",
+    "count": 189,
+    "strictShape": false
+  },
+  {
+    "id": "chemical-compound",
+    "text": "Назови известное химическое вещество, кислоту или соединение (не элемент)",
+    "count": 176,
+    "strictShape": false
+  },
+  {
+    "id": "food-drink-brand",
+    "text": "Назови известный бренд продуктов, сладостей или напитков из супермаркета",
+    "count": 196,
+    "strictShape": false
+  },
+  {
+    "id": "building-type",
+    "text": "Назови тип жилья, здания или постройки",
+    "count": 142,
+    "strictShape": false
+  },
+  {
+    "id": "religion-belief",
+    "text": "Назови религию, конфессию или духовное учение",
+    "count": 108,
+    "strictShape": false
+  },
+  {
+    "id": "hockey-nba-f1-team",
+    "text": "Назови команду НХЛ, КХЛ, НБА или Формулы-1",
+    "count": 167,
+    "strictShape": false
+  },
+  {
+    "id": "workout-exercise",
+    "text": "Назови физическое упражнение из спорта или тренажёрного зала",
+    "count": 140,
+    "strictShape": false
+  },
+  {
+    "id": "europe-noncapital",
+    "text": "Назови крупный город Европы (не столицу и не город РФ)",
+    "count": 200,
+    "strictShape": false
+  },
+  {
+    "id": "primate-monkey",
+    "text": "Назови вид обезьяны или другого примата",
+    "count": 100,
+    "strictShape": false
+  },
+  {
+    "id": "it-network-term",
+    "text": "Назови термин из IT, сетей или кибербезопасности (не язык программирования)",
+    "count": 192,
+    "strictShape": false
+  },
+  {
+    "id": "hobby-activity",
+    "text": "Назови популярное хобби или увлечение",
+    "count": 165,
+    "strictShape": false
+  },
+  {
+    "id": "film-studio-award",
+    "text": "Назови известную киностудию, кинопремию или кинофестиваль",
+    "count": 141,
+    "strictShape": false
+  },
+  {
+    "id": "gamer-internet-slang",
+    "text": "Назови популярное геймерское или интернет-сленговое слово",
+    "count": 188,
+    "strictShape": false
+  },
+  {
+    "id": "palindrome-word",
+    "text": "Назови русское слово-палиндром от 3 букв (читается одинаково в обе стороны)",
+    "count": 110,
+    "strictShape": true
   }
 ].map((p) => Object.assign(p, { answers: null }));
 
@@ -1067,7 +1487,7 @@
 
   function fetchChunkWithRetry(promptId, attempt = 0) {
     const opts = attempt > 0 ? { cache: 'reload' } : undefined;
-    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261118r`, opts)
+    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261120a`, opts)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();
@@ -1165,38 +1585,99 @@
     return copy;
   }
 
+  const PROMPT_BY_ID = Object.create(null);
+  PROMPTS.forEach((p) => { PROMPT_BY_ID[p.id] = p; });
+
+  // Fixed daily schedule: #1-#15 (original archive locked), #16-#25 (70 new topics), #26-#27 (remaining unplayed original topics)
+  const LOCKED_DAILY_SCHEDULE = [
+    /* #01 */ ["mythology-greek-norse","minecraft-mob-item","classical-composer","vegetable-green","programming-lang","tree-shrub","snake-reptile"],
+    /* #02 */ ["childhood-toy-game","phobia-fear","cities-suffix","clothing-item","cosmetics-hygiene","cat-breed","cheese-type"],
+    /* #03 */ ["martial-art","sea-or-ocean","world-language","space-object","ancient-state","bird-name","furniture-interior"],
+    /* #04 */ ["hotel-forgotten","white-inside","weapon-armor","soviet-cartoon","social-app-site","vowel-country","mushroom-name"],
+    /* #05 */ ["tech-brand","harry-potter","anime-title","bread-pastry","world-capital","insect-bug","soup-dish"],
+    /* #06 */ ["tool-hardware","comic-hero-villain","fairy-tale-folk","geometric-shape","talking-animal-movie","dance-style","dessert-sweet"],
+    /* #07 */ ["pasta-shape","word-double-letter","horror-movie","building-landmark","famous-salad","chemical-element","world-lake-strait"],
+    /* #08 */ ["food-ends-o","pokemon-creature","currency-world","football-club","word-same-edge","lord-of-rings","rock-pop-band"],
+    /* #09 */ ["kitchen-item","sea-creature","physical-unit","color-shade","retro-console-game","word-4-letters","sports-gear"],
+    /* #10 */ ["dog-breed","school-subject","game-genre","holiday-tradition","jewelry-accessory","sport-no-ball","stationery-item"],
+    /* #11 */ ["greek-letter-symbol","mountain-range","transport-vehicle","berry-fruit","painter-artist","pixar-disney-char","dinosaur-prehistoric"],
+    /* #12 */ ["weather-phenomenon","animal-8plus","moscow-spb-metro","fabric-material","meat-charcuterie","star-wars","open-world-game"],
+    /* #13 */ ["island-world","music-genre","anime-character","animated-series","scientist-inventor","video-game-char","historical-ruler"],
+    /* #14 */ ["one-syllable-noun","human-emotion","body-organ-bone","electronic-gadget","fastfood-chain","russian-literature","sci-fi-fantasy-movie"],
+    /* #15 */ ["musical-instrument","europe-country","spice-herb","moba-hero-shooter","car-brand","tv-series-hit","russia-city-million"],
+    /* #16 */ ["us-state","constellation","grain-porridge","car-trunk-glovebox","philosopher","ball-sport","movie-villain"],
+    /* #17 */ ["africa-country","freshwater-fish","asian-dish","dacha-garden-item","art-arch-style","game-console","round-object"],
+    /* #18 */ ["russia-region","vitamin-hormone","tea-infusion","camping-picnic-item","myth-egypt-slavic","game-studio","hairstyle"],
+    /* #19 */ ["asia-country","horse-breed","caucasus-oriental-dish","pharmacy-item","rank-title","movie-genre","superstition-omen"],
+    /* #20 */ ["landlocked-country","file-extension","alcohol-style","beach-item","music-term","ru-cartoon-char","animal-nature-sound"],
+    /* #21 */ ["americas-country","medical-specialty","pizza-topping","airport-plane-item","space-mission-phenom","cs-term-map","paired-thing"],
+    /* #22 */ ["peninsula-cape","rock-mineral","cooking-method","car-part","literary-term","internet-meme","lateness-excuse"],
+    /* #23 */ ["desert-plain","venomous-toxic","breakfast-egg-dish","popular-gift","symbol-key","witcher-skyrim","light-source"],
+    /* #24 */ ["us-city","chemical-compound","food-drink-brand","building-type","religion-belief","hockey-nba-f1-team","workout-exercise"],
+    /* #25 */ ["europe-noncapital","primate-monkey","it-network-term","hobby-activity","film-studio-award","gamer-internet-slang","palindrome-word"],
+    /* #26 */ ["flower-plant","world-literature","board-game","fashion-brand","rare-letter-start","film-director","gemstone"],
+    /* #27 */ ["nut-seed","world-river","cis-music-artist","tropical-fruit","profession-oneword","sauce-condiment","historic-event"]
+  ];
+
+  const PRIORITY_FIRST_CYCLE_IDS = ["movie-actor","soviet-comedy","cocktail-drink","indie-game"];
+
   const EPOCH_CACHE = Object.create(null);
 
   function getEpochDeck(epoch) {
     if (EPOCH_CACHE[epoch]) return EPOCH_CACHE[epoch];
-    const deck = shuffleWithSeed(PROMPTS, epoch * 7919 + 424242);
-    if (epoch > 0) {
+    const deck = shuffleWithSeed(PROMPTS, (epoch + 1) * 7919 + 424242);
+    const deckSize = Math.floor(PROMPTS.length / 7);
+    const usableLen = deckSize * 7;
+    const span = Math.min(70, Math.floor(usableLen / 2));
+
+    let cooldownIds;
+    if (epoch === 0) {
+      // Avoid repeating the last 10 days of LOCKED_DAILY_SCHEDULE at the start of post-locked cycling
+      cooldownIds = new Set(LOCKED_DAILY_SCHEDULE.slice(-10).flat());
+    } else {
       const prevDeck = getEpochDeck(epoch - 1);
-      const deckSize = Math.floor(PROMPTS.length / 7);
-      const usableLen = deckSize * 7;
-      // Guarantee >= 8-day cooldown across epoch boundaries
-      const span = Math.min(56, Math.floor(usableLen / 2));
-      const cooldownIds = new Set(prevDeck.slice(Math.max(0, usableLen - span), usableLen).map((p) => p.id));
-      let swapIdx = span;
-      for (let i = 0; i < span; i++) {
-        if (!cooldownIds.has(deck[i].id)) continue;
-        while (swapIdx < usableLen && cooldownIds.has(deck[swapIdx].id)) swapIdx += 1;
-        if (swapIdx >= usableLen) break;
-        const tmp = deck[i];
-        deck[i] = deck[swapIdx];
-        deck[swapIdx] = tmp;
-        swapIdx += 1;
+      cooldownIds = new Set(prevDeck.slice(Math.max(0, usableLen - span), usableLen).map((p) => p.id));
+    }
+
+    let swapIdx = span;
+    for (let i = 0; i < span; i++) {
+      if (!cooldownIds.has(deck[i].id)) continue;
+      while (swapIdx < usableLen && cooldownIds.has(deck[swapIdx].id)) swapIdx += 1;
+      if (swapIdx >= usableLen) break;
+      const tmp = deck[i];
+      deck[i] = deck[swapIdx];
+      deck[swapIdx] = tmp;
+      swapIdx += 1;
+    }
+
+    if (epoch === 0) {
+      // Surface the remaining 4 never-played original prompts on Day #28
+      let frontIdx = 0;
+      for (const pid of PRIORITY_FIRST_CYCLE_IDS) {
+        const pos = deck.findIndex((p) => p.id === pid);
+        if (pos > frontIdx) {
+          const tmp = deck[frontIdx];
+          deck[frontIdx] = deck[pos];
+          deck[pos] = tmp;
+        }
+        if (pos !== -1) frontIdx += 1;
       }
     }
+
     EPOCH_CACHE[epoch] = deck;
     return deck;
   }
 
   function getDailyPrompts(diveNumber) {
-    // Non-repeating deck per epoch cycle of floor(PROMPTS.length / 7) days
+    if (diveNumber >= 1 && diveNumber <= LOCKED_DAILY_SCHEDULE.length) {
+      const ids = LOCKED_DAILY_SCHEDULE[diveNumber - 1];
+      const resolved = ids.map((id) => PROMPT_BY_ID[id]).filter(Boolean);
+      if (resolved.length === 7) return resolved;
+    }
+    const postIdx = Math.max(0, diveNumber - 1 - LOCKED_DAILY_SCHEDULE.length);
     const deckSize = Math.floor(PROMPTS.length / 7);
-    const epoch = Math.floor((diveNumber - 1) / deckSize);
-    const dayInEpoch = (diveNumber - 1) % deckSize;
+    const epoch = Math.floor(postIdx / deckSize);
+    const dayInEpoch = postIdx % deckSize;
     return getEpochDeck(epoch).slice(dayInEpoch * 7, dayInEpoch * 7 + 7);
   }
 

@@ -351,7 +351,15 @@
     'philosopher', 'movie-villain', 'myth-egypt-slavic', 'game-studio',
     'ru-cartoon-char', 'space-mission-phenom', 'cs-term-map', 'internet-meme',
     'witcher-skyrim', 'food-drink-brand', 'hockey-nba-f1-team',
-    'film-studio-award', 'game-console'
+    'film-studio-award', 'game-console',
+    'gta-rdr-entity', 'ancient-wonder-ruin', 'historical-dynasty-order',
+    'explorer-traveler', 'movie-franchise', 'tv-series-char',
+    'famous-singer-solo', 'music-album-classic', 'soundtrack-composer-ost',
+    'famous-song-title', 'music-fest-award', 'scifi-universe-ship',
+    'retail-marketplace-bank', 'airline-delivery-brand', 'crypto-tech-company',
+    'luxury-watch-perfume', 'famous-author', 'tv-show-90s-2000s',
+    'nostalgia-snack-90s', 'old-internet-2000s', 'nostalgia-cartoon-series-90s',
+    'famous-athlete'
   ]);
 
   const COMMON_STOP_TOKENS = new Set([
@@ -2023,12 +2031,29 @@
     answerForm.classList.remove('hot');
     floorEl.style.display = mode === 'endless' ? 'none' : 'block';
 
+    const diveTheme = (mode === 'daily' || mode === 'archive') && DATA.getDiveTheme
+      ? DATA.getDiveTheme(diveNumber)
+      : null;
+
+    if (diveTheme) {
+      surfaceNoteEl.classList.add('ds-theme-pill');
+      surfaceNoteEl.style.setProperty('--theme-accent', diveTheme.accent);
+      surfaceNoteEl.innerHTML = `<span class="ds-theme-pill-kicker">ТЕМА ДНЯ</span><span class="ds-theme-pill-icon" aria-hidden="true">${escapeHtml(diveTheme.icon)}</span><span>${escapeHtml(diveTheme.title)}</span>`;
+      surfaceNoteEl.hidden = false;
+    } else {
+      surfaceNoteEl.classList.remove('ds-theme-pill');
+      surfaceNoteEl.style.removeProperty('--theme-accent');
+      surfaceNoteEl.textContent = '';
+      surfaceNoteEl.hidden = true;
+    }
+
     if (mode === 'daily') {
       session.prompts = DATA.getDailyPrompts(diveNumber);
       heroTaglineEl.textContent = 'ЕЖЕДНЕВНОЕ ПОГРУЖЕНИЕ';
       heroSublineEl.textContent = '7 вопросов · 25 секунд на каждый · редкие ответы погружают глубже';
-      surfaceNoteEl.hidden = true;
-      introDiveNumEl.textContent = `ПОГРУЖЕНИЕ #${diveNumber}`;
+      introDiveNumEl.textContent = diveTheme
+        ? `ПОГРУЖЕНИЕ #${diveNumber} · ${diveTheme.short.toUpperCase()}`
+        : `ПОГРУЖЕНИЕ #${diveNumber}`;
       metaDailyBtn.hidden = true;
       metaEndlessBtn.hidden = false;
 
@@ -2044,8 +2069,9 @@
       session.prompts = DATA.getDailyPrompts(diveNumber);
       heroTaglineEl.textContent = `АРХИВ · ПОГРУЖЕНИЕ #${diveNumber}`;
       heroSublineEl.textContent = `7 вопросов от ${DATA.getDiveDateLabel(diveNumber)} · бесплатный доступ`;
-      surfaceNoteEl.hidden = true;
-      introDiveNumEl.textContent = `АРХИВ #${diveNumber}`;
+      introDiveNumEl.textContent = diveTheme
+        ? `АРХИВ #${diveNumber} · ${diveTheme.short.toUpperCase()}`
+        : `АРХИВ #${diveNumber}`;
       metaDailyBtn.hidden = false;
       metaEndlessBtn.hidden = false;
       beginBtn.textContent = '▼ НАЧАТЬ ПОГРУЖЕНИЕ ▼';
@@ -2060,7 +2086,6 @@
       const m100 = totalTopics % 100;
       const topicsWord = (m10 === 1 && m100 !== 11) ? 'тема' : (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) ? 'темы' : 'тем';
       heroSublineEl.textContent = `${totalTopics} ${topicsWord} без повторов · без ограничений · всплывайте в любой момент`;
-      surfaceNoteEl.hidden = true;
       introDiveNumEl.textContent = `БЕСКОНЕЧНЫЙ · ${freshLeft} НОВЫХ ТЕМ`;
       metaDailyBtn.hidden = false;
       metaEndlessBtn.hidden = true;
@@ -2177,9 +2202,14 @@
 
     updateHud();
 
+    const roundTheme = session.mode !== 'endless' && DATA.getDiveTheme
+      ? DATA.getDiveTheme(session.diveNumber)
+      : null;
     cardRoundEl.textContent = session.mode === 'endless'
       ? `ВОПРОС ${session.roundIndex + 1} · БЕСКОНЕЧНЫЙ`
-      : `ВОПРОС ${session.roundIndex + 1} ИЗ 7`;
+      : roundTheme
+        ? `ВОПРОС ${session.roundIndex + 1} ИЗ 7 · ${roundTheme.icon} ${roundTheme.short.toUpperCase()}`
+        : `ВОПРОС ${session.roundIndex + 1} ИЗ 7`;
     cardPromptEl.textContent = prompt.text;
     promptCardEl.classList.remove('gone');
     promptCardEl.hidden = false;
@@ -2807,12 +2837,20 @@
       ? `ТЕМП ${avgPerRound} ОЧК/ВОПРОС · ЛУЧШЕ, ЧЕМ У ${pct}% НЫРЯЛЬЩИКОВ`
       : `ЛУЧШЕ, ЧЕМ У ${pct}% СЕГОДНЯШНИХ НЫРЯЛЬЩИКОВ`;
 
+    const doneTheme = !isEndless && DATA.getDiveTheme
+      ? DATA.getDiveTheme(session.diveNumber)
+      : null;
+    const doneThemeHtml = doneTheme
+      ? `<div class="ds-done-theme" style="--theme-accent:${doneTheme.accent};"><span>${escapeHtml(doneTheme.icon)}</span><span>${escapeHtml(doneTheme.title)}</span></div>`
+      : '';
+
     doneInnerEl.innerHTML = `
       <div>
         <div class="ds-done-header">
           <span class="ds-done-krill">КРИЛЛИОН</span>
           <span class="ds-done-badge">${badgeText}</span>
         </div>
+        ${doneThemeHtml}
 
         <div class="ds-done-score-row">
           <span class="ds-done-bigscore tabular-nums">${session.totalScore}</span>
@@ -3039,10 +3077,14 @@
     copyBtn.addEventListener('click', () => {
       sfx.click();
       const blocks = session.results.map((r) => DATA.TIERS[r.tier].emoji).join('');
+      const shareTheme = session.mode !== 'endless' && DATA.getDiveTheme
+        ? DATA.getDiveTheme(session.diveNumber)
+        : null;
+      const themeSuffix = shareTheme ? ` · ${shareTheme.icon} ${shareTheme.title}` : '';
       const header = session.mode === 'daily'
-        ? `КРИЛЛИОН #${session.diveNumber}`
+        ? `КРИЛЛИОН #${session.diveNumber}${themeSuffix}`
         : session.mode === 'archive'
-          ? `КРИЛЛИОН (Архив #${session.diveNumber})`
+          ? `КРИЛЛИОН (Архив #${session.diveNumber}${themeSuffix})`
           : `КРИЛЛИОН (Бесконечный · ${session.results.length} раунд.)`;
       let text = `${header}\n${session.totalScore} очков · -${session.totalDepthM.toLocaleString('ru-RU')}м\n${blocks}`;
       if (appState.settings.shareLink) {
@@ -3218,10 +3260,15 @@
     for (let n = todayNum; n >= minNum; n--) {
       const saved = appState.completedDives[String(n)];
       const dateStr = DATA.getDiveDateLabel(n);
+      const theme = DATA.getDiveTheme ? DATA.getDiveTheme(n) : null;
+      const themeHtml = theme
+        ? `<span class="ds-archive-theme" style="--theme-accent:${theme.accent};"><span>${escapeHtml(theme.icon)}</span><span>${escapeHtml(theme.short)}</span></span>`
+        : '';
       items.push(`
         <button type="button" class="ds-archive-item${saved ? ' completed' : ''}" data-dive-num="${n}">
           <span class="ds-archive-num">#${n}${n === todayNum ? ' · сегодня' : ''}</span>
           <span class="ds-archive-date">${dateStr}</span>
+          ${themeHtml}
           ${saved ? `<span class="ds-archive-score">${saved.score} очк · -${saved.depth}м</span>` : '<span class="ds-archive-date" style="color:var(--color-foam);">сыграть →</span>'}
         </button>
       `);

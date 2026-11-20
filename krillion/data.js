@@ -1476,6 +1476,258 @@
     "text": "Назови русское слово-палиндром от 3 букв (читается одинаково в обе стороны)",
     "count": 110,
     "strictShape": true
+  },
+  {
+    "id": "physics-law-particle",
+    "text": "Назови закон физики, элементарную частицу или научный эффект",
+    "count": 200,
+    "strictShape": false
+  },
+  {
+    "id": "gta-rdr-entity",
+    "text": "Назови персонажа, город, место или банду из GTA или Red Dead Redemption",
+    "count": 204,
+    "strictShape": false
+  },
+  {
+    "id": "ancient-wonder-ruin",
+    "text": "Назови древний город, археологический памятник или утраченную цивилизацию",
+    "count": 198,
+    "strictShape": false
+  },
+  {
+    "id": "great-invention",
+    "text": "Назови великое изобретение или открытие в истории человечества",
+    "count": 201,
+    "strictShape": false
+  },
+  {
+    "id": "historical-dynasty-order",
+    "text": "Назови историческую династию, рыцарский орден или древний народ",
+    "count": 199,
+    "strictShape": false
+  },
+  {
+    "id": "explorer-traveler",
+    "text": "Назови известного мореплавателя, первооткрывателя или космонавта",
+    "count": 198,
+    "strictShape": false
+  },
+  {
+    "id": "wild-cat-predator",
+    "text": "Назови хищное млекопитающее (кошачьи, псовые, медведи, куньи и др.)",
+    "count": 178,
+    "strictShape": false
+  },
+  {
+    "id": "cinema-term-role",
+    "text": "Назови кинопрофессию, термин со съёмочной площадки или приём кино",
+    "count": 192,
+    "strictShape": false
+  },
+  {
+    "id": "movie-franchise",
+    "text": "Назови известную кинофраншизу или серию фильмов",
+    "count": 202,
+    "strictShape": false
+  },
+  {
+    "id": "tv-series-char",
+    "text": "Назови культового персонажа зарубежного или российского сериала",
+    "count": 274,
+    "strictShape": false
+  },
+  {
+    "id": "famous-singer-solo",
+    "text": "Назови легендарного сольного певца или певицу мира",
+    "count": 259,
+    "strictShape": false
+  },
+  {
+    "id": "music-album-classic",
+    "text": "Назови культовый музыкальный альбом (российский или зарубежный)",
+    "count": 202,
+    "strictShape": false
+  },
+  {
+    "id": "soundtrack-composer-ost",
+    "text": "Назови композитора, фильм или игру, известную легендарным саундтреком",
+    "count": 199,
+    "strictShape": false
+  },
+  {
+    "id": "concert-audio-gear",
+    "text": "Назови музыкальное/звуковое оборудование, носитель или элемент концерта",
+    "count": 183,
+    "strictShape": false
+  },
+  {
+    "id": "famous-song-title",
+    "text": "Назови всемирно известную песню или культовый русскоязычный хит",
+    "count": 238,
+    "strictShape": false
+  },
+  {
+    "id": "music-fest-award",
+    "text": "Назови музыкальный фестиваль, музыкальную премию или культовый лейбл",
+    "count": 168,
+    "strictShape": false
+  },
+  {
+    "id": "fantasy-creature-race",
+    "text": "Назови фэнтезийную расу или сказочное существо",
+    "count": 190,
+    "strictShape": false
+  },
+  {
+    "id": "scifi-universe-ship",
+    "text": "Назови культовую фантастическую вселенную, планету или космический корабль",
+    "count": 195,
+    "strictShape": false
+  },
+  {
+    "id": "superpower-ability",
+    "text": "Назови суперспособность или магическую силу",
+    "count": 178,
+    "strictShape": false
+  },
+  {
+    "id": "rpg-tabletop-term",
+    "text": "Назови класс персонажа, термин или механику из RPG и D&D",
+    "count": 188,
+    "strictShape": false
+  },
+  {
+    "id": "finance-econ-term",
+    "text": "Назови термин из экономики, финансов или бизнеса",
+    "count": 198,
+    "strictShape": false
+  },
+  {
+    "id": "retail-marketplace-bank",
+    "text": "Назови известный банк, маркетплейс или торговую сеть",
+    "count": 198,
+    "strictShape": false
+  },
+  {
+    "id": "airline-delivery-brand",
+    "text": "Назови авиакомпанию, сервис доставки, такси или оператора связи",
+    "count": 182,
+    "strictShape": false
+  },
+  {
+    "id": "crypto-tech-company",
+    "text": "Назови крупную IT-корпорацию, платёжную систему или криптовалюту",
+    "count": 188,
+    "strictShape": false
+  },
+  {
+    "id": "luxury-watch-perfume",
+    "text": "Назови бренд часов, парфюмерии, косметики или люксовой моды",
+    "count": 195,
+    "strictShape": false
+  },
+  {
+    "id": "business-job-role",
+    "text": "Назови офисную, IT или бизнес-должность / специальность",
+    "count": 182,
+    "strictShape": false
+  },
+  {
+    "id": "foreign-greeting-phrase",
+    "text": "Назови приветствие, «спасибо» или известную фразу на иностранном языке",
+    "count": 172,
+    "strictShape": false
+  },
+  {
+    "id": "national-costume-item",
+    "text": "Назови предмет национальной одежды, головной убор или атрибут культуры мира",
+    "count": 160,
+    "strictShape": false
+  },
+  {
+    "id": "world-folk-festival",
+    "text": "Назови известный мировой фестиваль, народный праздник, карнавал или культурный обряд",
+    "count": 169,
+    "strictShape": false
+  },
+  {
+    "id": "proverb-idiom-ru",
+    "text": "Назови известную русскую пословицу, поговорку или фразеологизм",
+    "count": 209,
+    "strictShape": false
+  },
+  {
+    "id": "math-term-theorem",
+    "text": "Назови математический термин, теорему или понятие",
+    "count": 198,
+    "strictShape": false
+  },
+  {
+    "id": "famous-author",
+    "text": "Назови известного русского или зарубежного писателя / поэта",
+    "count": 259,
+    "strictShape": false
+  },
+  {
+    "id": "biology-cell-term",
+    "text": "Назови термин из биологии, генетики или эволюции",
+    "count": 201,
+    "strictShape": false
+  },
+  {
+    "id": "grammar-ru-term",
+    "text": "Назови термин из русского языка, грамматики или лингвистики",
+    "count": 187,
+    "strictShape": false
+  },
+  {
+    "id": "retro-gadget-90s",
+    "text": "Назови ретро-гаджет, носитель или культовую вещь из 80-х–2000-х",
+    "count": 172,
+    "strictShape": false
+  },
+  {
+    "id": "tv-show-90s-2000s",
+    "text": "Назови культовую телепередачу или телешоу 90-х и 2000-х",
+    "count": 181,
+    "strictShape": false
+  },
+  {
+    "id": "nostalgia-snack-90s",
+    "text": "Назови культовую сладость, жвачку, еду или напиток из детства 90-х–2000-х",
+    "count": 189,
+    "strictShape": false
+  },
+  {
+    "id": "old-internet-2000s",
+    "text": "Назови культовый сайт, программу или явление старого интернета 90-х–2000-х",
+    "count": 181,
+    "strictShape": false
+  },
+  {
+    "id": "ussr-everyday-item",
+    "text": "Назови культовую вещь из советской квартиры или быта",
+    "count": 172,
+    "strictShape": false
+  },
+  {
+    "id": "school-90s-childhood",
+    "text": "Назови атрибут школьной жизни или дворового детства",
+    "count": 174,
+    "strictShape": false
+  },
+  {
+    "id": "nostalgia-cartoon-series-90s",
+    "text": "Назови культовый мультсериал или сериал из детства 90-х и 2000-х",
+    "count": 214,
+    "strictShape": false
+  },
+  {
+    "id": "famous-athlete",
+    "text": "Назови легендарного спортсмена (футбол, бокс, ММА, теннис, Ф1, баскетбол, хоккей и др.)",
+    "count": 257,
+    "strictShape": false
   }
 ].map((p) => Object.assign(p, { answers: null }));
 
@@ -1487,7 +1739,7 @@
 
   function fetchChunkWithRetry(promptId, attempt = 0) {
     const opts = attempt > 0 ? { cache: 'reload' } : undefined;
-    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261120a`, opts)
+    return fetch(`./db/${encodeURIComponent(promptId)}.json?v=20261120b`, opts)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for ${promptId}`);
         return res.json();
@@ -1588,7 +1840,7 @@
   const PROMPT_BY_ID = Object.create(null);
   PROMPTS.forEach((p) => { PROMPT_BY_ID[p.id] = p; });
 
-  // Fixed daily schedule: #1-#15 (original archive locked), #16-#25 (70 new topics), #26-#27 (remaining unplayed original topics)
+  // Fixed daily schedule: #1-#15 (original archive locked), #16-#31 (16 themed days / 112 new topics), #32-#33 (remaining unplayed original topics)
   const LOCKED_DAILY_SCHEDULE = [
     /* #01 */ ["mythology-greek-norse","minecraft-mob-item","classical-composer","vegetable-green","programming-lang","tree-shrub","snake-reptile"],
     /* #02 */ ["childhood-toy-game","phobia-fear","cities-suffix","clothing-item","cosmetics-hygiene","cat-breed","cheese-type"],
@@ -1605,19 +1857,49 @@
     /* #13 */ ["island-world","music-genre","anime-character","animated-series","scientist-inventor","video-game-char","historical-ruler"],
     /* #14 */ ["one-syllable-noun","human-emotion","body-organ-bone","electronic-gadget","fastfood-chain","russian-literature","sci-fi-fantasy-movie"],
     /* #15 */ ["musical-instrument","europe-country","spice-herb","moba-hero-shooter","car-brand","tv-series-hit","russia-city-million"],
-    /* #16 */ ["us-state","constellation","grain-porridge","car-trunk-glovebox","philosopher","ball-sport","movie-villain"],
-    /* #17 */ ["africa-country","freshwater-fish","asian-dish","dacha-garden-item","art-arch-style","game-console","round-object"],
-    /* #18 */ ["russia-region","vitamin-hormone","tea-infusion","camping-picnic-item","myth-egypt-slavic","game-studio","hairstyle"],
-    /* #19 */ ["asia-country","horse-breed","caucasus-oriental-dish","pharmacy-item","rank-title","movie-genre","superstition-omen"],
-    /* #20 */ ["landlocked-country","file-extension","alcohol-style","beach-item","music-term","ru-cartoon-char","animal-nature-sound"],
-    /* #21 */ ["americas-country","medical-specialty","pizza-topping","airport-plane-item","space-mission-phenom","cs-term-map","paired-thing"],
-    /* #22 */ ["peninsula-cape","rock-mineral","cooking-method","car-part","literary-term","internet-meme","lateness-excuse"],
-    /* #23 */ ["desert-plain","venomous-toxic","breakfast-egg-dish","popular-gift","symbol-key","witcher-skyrim","light-source"],
-    /* #24 */ ["us-city","chemical-compound","food-drink-brand","building-type","religion-belief","hockey-nba-f1-team","workout-exercise"],
-    /* #25 */ ["europe-noncapital","primate-monkey","it-network-term","hobby-activity","film-studio-award","gamer-internet-slang","palindrome-word"],
-    /* #26 */ ["flower-plant","world-literature","board-game","fashion-brand","rare-letter-start","film-director","gemstone"],
-    /* #27 */ ["nut-seed","world-river","cis-music-artist","tropical-fruit","profession-oneword","sauce-condiment","historic-event"]
+    /* #16 */ ["us-state","africa-country","asia-country","americas-country","landlocked-country","russia-region","peninsula-cape"],
+    /* #17 */ ["constellation","space-mission-phenom","chemical-compound","rock-mineral","vitamin-hormone","light-source","physics-law-particle"],
+    /* #18 */ ["grain-porridge","asian-dish","caucasus-oriental-dish","tea-infusion","pizza-topping","cooking-method","breakfast-egg-dish"],
+    /* #19 */ ["game-console","game-studio","cs-term-map","gta-rdr-entity","file-extension","it-network-term","gamer-internet-slang"],
+    /* #20 */ ["philosopher","rank-title","art-arch-style","ancient-wonder-ruin","great-invention","historical-dynasty-order","explorer-traveler"],
+    /* #21 */ ["freshwater-fish","horse-breed","primate-monkey","venomous-toxic","animal-nature-sound","desert-plain","wild-cat-predator"],
+    /* #22 */ ["car-trunk-glovebox","car-part","airport-plane-item","beach-item","camping-picnic-item","us-city","europe-noncapital"],
+    /* #23 */ ["movie-villain","movie-genre","ru-cartoon-char","film-studio-award","cinema-term-role","movie-franchise","tv-series-char"],
+    /* #24 */ ["music-term","famous-singer-solo","music-album-classic","soundtrack-composer-ost","concert-audio-gear","famous-song-title","music-fest-award"],
+    /* #25 */ ["witcher-skyrim","myth-egypt-slavic","internet-meme","fantasy-creature-race","scifi-universe-ship","superpower-ability","rpg-tabletop-term"],
+    /* #26 */ ["food-drink-brand","finance-econ-term","retail-marketplace-bank","airline-delivery-brand","crypto-tech-company","luxury-watch-perfume","business-job-role"],
+    /* #27 */ ["religion-belief","superstition-omen","alcohol-style","foreign-greeting-phrase","national-costume-item","world-folk-festival","proverb-idiom-ru"],
+    /* #28 */ ["literary-term","palindrome-word","symbol-key","math-term-theorem","famous-author","biology-cell-term","grammar-ru-term"],
+    /* #29 */ ["retro-gadget-90s","tv-show-90s-2000s","nostalgia-snack-90s","old-internet-2000s","ussr-everyday-item","school-90s-childhood","nostalgia-cartoon-series-90s"],
+    /* #30 */ ["ball-sport","hockey-nba-f1-team","workout-exercise","medical-specialty","pharmacy-item","hobby-activity","famous-athlete"],
+    /* #31 */ ["dacha-garden-item","building-type","round-object","paired-thing","lateness-excuse","popular-gift","hairstyle"],
+    /* #32 */ ["flower-plant","world-literature","board-game","fashion-brand","rare-letter-start","film-director","gemstone"],
+    /* #33 */ ["nut-seed","world-river","cis-music-artist","tropical-fruit","profession-oneword","sauce-condiment","historic-event"]
   ];
+
+  // Theme day metadata (only for themed days #16-#31; #1-#15 stay classic/unthemed)
+  const DIVE_THEMES = {
+    16: {"title":"День географии и стран","short":"География","icon":"🌍","accent":"#4de3ff"},
+    17: {"title":"День науки и космоса","short":"Наука и космос","icon":"🔬","accent":"#a78bfa"},
+    18: {"title":"День еды и кухни","short":"Еда и кухня","icon":"🍜","accent":"#ffb347"},
+    19: {"title":"День игр и IT","short":"Игры и IT","icon":"🎮","accent":"#34d399"},
+    20: {"title":"День истории и цивилизаций","short":"История","icon":"🏛️","accent":"#f5c451"},
+    21: {"title":"День природы и живого мира","short":"Природа","icon":"🌿","accent":"#4ade80"},
+    22: {"title":"День дороги и путешествий","short":"Путешествия","icon":"✈️","accent":"#38bdf8"},
+    23: {"title":"День кино и сериалов","short":"Кино и сериалы","icon":"🎬","accent":"#fb7185"},
+    24: {"title":"День музыки","short":"Музыка","icon":"🎵","accent":"#f472b6"},
+    25: {"title":"День фэнтези и гик-культуры","short":"Фэнтези и гик","icon":"🐉","accent":"#c084fc"},
+    26: {"title":"День экономики и брендов","short":"Экономика и бренды","icon":"💼","accent":"#fbbf24"},
+    27: {"title":"День языков и традиций мира","short":"Языки и традиции","icon":"🏮","accent":"#2dd4bf"},
+    28: {"title":"День школы, эрудиции и фактов","short":"Школа и эрудиция","icon":"📚","accent":"#60a5fa"},
+    29: {"title":"День ностальгии (90-е и 2000-е)","short":"Ностальгия 90-х","icon":"📼","accent":"#fb923c"},
+    30: {"title":"День спорта, здоровья и хобби","short":"Спорт и здоровье","icon":"🏅","accent":"#a3e635"},
+    31: {"title":"День дома, быта и ассоциаций","short":"Быт и ассоциации","icon":"🏠","accent":"#67e8f9"}
+  };
+
+  function getDiveTheme(diveNumber) {
+    return DIVE_THEMES[diveNumber] || null;
+  }
 
   const PRIORITY_FIRST_CYCLE_IDS = ["movie-actor","soviet-comedy","cocktail-drink","indie-game"];
 
@@ -1651,7 +1933,7 @@
     }
 
     if (epoch === 0) {
-      // Surface the remaining 4 never-played original prompts on Day #28
+      // Surface the remaining 4 never-played original prompts on Day #34
       let frontIdx = 0;
       for (const pid of PRIORITY_FIRST_CYCLE_IDS) {
         const pos = deck.findIndex((p) => p.id === pid);
@@ -1691,6 +1973,7 @@
     preloadPrompts,
     getTodayDiveNumber,
     getDiveDateLabel,
-    getDailyPrompts
+    getDailyPrompts,
+    getDiveTheme
   };
 })();
